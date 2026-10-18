@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1020" width="800" height="1020" style="background:#ffffff; font-family:'Inter',system-ui,sans-serif;">
+  <style>
+    .header-text { font-size: 11px; font-weight: 700; fill: #0F2438; }
+    .case-title { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 18px; font-weight: 700; fill: #0F2438; }
+    .scenario-text { font-size: 11.5px; line-height: 1.5; fill: #1C242B; }
+    .calc-title { font-size: 13px; font-weight: 700; fill: #0F2438; }
+    .calc-body { font-size: 11px; line-height: 1.5; fill: #334155; }
+    .calc-badge { font-family: 'Space Grotesk', monospace; font-size: 11px; font-weight: 700; fill: #C98A2C; }
+    .th-header { font-size: 11px; font-weight: 700; fill: #ffffff; }
+    .td-text { font-size: 10.5px; fill: #1e293b; }
+    .td-num { font-size: 10.5px; fill: #0F2438; font-weight: 600; text-anchor: end; font-variant-numeric: tabular-nums; }
+    .asiento-title { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #0F2438; }
+    .glosa { font-size: 9.5px; font-style: italic; fill: #475569; line-height: 1.4; }
+  </style>
+
+  <!-- Top Header Rule -->
+  <text x="60" y="45" class="header-text" letter-spacing="0.04em">MANUAL PRÁCTICO: LIQUIDACIÓN DE IVA Y ASIENTOS CONTABLES</text>
+  <text x="740" y="45" class="header-text" text-anchor="end" letter-spacing="0.04em">FORMULARIO 120 V.4 (DNIT)</text>
+  <line x1="60" y1="54" x2="740" y2="54" stroke="#0F2438" stroke-width="1.5" />
+
+  <!-- Case Title -->
+  <text x="60" y="80" class="case-title">CASO 5: Prorrateo o Proporcionalidad de IVA Crédito (Ventas Mixtas)</text>
+
+  <!-- Problem Statement -->
+  <foreignObject x="60" y="92" width="680" height="52">
+    <div xmlns="http://www.w3.org/1999/xhtml" class="scenario-text">
+      <strong>El Problema Técnico:</strong> Cuando un contribuyente realiza tanto ventas gravadas como ventas exoneradas, no tiene derecho a computar el 100% de su IVA Crédito en las compras que realice de manera indistinta para ambas actividades. La normativa exige aplicar una proporción de deducibilidad (prorrateo) basada en las ventas de los últimos seis meses.
+    </div>
+  </foreignObject>
+
+  <!-- Calculation Box -->
+  <g transform="translate(60, 150)">
+    <rect x="0" y="0" width="680" height="96" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+    <text x="14" y="20" class="calc-title">Cálculo Matemático y Fórmulas de Aplicación:</text>
+    <text x="14" y="40" class="calc-body"><strong>1. Coeficiente de Prorrateo:</strong> Ventas Gravadas Acumuladas / Ventas Totales Acumuladas</text>
+    <text x="14" y="56" class="calc-body">V. Gravadas = Gs. 5.000.000 (C.160) | V. Exoneradas = Gs. 2.000.000 (C.26) | Total Acumulado = Gs. 7.000.000 (C.27)</text>
+    <text x="14" y="74" class="calc-badge">Coeficiente = 5.000.000 / 7.000.000 = 71,42857% (0,7142857)</text>
+    <text x="14" y="90" class="calc-body">IVA Proporcional Admisible: Gs. 500.000 x 71,42857% = <strong>Gs. 357.143 (C.164)</strong> | Gasto Deducible IRE: <strong>Gs. 142.857 (C.64)</strong></text>
+  </g>
+
+  <!-- Formulario 120 Table -->
+  <g transform="translate(60, 260)">
+    <!-- Header -->
+    <rect x="0" y="0" width="680" height="24" fill="#0F2438" rx="3" />
+    <text x="12" y="16" class="th-header">Rubro</text>
+    <text x="70" y="16" class="th-header">Concepto Declarado en Formulario 120 V.4</text>
+    <text x="470" y="16" class="th-header">Casilla</text>
+    <text x="668" y="16" class="th-header" text-anchor="end">Importe (Gs.)</text>
+
+    <!-- Table Rows -->
+    <g transform="translate(0, 24)">
+      <rect x="0" y="0" width="680" height="20" fill="#ffffff" />
+      <text x="12" y="14" class="td-text">Rubro 1</text>
+      <text x="70" y="14" class="td-text">Ventas gravadas tasa 10% del periodo</text>
+      <text x="470" y="14" class="td-text font-bold">C.10</text>
+      <text x="668" y="14" class="td-num">2.000.000</text>
+      <line x1="0" y1="20" x2="680" y2="20" stroke="#f1f5f9" />
+
+      <rect x="0" y="20" width="680" height="20" fill="#f8fafc" />
+      <text x="12" y="34" class="td-text">Rubro 1</text>
+      <text x="70" y="34" class="td-text">Ventas exoneradas o no alcanzadas del periodo</text>
+      <text x="470" y="34" class="td-text font-bold">C.12</text>
+      <text x="668" y="34" class="td-num">1.000.000</text>
+      <line x1="0" y1="40" x2="680" y2="40" stroke="#f1f5f9" />
+
+      <rect x="0" y="40" width="680" height="20" fill="#ffffff" />
+      <text x="12" y="54" class="td-text">Rubro 2</text>
+      <text x="70" y="54" class="td-text">Ventas acumuladas gravadas (Últimos 6 meses)</text>
+      <text x="470" y="54" class="td-text font-bold">C.160</text>
+      <text x="668" y="54" class="td-num">5.000.000</text>
+      <line x1="0" y1="60" x2="680" y2="60" stroke="#f1f5f9" />
+
+      <rect x="0" y="60" width="680" height="20" fill="#f8fafc" />
+      <text x="12" y="74" class="td-text">Rubro 2</text>
+      <text x="70" y="74" class="td-text">Ventas acumuladas exoneradas (Últimos 6 meses)</text>
+      <text x="470" y="74" class="td-text font-bold">C.26</text>
+      <text x="668" y="74" class="td-num">2.000.000</text>
+      <line x1="0" y1="80" x2="680" y2="80" stroke="#f1f5f9" />
+
+      <rect x="0" y="80" width="680" height="20" fill="#ffffff" />
+      <text x="12" y="94" class="td-text">Rubro 3</text>
+      <text x="70" y="94" class="td-text">IVA Crédito atribuido directamente a operaciones gravadas</text>
+      <text x="470" y="94" class="td-text font-bold">C.38</text>
+      <text x="668" y="94" class="td-num">1.420.455</text>
+      <line x1="0" y1="100" x2="680" y2="100" stroke="#f1f5f9" />
+
+      <rect x="0" y="100" width="680" height="20" fill="#f8fafc" />
+      <text x="12" y="114" class="td-text">Rubro 3</text>
+      <text x="70" y="114" class="td-text">IVA Crédito atribuido proporcionalmente a operaciones gravadas</text>
+      <text x="470" y="114" class="td-text font-bold text-[#15803d]">C.164</text>
+      <text x="668" y="114" class="td-num font-bold text-[#15803d]">357.143</text>
+      <line x1="0" y1="120" x2="680" y2="120" stroke="#f1f5f9" />
+
+      <rect x="0" y="120" width="680" height="20" fill="#ffffff" />
+      <text x="12" y="134" class="td-text font-bold">Rubro 3</text>
+      <text x="70" y="134" class="td-text font-bold">Total de IVA Crédito admisible del periodo (C.38 + C.164)</text>
+      <text x="470" y="134" class="td-text font-bold">C.43</text>
+      <text x="668" y="134" class="td-num font-bold">1.777.598</text>
+      <line x1="0" y1="140" x2="680" y2="140" stroke="#f1f5f9" />
+
+      <rect x="0" y="140" width="680" height="20" fill="#f8fafc" />
+      <text x="12" y="154" class="td-text font-bold text-[#0F2438]">Rubro 4</text>
+      <text x="70" y="154" class="td-text font-bold text-[#0F2438]">Saldo Técnico a Favor del Contribuyente (C.1777598 - Débito 200000)</text>
+      <text x="470" y="154" class="td-text font-bold text-[#0F2438]">C.47</text>
+      <text x="668" y="154" class="td-num font-bold text-[#0F2438]">1.577.598</text>
+      <line x1="0" y1="160" x2="680" y2="160" stroke="#f1f5f9" />
+
+      <rect x="0" y="160" width="680" height="22" fill="#fff7ed" />
+      <text x="12" y="175" class="td-text font-semibold text-[#9a3412]">Rubro 6</text>
+      <text x="70" y="175" class="td-text font-semibold text-[#9a3412]">Impuesto al Valor Agregado - Costo o Gasto deducible en el IRE (No admisible)</text>
+      <text x="470" y="175" class="td-text font-bold text-[#9a3412]">C.64</text>
+      <text x="668" y="175" class="td-num font-bold text-[#9a3412]">142.857</text>
+    </g>
+    <rect x="0" y="0" width="680" height="206" fill="none" stroke="#cbd5e1" stroke-width="1" rx="3" />
+  </g>
+
+  <!-- Asientos Contables Title -->
+  <text x="60" y="490" class="asiento-title">Asientos Contables del Prorrateo y Liquidación:</text>
+
+  <!-- Asientos Table -->
+  <g transform="translate(60, 502)">
+    <rect x="0" y="0" width="680" height="24" fill="#0F2438" rx="3" />
+    <text x="12" y="16" class="th-header">Cuentas y Detalle de Asiento Diario</text>
+    <text x="510" y="16" class="th-header">Debe (Gs.)</text>
+    <text x="668" y="16" class="th-header" text-anchor="end">Haber (Gs.)</text>
+
+    <!-- Asiento 1 -->
+    <rect x="0" y="24" width="680" height="20" fill="#ffffff" />
+    <text x="12" y="38" class="td-text font-mono font-bold">IVA Crédito Fiscal 10% (Deducible admisible)</text>
+    <text x="545" y="38" class="td-num">357.143</text>
+    <text x="668" y="38" class="td-num">-</text>
+
+    <rect x="0" y="44" width="680" height="20" fill="#f8fafc" />
+    <text x="12" y="58" class="td-text font-mono font-bold">IVA Gasto Deducible IRE (Rubro 6, C.64)</text>
+    <text x="545" y="58" class="td-num">142.857</text>
+    <text x="668" y="58" class="td-num">-</text>
+
+    <rect x="0" y="64" width="680" height="20" fill="#ffffff" />
+    <text x="30" y="78" class="td-text font-mono">a IVA Crédito Fiscal (Indistinto - Cuenta transitoria)</text>
+    <text x="545" y="78" class="td-num">-</text>
+    <text x="668" y="78" class="td-num">500.000</text>
+
+    <rect x="0" y="84" width="680" height="34" fill="#f1f5f9" />
+    <text x="12" y="98" class="glosa">Glosa: Reclasificación contable del IVA Crédito por compras indistintas. Se separa la porción deducible fiscalmente (71.43%)</text>
+    <text x="12" y="111" class="glosa">de la porción no deducible que se imputará directamente a costo/gasto deducible del IRE.</text>
+
+    <!-- Asiento 2 -->
+    <rect x="0" y="118" width="680" height="20" fill="#ffffff" />
+    <text x="12" y="132" class="td-text font-mono font-bold">IVA Débito 10%</text>
+    <text x="545" y="132" class="td-num">200.000</text>
+    <text x="668" y="132" class="td-num">-</text>
+
+    <rect x="0" y="138" width="680" height="20" fill="#f8fafc" />
+    <text x="30" y="152" class="td-text font-mono">a IVA Crédito Fiscal 10% (Deducible admisible)</text>
+    <text x="545" y="152" class="td-num">-</text>
+    <text x="668" y="152" class="td-num">200.000</text>
+
+    <rect x="0" y="158" width="680" height="34" fill="#f1f5f9" />
+    <text x="12" y="172" class="glosa">Glosa: Liquidación mensual de IVA. Cancelación del IVA Débito contra el IVA Crédito Fiscal. El saldo deudor final</text>
+    <text x="12" y="185" class="glosa">de IVA Crédito es Gs. 1.577.598 (saldo técnico acumulado para el periodo posterior).</text>
+
+    <rect x="0" y="0" width="680" height="192" fill="none" stroke="#cbd5e1" stroke-width="1" rx="3" />
+  </g>
+
+  <!-- Watermark & Footer of Sample Page -->
+  <text x="60" y="990" font-size="10" fill="#94a3b8" letter-spacing="0.05em">ESTUDIO CÁCERES — GUÍA TRIBUTARIA DNIT PARAGUAY 2026</text>
+  <text x="740" y="990" font-size="10" fill="#94a3b8" text-anchor="end">CASO 5 · PÁGINA 28</text>
+</svg>

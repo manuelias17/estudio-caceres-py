@@ -1,0 +1,6 @@
+{
+  "name": "Manual de Contabilidad DNIT 2026 | Estudio Cáceres",
+  "description": "Manual práctico de contabilidad y tributación en Paraguay. Prevenga sanciones de la DNIT con plantillas editables y guías normativas actualizadas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

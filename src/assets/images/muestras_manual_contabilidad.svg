@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1020" width="800" height="1020" style="background:#ffffff; font-family:'Inter',system-ui,sans-serif;">
+  <style>
+    .header-text { font-size: 11px; font-weight: 700; fill: #0F2438; }
+    .banner-title { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 20px; font-weight: 700; fill: #ffffff; text-anchor: middle; letter-spacing: 0.02em; }
+    .banner-sub { font-size: 12px; font-weight: 500; fill: #dbe4f0; text-anchor: middle; }
+    .sec-title { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 18px; font-weight: 700; fill: #0F2438; }
+    .body-p { font-size: 12.5px; line-height: 1.6; fill: #1C242B; }
+    .table-cell-title { font-size: 12px; font-weight: 700; fill: #0F2438; }
+    .table-cell-desc { font-size: 11.5px; line-height: 1.55; fill: #334155; }
+    .callout-bold { font-weight: 700; fill: #0F2438; font-size: 11.5px; }
+    .callout-text { font-size: 11.5px; line-height: 1.6; fill: #334155; }
+  </style>
+
+  <!-- Document Margins: x=60, width=680 -->
+  <!-- Top Header Rule -->
+  <text x="60" y="45" class="header-text" letter-spacing="0.04em">MANUAL PRÁCTICO: LIQUIDACIÓN DE IVA Y ASIENTOS CONTABLES</text>
+  <text x="740" y="45" class="header-text" text-anchor="end" letter-spacing="0.04em">FORMULARIO 120 V.4 (DNIT)</text>
+  <line x1="60" y1="54" x2="740" y2="54" stroke="#0F2438" stroke-width="1.5" />
+
+  <!-- Title Banner -->
+  <rect x="60" y="80" width="680" height="115" rx="6" fill="#0F2438" />
+  <text x="400" y="132" class="banner-title">MANUAL PRÁCTICO: LIQUIDACIÓN DE IVA Y ASIENTOS</text>
+  <text x="400" y="156" class="banner-title">CONTABLES</text>
+  <text x="400" y="178" class="banner-sub">Casos Reales, Fórmulas de Prorrateo y Declaraciones en Formulario 120 V.4 (Paraguay)</text>
+
+  <!-- Section 1 -->
+  <text x="60" y="240" class="sec-title">1. Introducción al Mecanismo de Liquidación de IVA</text>
+  
+  <foreignObject x="60" y="255" width="680" height="145">
+    <div xmlns="http://www.w3.org/1999/xhtml" class="body-p">
+      <p style="margin:0 0 10px 0;">El Impuesto al Valor Agregado (IVA) en el Paraguay se rige bajo un sistema de compensación mensual entre el <strong>IVA Débito</strong> (generado por las ventas o enajenación de bienes y prestaciones de servicios) y el <strong>IVA Crédito Fiscal</strong> (acumulado por las adquisiciones de bienes y servicios directamente vinculados a la actividad comercial gravada). La declaración jurada oficial se presenta mensualmente a través del <strong>Formulario 120 (Versión 4)</strong> ante la Dirección Nacional de Ingresos Tributarios (DNIT).</p>
+      <p style="margin:0;">Contablemente, existen dos categorías de saldos sumamente diferenciadas que todo contador y contribuyente debe conocer con precisión técnica para evitar multas, requerimientos del fisco o registros incorrectos:</p>
+    </div>
+  </foreignObject>
+
+  <!-- Table Box -->
+  <g transform="translate(60, 410)">
+    <!-- Outer Table Border -->
+    <rect x="0" y="0" width="680" height="215" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+    <line x1="0" y1="108" x2="680" y2="108" stroke="#cbd5e1" stroke-width="1" />
+    <line x1="160" y1="0" x2="160" y2="215" stroke="#cbd5e1" stroke-width="1" />
+    
+    <!-- Cell 1 Header BG -->
+    <rect x="1" y="1" width="158" height="106" fill="#f8fafc" />
+    <text x="16" y="55" class="table-cell-title">Saldo Técnico</text>
+    <text x="16" y="73" class="table-cell-title" fill="#64748b">(Rubro 4)</text>
+
+    <!-- Cell 1 Desc -->
+    <foreignObject x="175" y="12" width="490" height="90">
+      <div xmlns="http://www.w3.org/1999/xhtml" class="table-cell-desc">
+        Se produce cuando el IVA Crédito del periodo (más remanentes de periodos anteriores) es superior al IVA Débito acumulado en el Rubro 1. Este saldo es de <strong>carácter estrictamente tributario</strong> y únicamente sirve para ser compensado contra futuros débitos de IVA de los meses siguientes (traslado a Casilla 47). No se puede utilizar para pagar otros impuestos ni multas de carácter administrativo.
+      </div>
+    </foreignObject>
+
+    <!-- Cell 2 Header BG -->
+    <rect x="1" y="109" width="158" height="105" fill="#f8fafc" />
+    <text x="16" y="162" class="table-cell-title">Saldo Financiero</text>
+    <text x="16" y="180" class="table-cell-title" fill="#64748b">(Rubro 5)</text>
+
+    <!-- Cell 2 Desc -->
+    <foreignObject x="175" y="118" width="490" height="90">
+      <div xmlns="http://www.w3.org/1999/xhtml" class="table-cell-desc">
+        Se origina a partir de las compensaciones financieras que realiza el contribuyente, principalmente por medio de las <strong>retenciones de IVA</strong> sufridas (retenciones recibidas de agentes de retención, Casilla 52) o percepciones computables. Este saldo financiero (trasladable en la Casilla 54) sí constituye un activo de libre disponibilidad que puede ser compensado contra otros impuestos, utilizado para el pago de multas o, eventualmente, ser solicitado en devolución según la normativa vigente.
+      </div>
+    </foreignObject>
+  </g>
+
+  <!-- Golden Rule Callout Box -->
+  <g transform="translate(60, 650)">
+    <rect x="0" y="0" width="680" height="105" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+    <rect x="0" y="0" width="6" height="105" fill="#C98A2C" rx="2" />
+    <foreignObject x="22" y="14" width="640" height="85">
+      <div xmlns="http://www.w3.org/1999/xhtml" class="callout-text">
+        <strong style="color:#0F2438; text-transform:uppercase; letter-spacing:0.02em;">Regla de oro de los asientos de IVA:</strong> Al cierre de cada periodo de liquidación mensual, la cuenta transitoria o acumulativa de <em>IVA Débito 10%</em> (que posee saldo acreedor) debe ser cancelada en su totalidad mediante un débito, disminuyendo o cancelando la cuenta de activo <em>IVA Crédito Fiscal 10%</em> (que posee saldo deudor) por el monto del débito. El saldo resultante determina si existe obligación de pago o saldo a favor.
+      </div>
+    </foreignObject>
+  </g>
+
+  <!-- Watermark & Footer of Sample Page -->
+  <text x="60" y="990" font-size="10" fill="#94a3b8" letter-spacing="0.05em">ESTUDIO CÁCERES — GUÍA TRIBUTARIA DNIT PARAGUAY 2026</text>
+  <text x="740" y="990" font-size="10" fill="#94a3b8" text-anchor="end">PÁGINA 1 DE MUESTRA</text>
+</svg>

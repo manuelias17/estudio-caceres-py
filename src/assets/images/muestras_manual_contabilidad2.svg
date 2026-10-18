@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1020" width="800" height="1020" style="background:#ffffff; font-family:'Inter',system-ui,sans-serif;">
+  <style>
+    .header-text { font-size: 11px; font-weight: 700; fill: #0F2438; }
+    .case-title { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 18px; font-weight: 700; fill: #0F2438; }
+    .scenario-text { font-size: 12px; line-height: 1.55; fill: #1C242B; }
+    .th-header { font-size: 11px; font-weight: 700; fill: #ffffff; }
+    .td-text { font-size: 11px; fill: #1e293b; }
+    .td-num { font-size: 11px; fill: #0F2438; font-weight: 600; text-anchor: end; font-variant-numeric: tabular-nums; }
+    .asiento-title { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #0F2438; }
+    .glosa { font-size: 10px; font-style: italic; fill: #475569; line-height: 1.45; }
+  </style>
+
+  <!-- Top Header Rule -->
+  <text x="60" y="45" class="header-text" letter-spacing="0.04em">MANUAL PRÁCTICO: LIQUIDACIÓN DE IVA Y ASIENTOS CONTABLES</text>
+  <text x="740" y="45" class="header-text" text-anchor="end" letter-spacing="0.04em">FORMULARIO 120 V.4 (DNIT)</text>
+  <line x1="60" y1="54" x2="740" y2="54" stroke="#0F2438" stroke-width="1.5" />
+
+  <!-- Case Title -->
+  <text x="60" y="85" class="case-title">CASO 2: Saldo a Favor del Fisco (Impuesto Determinado a Pagar)</text>
+
+  <!-- Scenario Box -->
+  <foreignObject x="60" y="98" width="680" height="65">
+    <div xmlns="http://www.w3.org/1999/xhtml" class="scenario-text">
+      <strong>Escenario:</strong> En este periodo de liquidación (RUC 4912545-1), el volumen de facturación de ventas es superior: enajenaciones al 10% por Gs. 10.000.000 (IVA Débito: Gs. 1.000.000) frente a compras de bienes y servicios por Gs. 8.000.000 (IVA Crédito: Gs. 800.000). Al no haber créditos anteriores, surge una obligación líquida de pago directo a la administración tributaria.
+    </div>
+  </foreignObject>
+
+  <!-- Form 120 Table -->
+  <g transform="translate(60, 168)">
+    <!-- Header -->
+    <rect x="0" y="0" width="680" height="26" fill="#0F2438" rx="3" />
+    <text x="14" y="17" class="th-header">Rubro</text>
+    <text x="75" y="17" class="th-header">Concepto Declarado en Formulario 120 V.4</text>
+    <text x="460" y="17" class="th-header">Casilla</text>
+    <text x="665" y="17" class="th-header" text-anchor="end">Importe (Gs.)</text>
+
+    <!-- Row 1 -->
+    <rect x="0" y="26" width="680" height="24" fill="#f8fafc" />
+    <text x="14" y="42" class="td-text">Rubro 1</text>
+    <text x="75" y="42" class="td-text">Ventas gravadas tasa 10% (Monto Imponible)</text>
+    <text x="460" y="42" class="td-text font-bold">C.10</text>
+    <text x="665" y="42" class="td-num">10.000.000</text>
+    <line x1="0" y1="50" x2="680" y2="50" stroke="#e2e8f0" stroke-width="1" />
+
+    <!-- Row 2 -->
+    <rect x="0" y="50" width="680" height="24" fill="#ffffff" />
+    <text x="14" y="66" class="td-text">Rubro 1</text>
+    <text x="75" y="66" class="td-text">IVA Débito al 10%</text>
+    <text x="460" y="66" class="td-text font-bold">C.22</text>
+    <text x="665" y="66" class="td-num">1.000.000</text>
+    <line x1="0" y1="74" x2="680" y2="74" stroke="#e2e8f0" stroke-width="1" />
+
+    <!-- Row 3 -->
+    <rect x="0" y="74" width="680" height="24" fill="#f8fafc" />
+    <text x="14" y="90" class="td-text">Rubro 3</text>
+    <text x="75" y="90" class="td-text">IVA Crédito atribuido directamente (Monto Imponible)</text>
+    <text x="460" y="90" class="td-text font-bold">C.35</text>
+    <text x="665" y="90" class="td-num">8.000.000</text>
+    <line x1="0" y1="98" x2="680" y2="98" stroke="#e2e8f0" stroke-width="1" />
+
+    <!-- Row 4 -->
+    <rect x="0" y="98" width="680" height="24" fill="#ffffff" />
+    <text x="14" y="114" class="td-text">Rubro 3</text>
+    <text x="75" y="114" class="td-text">IVA Crédito al 10%</text>
+    <text x="460" y="114" class="td-text font-bold">C.38</text>
+    <text x="665" y="114" class="td-num">800.000</text>
+    <line x1="0" y1="122" x2="680" y2="122" stroke="#e2e8f0" stroke-width="1" />
+
+    <!-- Row 5 -->
+    <rect x="0" y="122" width="680" height="24" fill="#f8fafc" />
+    <text x="14" y="138" class="td-text">Rubro 4</text>
+    <text x="75" y="138" class="td-text">Saldo a favor del Fisco (Diferencia)</text>
+    <text x="460" y="138" class="td-text font-bold">C.48</text>
+    <text x="665" y="138" class="td-num">200.000</text>
+    <line x1="0" y1="146" x2="680" y2="146" stroke="#e2e8f0" stroke-width="1" />
+
+    <!-- Row 6 -->
+    <rect x="0" y="146" width="680" height="24" fill="#ffffff" />
+    <text x="14" y="162" class="td-text">Rubro 4</text>
+    <text x="75" y="162" class="td-text">Impuesto Determinado del Periodo</text>
+    <text x="460" y="162" class="td-text font-bold">C.50</text>
+    <text x="665" y="162" class="td-num">200.000</text>
+    <line x1="0" y1="170" x2="680" y2="170" stroke="#e2e8f0" stroke-width="1" />
+
+    <!-- Row 7 -->
+    <rect x="0" y="170" width="680" height="24" fill="#f8fafc" />
+    <text x="14" y="186" class="td-text">Rubro 5</text>
+    <text x="75" y="186" class="td-text">Impuesto determinado para operaciones gravadas</text>
+    <text x="460" y="186" class="td-text font-bold">C.55</text>
+    <text x="665" y="186" class="td-num">200.000</text>
+    <line x1="0" y1="194" x2="680" y2="194" stroke="#e2e8f0" stroke-width="1" />
+
+    <!-- Row 8 (Total Highlight) -->
+    <rect x="0" y="194" width="680" height="26" fill="#f1f5f9" />
+    <text x="14" y="211" class="td-text font-bold text-[#0F2438]">Rubro 5</text>
+    <text x="75" y="211" class="td-text font-bold text-[#0F2438]">Saldo a Pagar a favor del Fisco</text>
+    <text x="460" y="211" class="td-text font-bold text-[#0F2438]">C.58</text>
+    <text x="665" y="211" class="td-num font-bold text-[#b91c1c]">200.000</text>
+    <rect x="0" y="0" width="680" height="220" fill="none" stroke="#cbd5e1" stroke-width="1" rx="3" />
+  </g>
+
+  <!-- Section: Asientos Contables -->
+  <text x="60" y="425" class="asiento-title">Asientos Contables del Periodo:</text>
+
+  <!-- Asiento 1 Table -->
+  <g transform="translate(60, 440)">
+    <rect x="0" y="0" width="680" height="26" fill="#0F2438" rx="3" />
+    <text x="14" y="17" class="th-header">Cuentas y Detalle de Asiento Diario</text>
+    <text x="510" y="17" class="th-header">Debe (Gs.)</text>
+    <text x="665" y="17" class="th-header" text-anchor="end">Haber (Gs.)</text>
+
+    <!-- Debe Row -->
+    <rect x="0" y="26" width="680" height="24" fill="#ffffff" />
+    <text x="14" y="42" class="td-text font-mono font-bold">IVA Débito 10%</text>
+    <text x="545" y="42" class="td-num">1.000.000</text>
+    <text x="665" y="42" class="td-num">-</text>
+
+    <!-- Haber Row 1 -->
+    <rect x="0" y="50" width="680" height="24" fill="#f8fafc" />
+    <text x="35" y="66" class="td-text font-mono">a IVA Crédito Fiscal 10%</text>
+    <text x="545" y="66" class="td-num">-</text>
+    <text x="665" y="66" class="td-num">800.000</text>
+
+    <!-- Haber Row 2 -->
+    <rect x="0" y="74" width="680" height="24" fill="#ffffff" />
+    <text x="35" y="90" class="td-text font-mono">a IVA a Pagar</text>
+    <text x="545" y="90" class="td-num">-</text>
+    <text x="665" y="90" class="td-num">200.000</text>
+
+    <!-- Glosa Row -->
+    <rect x="0" y="98" width="680" height="42" fill="#f1f5f9" />
+    <text x="14" y="115" class="glosa">Glosa: Liquidación mensual de IVA. Cancelación del IVA Débito utilizando la totalidad del IVA Crédito Fiscal</text>
+    <text x="14" y="130" class="glosa">disponible, determinando un saldo neto a pagar a favor del Fisco de Gs. 200.000 (Obligación de pago).</text>
+    <rect x="0" y="0" width="680" height="140" fill="none" stroke="#cbd5e1" stroke-width="1" rx="3" />
+  </g>
+
+  <!-- Asiento 2 Table (Pago Efectivo) -->
+  <g transform="translate(60, 605)">
+    <rect x="0" y="0" width="680" height="26" fill="#0F2438" rx="3" />
+    <text x="14" y="17" class="th-header">Cuentas y Detalle de Asiento Diario (Cancelación / Pago)</text>
+    <text x="510" y="17" class="th-header">Debe (Gs.)</text>
+    <text x="665" y="17" class="th-header" text-anchor="end">Haber (Gs.)</text>
+
+    <rect x="0" y="26" width="680" height="24" fill="#ffffff" />
+    <text x="14" y="42" class="td-text font-mono font-bold">IVA a Pagar</text>
+    <text x="545" y="42" class="td-num">200.000</text>
+    <text x="665" y="42" class="td-num">-</text>
+
+    <rect x="0" y="50" width="680" height="24" fill="#f8fafc" />
+    <text x="35" y="66" class="td-text font-mono">a Caja / Banco Cta Cte</text>
+    <text x="545" y="66" class="td-num">-</text>
+    <text x="665" y="66" class="td-num">200.000</text>
+
+    <rect x="0" y="74" width="680" height="34" fill="#f1f5f9" />
+    <text x="14" y="93" class="glosa">Glosa: Cancelación de la obligación tributaria por el pago efectivo del IVA en bancos autorizados según Formulario 120 V.4.</text>
+    <rect x="0" y="0" width="680" height="108" fill="none" stroke="#cbd5e1" stroke-width="1" rx="3" />
+  </g>
+
+  <!-- Watermark & Footer of Sample Page -->
+  <text x="60" y="990" font-size="10" fill="#94a3b8" letter-spacing="0.05em">ESTUDIO CÁCERES — GUÍA TRIBUTARIA DNIT PARAGUAY 2026</text>
+  <text x="740" y="990" font-size="10" fill="#94a3b8" text-anchor="end">CASO 2 · PÁGINA 14</text>
+</svg>
