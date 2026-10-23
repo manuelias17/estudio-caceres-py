@@ -28,7 +28,39 @@ const HOTMART_CHECKOUT_URL = 'https://pay.hotmart.com/Y108013354Q';
 const WHATSAPP_NUMBER = '595993535291';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Estudio Cáceres, deseo más información sobre el Manual de Contabilidad DNIT 2026.')}`;
 
+interface TimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+function useCountdown(targetDateIso: string): TimeLeft {
+  const calculate = (): TimeLeft => {
+    const diff = Math.max(0, new Date(targetDateIso).getTime() - Date.now());
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((diff / (1000 * 60)) % 60),
+      seconds: Math.floor((diff / 1000) % 60),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculate);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(calculate());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [targetDateIso]);
+
+  return timeLeft;
+}
+
 export default function App() {
+  const bannerTimer = useCountdown('2026-10-31T23:59:59');
+  const obtenerTimer = useCountdown('2026-10-31T23:59:59');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [purchaseModalOpen, setPurchaseModalOpen] = useState(false);
@@ -115,18 +147,24 @@ export default function App() {
       {/* STICKY PROMO BANNER                                           */}
       {/* ------------------------------------------------------------- */}
       <aside
-        aria-label="Aviso de promoción por cupos limitados"
+        aria-label="Aviso de promoción por precio de lanzamiento"
         className="sticky top-0 z-50 w-full bg-[#C98A2C] text-[#0F2438] py-2 px-3 sm:px-4 shadow-sm"
       >
-        <div className="max-w-[1280px] mx-auto flex items-center justify-between sm:justify-center gap-3 text-center">
-          <p className="text-xs sm:text-[13px] font-bold leading-tight mx-auto sm:mx-0">
+        <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between md:justify-center gap-2 md:gap-4 text-center">
+          <p className="text-xs sm:text-[13px] font-bold leading-tight">
             <span role="img" aria-label="Fuego" className="mr-1">🔥</span>
-            <span>Cupos limitados:</span>{' '}
-            <span className="font-extrabold underline decoration-[#0F2438]/40 underline-offset-2">
-              10 unidades al precio actual
-            </span>{' '}
-            <span>— luego 220.000 Gs. (precio normal)</span>
+            <span>Precio de lanzamiento: ₲ 60.000 — válido hasta el 31 de octubre de 2026. Luego 220.000 - precio normal.</span>
           </p>
+          <div className="flex items-center gap-1 font-mono text-xs font-bold text-[#0F2438]" aria-label="Tiempo restante de oferta">
+            <span className="text-[10px] uppercase font-sans font-black tracking-wider text-[#0F2438]/85 mr-0.5">Termina en:</span>
+            <span className="bg-[#0F2438] text-white px-1.5 py-0.5 rounded text-[11px] font-mono tabular-nums">{String(bannerTimer.days).padStart(2, '0')}d</span>
+            <span className="text-[#0F2438] font-bold">:</span>
+            <span className="bg-[#0F2438] text-white px-1.5 py-0.5 rounded text-[11px] font-mono tabular-nums">{String(bannerTimer.hours).padStart(2, '0')}h</span>
+            <span className="text-[#0F2438] font-bold">:</span>
+            <span className="bg-[#0F2438] text-white px-1.5 py-0.5 rounded text-[11px] font-mono tabular-nums">{String(bannerTimer.minutes).padStart(2, '0')}m</span>
+            <span className="text-[#0F2438] font-bold">:</span>
+            <span className="bg-[#0F2438] text-white px-1.5 py-0.5 rounded text-[11px] font-mono tabular-nums">{String(bannerTimer.seconds).padStart(2, '0')}s</span>
+          </div>
           {/* Action button: visible on desktop, hidden on small mobile screens to prevent clutter */}
           <a
             href={HOTMART_CHECKOUT_URL}
@@ -388,10 +426,8 @@ export default function App() {
                     {/* Urgency Badge next to Hero CTA */}
                     <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/10 border border-[#C98A2C]/50 backdrop-blur-xs text-xs sm:text-sm text-[#dbe4f0]">
                       <span className="text-base shrink-0" role="img" aria-label="Fuego">🔥</span>
-                      <div className="leading-tight">
-                        <span className="font-extrabold text-white">Cupos limitados:</span>{' '}
-                        <span className="text-[#C98A2C] font-extrabold">10 unidades al precio actual</span>{' '}
-                        <span className="text-[#dbe4f0]/75 block sm:inline">— luego 220.000 Gs. (precio normal)</span>
+                      <div className="leading-tight font-extrabold text-[#dbe4f0]">
+                        <span>Precio de lanzamiento hasta el <span className="text-[#C98A2C]">31/10/2026</span></span>
                       </div>
                     </div>
                   </div>
@@ -1027,15 +1063,40 @@ export default function App() {
               </div>
             </div>
 
-            {/* Price Badge with Launch Offer */}
-            <div className="inline-flex flex-col sm:flex-row items-center gap-2 px-5 py-2.5 rounded-2xl bg-amber-500/10 border border-[#C98A2C]/40 text-[#0F2438] mx-auto">
-              <span className="text-sm font-bold flex items-center gap-1.5">
-                <span role="img" aria-label="Fuego">🔥</span>
-                <span><strong>₲ 59.900 aprox.</strong></span>
-              </span>
-              <span className="text-xs text-slate-600">
-                Precio de lanzamiento · Solo para los primeros 10
-              </span>
+            {/* Price Badge with Launch Offer & Countdown */}
+            <div className="flex flex-col items-center gap-3 p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-[#C98A2C]/40 text-[#0F2438] mx-auto max-w-lg w-full">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
+                <span className="text-base sm:text-lg font-bold flex items-center gap-1.5 text-[#0F2438]">
+                  <span role="img" aria-label="Fuego">🔥</span>
+                  <span><strong>Gs. 60.000</strong></span>
+                </span>
+                <span className="text-xs sm:text-sm font-semibold text-[#8C5D17] bg-[#C98A2C]/15 px-3 py-1 rounded-full border border-[#C98A2C]/30">
+                  Precios de lanzamiento · válido hasta el 31 de octubre de 2026
+                </span>
+              </div>
+
+              {/* Countdown visual clock */}
+              <div className="flex items-center gap-2 pt-1" aria-label="Cuenta regresiva de la promoción de lanzamiento">
+                <div className="flex flex-col items-center justify-center w-14 py-1.5 rounded-lg bg-[#0F2438] text-white shadow-xs">
+                  <span className="text-lg font-extrabold font-mono tabular-nums leading-none">{String(obtenerTimer.days).padStart(2, '0')}</span>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-300 font-semibold mt-0.5">Días</span>
+                </div>
+                <span className="text-[#0F2438] font-bold text-base">:</span>
+                <div className="flex flex-col items-center justify-center w-14 py-1.5 rounded-lg bg-[#0F2438] text-white shadow-xs">
+                  <span className="text-lg font-extrabold font-mono tabular-nums leading-none">{String(obtenerTimer.hours).padStart(2, '0')}</span>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-300 font-semibold mt-0.5">Horas</span>
+                </div>
+                <span className="text-[#0F2438] font-bold text-base">:</span>
+                <div className="flex flex-col items-center justify-center w-14 py-1.5 rounded-lg bg-[#0F2438] text-white shadow-xs">
+                  <span className="text-lg font-extrabold font-mono tabular-nums leading-none">{String(obtenerTimer.minutes).padStart(2, '0')}</span>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-300 font-semibold mt-0.5">Min</span>
+                </div>
+                <span className="text-[#0F2438] font-bold text-base">:</span>
+                <div className="flex flex-col items-center justify-center w-14 py-1.5 rounded-lg bg-[#0F2438] text-white shadow-xs">
+                  <span className="text-lg font-extrabold font-mono tabular-nums leading-none">{String(obtenerTimer.seconds).padStart(2, '0')}</span>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-300 font-semibold mt-0.5">Seg</span>
+                </div>
+              </div>
             </div>
 
             {/* Main Action Button */}
@@ -1163,10 +1224,10 @@ export default function App() {
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-baseline justify-between">
                   <div>
                     <span className="text-2xl sm:text-3xl font-extrabold text-[#0F2438]">
-                      ₲ 59.900 aprox.
+                      Gs. 60.000
                     </span>
                     <div className="text-xs text-slate-500 mt-1 font-medium">
-                      Precio de lanzamiento · Solo para los primeros 10
+                      Precios de lanzamiento · válido hasta el 31 de octubre de 2026
                     </div>
                   </div>
                   <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800">
