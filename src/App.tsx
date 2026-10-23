@@ -153,7 +153,7 @@ export default function App() {
         <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between md:justify-center gap-2 md:gap-4 text-center">
           <p className="text-xs sm:text-[13px] font-bold leading-tight">
             <span role="img" aria-label="Fuego" className="mr-1">🔥</span>
-            <span>Precio de lanzamiento: ₲ 60.000 — válido hasta el 31 de octubre de 2026. Luego 220.000 - precio normal.</span>
+            <span>Precio de lanzamiento: ₲ 60.000 — Luego 220.000 (precio normal)</span>
           </p>
           <div className="flex items-center gap-1 font-mono text-xs font-bold text-[#0F2438]" aria-label="Tiempo restante de oferta">
             <span className="text-[10px] uppercase font-sans font-black tracking-wider text-[#0F2438]/85 mr-0.5">Termina en:</span>
@@ -1166,7 +1166,7 @@ export default function App() {
       {/* ------------------------------------------------------------- */}
       <div
         id="fp-published-whatsapp"
-        className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 group"
+        className="fixed bottom-5 left-5 sm:bottom-6 sm:left-6 z-50 group"
       >
         <a
           href={WHATSAPP_URL}
@@ -1176,7 +1176,7 @@ export default function App() {
           className="relative flex items-center justify-center w-14 h-14 sm:w-15 sm:h-15 rounded-full bg-[#25D366] text-white border-2 border-white shadow-[0_12px_30px_rgba(13,94,45,0.32)] hover:scale-105 active:scale-95 transition-transform"
         >
           {/* Tooltip on hover */}
-          <span className="hidden sm:block absolute right-[70px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 text-white text-xs font-bold py-1.5 px-3 rounded-lg shadow-lg whitespace-nowrap pointer-events-none">
+          <span className="hidden sm:block absolute left-[70px] top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 text-white text-xs font-bold py-1.5 px-3 rounded-lg shadow-lg whitespace-nowrap pointer-events-none">
             WhatsApp: +595 993 535291
           </span>
           <MessageCircle className="w-7 h-7 sm:w-8 sm:h-8 fill-current" />
