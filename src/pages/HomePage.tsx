@@ -21,7 +21,8 @@ import {
   Star,
   Quote,
   HelpCircle,
-  ChevronDown
+  ChevronDown,
+  Sparkles
 } from 'lucide-react';
 import logoImgLocal from '../assets/images/logo_estudio_caceres_1792072395305.jpg';
 
@@ -120,31 +121,58 @@ export default function HomePage() {
           {/* PASO 4: TRES TARJETAS DE ACCESO RÁPIDO                      */}
           {/* ----------------------------------------------------------- */}
           <div className="mt-14 sm:mt-18 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {/* Tarjeta 1: 📅 Calendario de vencimientos */}
+            {/* Tarjeta 1: 📅 Calendario de vencimientos (HERRAMIENTA DESTACADA & GRATUITA) */}
             <Link
               to="/calendario"
-              className="group relative p-7 sm:p-8 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#C98A2C]/60 transition-all duration-300 flex flex-col justify-between text-left shadow-lg hover:-translate-y-1"
+              className="group relative p-7 sm:p-8 rounded-2xl bg-gradient-to-b from-[#183959]/90 via-[#12283e] to-[#0a1724] border-2 border-[#C98A2C]/80 hover:border-[#C98A2C] transition-all duration-300 flex flex-col justify-between text-left shadow-2xl hover:-translate-y-1.5 overflow-hidden ring-1 ring-white/10 hover:shadow-[0_20px_40px_rgba(201,138,44,0.25)]"
             >
-              <div className="space-y-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#C98A2C]/20 border border-[#C98A2C]/40 text-[#C98A2C] flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              {/* Badge destacado superior */}
+              <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-xs shadow-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                <span>100% Gratuito</span>
+              </div>
+
+              {/* Halo sutil de fondo */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#C98A2C]/15 rounded-full blur-2xl pointer-events-none group-hover:bg-[#C98A2C]/25 transition-colors" />
+
+              <div className="space-y-4 relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-[#C98A2C] text-[#0F2438] flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-md">
                   <Calendar className="w-7 h-7" />
                 </div>
+                
                 <div className="space-y-1.5">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#C98A2C] font-bold block">
-                    Herramienta gratuita nuestra
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-amber-300 font-extrabold flex items-center gap-1.5">
+                    <Sparkles className="w-3 h-3 text-[#C98A2C]" />
+                    Herramienta exclusiva
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold font-heading text-white group-hover:text-[#C98A2C] transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold font-heading text-white group-hover:text-[#C98A2C] transition-colors leading-snug">
                     Calendario de vencimientos
                   </h3>
                 </div>
-                <p className="text-sm text-slate-300 font-sans leading-relaxed">
-                  Calculá al instante la fecha exacta de vencimiento mensual para tu RUC, filtrá por impuestos y descargá tu cronograma anual en Excel.
+
+                <p className="text-sm text-slate-200 font-sans leading-relaxed">
+                  Calculá al instante la fecha exacta de vencimiento mensual para tu RUC, evitá sanciones de la DNIT y descargá tu cronograma para Excel.
                 </p>
+
+                {/* Micro-beneficios para enganchar al usuario */}
+                <div className="pt-2 space-y-1.5 text-xs text-slate-300 border-t border-white/10">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C98A2C] shrink-0" />
+                    <span>Fechas para dígitos 0 al 9 en los 12 meses</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C98A2C] shrink-0" />
+                    <span>Exportación libre en formato planilla Excel</span>
+                  </div>
+                </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/10 flex items-center gap-2 text-sm font-bold text-[#C98A2C] group-hover:translate-x-1 transition-transform">
-                <span>Ingresar al simulador</span>
-                <ArrowRight className="w-4 h-4" />
+              <div className="mt-6 pt-4 border-t border-white/15 flex items-center justify-between relative z-10">
+                <span className="text-xs font-mono text-slate-300 font-semibold">Acceso libre inmediato</span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#C98A2C] text-[#0F2438] text-xs font-black group-hover:bg-[#df9934] transition-all shadow-sm group-hover:translate-x-1">
+                  <span>Calcular ahora</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </span>
               </div>
             </Link>
 
