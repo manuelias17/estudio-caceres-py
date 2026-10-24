@@ -24,7 +24,7 @@ import {
   ChevronDown,
   Sparkles
 } from 'lucide-react';
-import logoImgLocal from '../assets/images/logo_estudio_caceres_1792072395305.jpg';
+import logoImgLocal from '../assets/images/logo_real_estudio_caceres.png';
 
 const WHATSAPP_NUMBER = '595993535291';
 const WHATSAPP_BASE_URL = `https://wa.me/${WHATSAPP_NUMBER}`;

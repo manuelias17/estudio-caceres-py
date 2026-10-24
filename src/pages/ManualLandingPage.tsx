@@ -20,7 +20,7 @@ import {
 
 import heroTabletImg from '../assets/images/hero_tablet_formulario120_1792156674072.jpg';
 import balanceSumasSaldosImg from '../assets/images/balance_sumas_saldos_1792161555547.jpg';
-import logoImgLocal from '../assets/images/logo_estudio_caceres_1792072395305.jpg';
+import logoImgLocal from '../assets/images/logo_real_estudio_caceres.png';
 import page1Svg from '../assets/images/muestras_manual_contabilidad.svg';
 import page2Svg from '../assets/images/muestras_manual_contabilidad2.svg';
 import page3Svg from '../assets/images/muestras_manual_contabilidad3.svg';

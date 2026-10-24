@@ -12,7 +12,7 @@ import {
   ChevronRight,
   Instagram
 } from 'lucide-react';
-import logoImgLocal from '../assets/images/logo_estudio_caceres_1792072395305.jpg';
+import logoImgLocal from '../assets/images/logo_real_estudio_caceres.png';
 
 const HOTMART_CHECKOUT_URL = 'https://pay.hotmart.com/Y108013354Q?bid=1792156131415';
 const WHATSAPP_NUMBER = '595993535291';
@@ -47,7 +47,7 @@ export default function Layout() {
               <img
                 src={logoImgLocal}
                 alt="Logo Estudio Cáceres"
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-[#C98A2C]/60 shadow-xs group-hover:scale-105 transition-transform shrink-0"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border-2 border-[#C98A2C]/60 shadow-xs group-hover:scale-105 transition-transform shrink-0"
               />
               <div className="flex flex-col text-left">
                 <span className="text-base sm:text-lg font-bold font-heading text-[#0F2438] leading-tight">
