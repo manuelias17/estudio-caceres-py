@@ -29,6 +29,10 @@ const HOTMART_CHECKOUT_URL = 'https://pay.hotmart.com/Y108013354Q?bid=1792156131
 const WHATSAPP_NUMBER = '595993535291';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Estudio Cáceres, deseo más información sobre el Manual de Contabilidad DNIT 2026.')}`;
 
+// Constantes configurables para la versión impresa anillada
+const PRECIO_VERSION_IMPRESA = 'Gs. 150.000';
+const ANTICIPO_VERSION_IMPRESA = 'Gs. 80.000';
+
 interface TimeLeft {
   days: number;
   hours: number;
@@ -60,9 +64,6 @@ function useCountdown(targetDateIso: string): TimeLeft {
 }
 
 export default function ManualLandingPage() {
-  const bannerTimer = useCountdown('2026-10-31T23:59:59');
-  const obtenerTimer = useCountdown('2026-10-31T23:59:59');
-
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [purchaseModalOpen, setPurchaseModalOpen] = useState(false);
   const [previewDoc, setPreviewDoc] = useState<{ src: string; title: string; caption: string } | null>(null);
@@ -149,33 +150,18 @@ export default function ManualLandingPage() {
       {/* STICKY PROMO BANNER                                           */}
       {/* ------------------------------------------------------------- */}
       <aside
-        aria-label="Aviso de promoción por precio de lanzamiento"
-        className="sticky top-16 sm:top-20 z-30 w-full bg-[#C98A2C] text-[#0F2438] py-2 px-3 sm:px-4 shadow-sm"
+        aria-label="Aviso de preventa versión impresa anillada"
+        className="sticky top-16 sm:top-20 z-30 w-full bg-[#C98A2C] text-[#0F2438] py-2.5 px-3 sm:px-4 shadow-sm"
       >
-        <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between md:justify-center gap-2 md:gap-4 text-center">
-          <p className="text-xs sm:text-[13px] font-bold leading-tight">
-            <span role="img" aria-label="Fuego" className="mr-1">🔥</span>
-            <span>Precio de lanzamiento: ₲ 60.000 — Luego 220.000 (precio normal)</span>
-          </p>
-          <div className="flex items-center gap-1 font-mono text-xs font-bold text-[#0F2438]" aria-label="Tiempo restante de oferta">
-            <span className="text-[10px] uppercase font-sans font-black tracking-wider text-[#0F2438]/85 mr-0.5">Termina en:</span>
-            <span className="bg-[#0F2438] text-white px-1.5 py-0.5 rounded text-[11px] font-mono tabular-nums">{String(bannerTimer.days).padStart(2, '0')}d</span>
-            <span className="text-[#0F2438] font-bold">:</span>
-            <span className="bg-[#0F2438] text-white px-1.5 py-0.5 rounded text-[11px] font-mono tabular-nums">{String(bannerTimer.hours).padStart(2, '0')}h</span>
-            <span className="text-[#0F2438] font-bold">:</span>
-            <span className="bg-[#0F2438] text-white px-1.5 py-0.5 rounded text-[11px] font-mono tabular-nums">{String(bannerTimer.minutes).padStart(2, '0')}m</span>
-            <span className="text-[#0F2438] font-bold">:</span>
-            <span className="bg-[#0F2438] text-white px-1.5 py-0.5 rounded text-[11px] font-mono tabular-nums">{String(bannerTimer.seconds).padStart(2, '0')}s</span>
-          </div>
-          <a
-            href={HOTMART_CHECKOUT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-extrabold bg-[#0F2438] text-white hover:bg-[#163350] transition-colors shrink-0 shadow-xs"
+        <div className="max-w-[1280px] mx-auto flex items-center justify-center gap-2 sm:gap-3 text-center">
+          <button
+            type="button"
+            onClick={() => scrollToSection('version-impresa')}
+            className="text-xs sm:text-[13px] font-bold leading-tight hover:underline flex items-center justify-center gap-1.5 group cursor-pointer"
           >
-            <span>Aprovechar</span>
-            <span aria-hidden="true">→</span>
-          </a>
+            <span>Versión impresa anillada en preventa: Gs. 150.000 (incluye la versión digital)</span>
+            <span className="font-extrabold group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
+          </button>
         </div>
       </aside>
 
@@ -196,7 +182,7 @@ export default function ManualLandingPage() {
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-[#0F2438] leading-[1.15] tracking-tight">
-                Manual de Contabilidad Aplicada para la Práctica Profesional en Paraguay (DNIT 2026)
+                Manual de Contabilidad Aplicada para la Práctica Profesional en Paraguay
               </h1>
 
               <p className="text-base sm:text-lg text-[#566173] leading-relaxed max-w-2xl font-sans">
@@ -222,11 +208,6 @@ export default function ManualLandingPage() {
                   <Eye className="w-4 h-4 text-[#C98A2C]" />
                   <span>Explorar contenido incluido</span>
                 </button>
-              </div>
-
-              <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600">
-                <span className="inline-block w-2 h-2 rounded-full bg-amber-500"></span>
-                <span>🔥 Precio de lanzamiento hasta el 31/10/2026</span>
               </div>
 
               <div className="pt-4 border-t border-slate-200/80 w-full flex flex-wrap items-center justify-center lg:justify-start gap-y-3 gap-x-6 text-xs text-[#566173]">
@@ -689,12 +670,210 @@ export default function ManualLandingPage() {
         </div>
       </section>
 
+
+
+      {/* ------------------------------------------------------------- */}
+      {/* SECTION: RESOLUCIÓN DE DUDAS / FAQ (#preguntas)               */}
+      {/* ------------------------------------------------------------- */}
+      <section
+        id="preguntas"
+        className="w-full bg-[#F7F8F9] py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-200/80"
+      >
+        <div className="max-w-[1180px] mx-auto space-y-8 sm:space-y-12">
+          <div className="max-w-2xl text-left">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-heading text-[#1C242B] tracking-tight">
+              Respuestas técnicas sobre el material y su uso
+            </h2>
+          </div>
+
+          <div className="divide-y divide-slate-200 border-y border-slate-200 bg-white rounded-2xl px-6 shadow-xs text-left">
+            {faqItems.map((item, idx) => {
+              const isOpen = activeFaq === idx;
+              return (
+                <div key={idx} className="py-4 sm:py-5">
+                  <button
+                    type="button"
+                    onClick={() => toggleFaq(idx)}
+                    aria-expanded={isOpen}
+                    className="w-full flex items-center justify-between text-left gap-4 font-bold text-base sm:text-lg text-[#1C242B] hover:text-[#0F2438] transition-colors"
+                  >
+                    <span>{item.q}</span>
+                    <span
+                      className={`p-1.5 rounded-lg bg-slate-100 text-slate-600 shrink-0 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180 bg-slate-200' : ''
+                      }`}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div className="mt-3 text-sm sm:text-base text-[#566173] leading-relaxed pr-6 animate-in fade-in duration-150">
+                      {item.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="text-sm sm:text-base text-slate-500 text-left">
+            Todo lo que necesita saber sobre el formato, la vigencia legal y la metodología de entrega del manual.
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------- */}
+      {/* SECTION: FINAL CTA / OBTENER (#obtener)                       */}
+      {/* ------------------------------------------------------------- */}
+      {/* ------------------------------------------------------------- */}
+      {/* SECTION: VERSIÓN IMPRESA (#version-impresa)                   */}
+      {/* ------------------------------------------------------------- */}
+      <section
+        id="version-impresa"
+        className="w-full bg-[#F7F8F9] py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-200/80 text-center"
+      >
+        <div className="max-w-[880px] mx-auto space-y-6">
+          <div className="p-8 sm:p-10 rounded-3xl bg-white border-2 border-[#0F2438]/15 shadow-xl space-y-6 max-w-xl mx-auto text-center">
+            <div className="space-y-3">
+              <span className="text-xs uppercase font-mono tracking-wider text-[#C98A2C] font-extrabold inline-block bg-[#C98A2C]/10 px-3.5 py-1 rounded-full">
+                Edición física en papel
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-bold font-heading text-[#0F2438] tracking-tight">
+                Manual de Contabilidad Aplicada, anillado
+              </h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-sans max-w-lg mx-auto">
+                Juego anillado de 2 volúmenes más un ejercitario para practicar, con portadas a color. Incluye además la versión digital, que te enviamos por correo al completarse la compra.
+              </p>
+            </div>
+
+            <div className="pt-2">
+              <span className="text-4xl sm:text-5xl font-extrabold font-heading text-[#0F2438]">
+                {PRECIO_VERSION_IMPRESA}
+              </span>
+            </div>
+
+            <div className="space-y-2.5 text-xs sm:text-sm text-slate-700 font-medium text-left max-w-md mx-auto bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200/80">
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                <span>Reserva con un anticipo de {ANTICIPO_VERSION_IMPRESA}</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                <span>Entrega estimada: 2 a 3 días hábiles desde la confirmación</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                <span>Retiro, delivery o encomienda (se coordina por WhatsApp)</span>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                  `Hola Estudio Cáceres, quiero reservar la versión impresa anillada del Manual de Contabilidad Aplicada (preventa): 2 volúmenes + ejercitario, ${PRECIO_VERSION_IMPRESA}. Entiendo que se reserva con un anticipo de ${ANTICIPO_VERSION_IMPRESA}.\n\nMi nombre:\nMi ciudad:\nPrefiero: retiro / delivery / encomienda\nCorreo para los digitales:`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-base font-bold bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.98] text-white shadow-lg shadow-[#25D366]/20 transition-all group"
+              >
+                <MessageCircle className="w-5 h-5 fill-current" />
+                <span>Pedir versión impresa (preventa)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------- */}
+      {/* SECTION: FINAL CTA / OBTENER (#obtener)                       */}
+      {/* ------------------------------------------------------------- */}
+      <section
+        id="obtener"
+        className="w-full bg-[radial-gradient(60%_55%_at_50%_0%,rgba(15,36,56,0.06),transparent_70%),#ffffff] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 text-center"
+      >
+        <div className="max-w-[880px] mx-auto space-y-6 sm:space-y-8">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#1C242B] tracking-tight">
+            Inicie hoy su gestión contable con total respaldo
+          </h2>
+
+          <div className="w-16 h-0.5 bg-slate-300 mx-auto" />
+
+          <p className="text-base sm:text-lg text-[#566173] leading-relaxed max-w-xl mx-auto">
+            Acceda de forma inmediata al compendio completo en PDF y al paquete de plantillas editables en formato Word y Excel.
+          </p>
+
+          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border-2 border-[#0F2438]/15 shadow-xl space-y-6 max-w-md mx-auto relative overflow-hidden">
+            <div className="space-y-1">
+              <span className="text-xs uppercase font-mono tracking-wider text-[#C98A2C] font-extrabold block">
+                Versión Digital
+              </span>
+              <div className="flex items-center justify-center">
+                <span className="text-4xl sm:text-5xl font-extrabold font-heading text-[#0F2438]">
+                  Gs. 60.000
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-3 pt-2">
+              <button
+                type="button"
+                onClick={handleOpenPurchase}
+                className="w-full py-4 px-6 rounded-xl text-base font-bold bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-md flex items-center justify-center gap-2 group cursor-pointer"
+              >
+                <span>Obtener manual y plantillas — Gs. 60.000</span>
+                <ChevronRight className="w-4 h-4 text-[#C98A2C] group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              <a
+                href={HOTMART_CHECKOUT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-[#0F2438] bg-white border border-slate-300 hover:bg-slate-100 transition-colors flex items-center justify-center gap-1.5"
+              >
+                <CreditCard className="w-3.5 h-3.5 text-[#C98A2C]" />
+                <span>Pagar con Tarjeta (Hotmart) en línea</span>
+                <ExternalLink className="w-3 h-3 text-slate-400" />
+              </a>
+            </div>
+
+            {/* Medios de pago disponibles visuales: primero SIPAP y QR, tarjeta (Hotmart) última */}
+            <div className="pt-3 border-t border-slate-200/90 space-y-2 text-left">
+              <span className="text-[11px] font-mono uppercase font-bold tracking-wider text-slate-500 block text-center">
+                Medios de pago habilitados:
+              </span>
+              <div className="grid grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
+                  <Building2 className="w-4 h-4 text-[#0F2438] shrink-0" />
+                  <span className="truncate">Transferencia SIPAP</span>
+                </div>
+                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
+                  <QrCode className="w-4 h-4 text-[#C98A2C] shrink-0" />
+                  <span className="truncate">Pago vía QR</span>
+                </div>
+                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
+                  <Smartphone className="w-4 h-4 text-[#C98A2C] shrink-0" />
+                  <span className="truncate">Billeteras locales</span>
+                </div>
+                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
+                  <CreditCard className="w-4 h-4 text-[#0F2438] shrink-0" />
+                  <span className="truncate">Tarjeta (Hotmart)</span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-[11px] text-slate-600 leading-tight">
+              Pago 100% seguro. Aceptamos transferencias bancarias (SIPAP), pagos vía QR, billeteras electrónicas y tarjetas. Acceso digital inmediato sin costos de envío.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ------------------------------------------------------------- */}
       {/* SECTION: SOBRE EL AUTOR (#autor)                             */}
       {/* ------------------------------------------------------------- */}
       <section
         id="autor"
-        className="w-full bg-white py-8 sm:py-16 px-4 sm:px-6 lg:px-8 border-y border-slate-200/80"
+        className="w-full bg-white py-12 sm:py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-200/80"
       >
         <div className="max-w-[1180px] mx-auto">
           {/* Eyebrow & Title */}
@@ -792,172 +971,6 @@ export default function ManualLandingPage() {
       </section>
 
       {/* ------------------------------------------------------------- */}
-      {/* SECTION: RESOLUCIÓN DE DUDAS / FAQ (#preguntas)               */}
-      {/* ------------------------------------------------------------- */}
-      <section
-        id="preguntas"
-        className="w-full bg-[#F7F8F9] py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-slate-200/80"
-      >
-        <div className="max-w-[1180px] mx-auto space-y-8 sm:space-y-12">
-          <div className="max-w-2xl text-left">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-heading text-[#1C242B] tracking-tight">
-              Respuestas técnicas sobre el material y su uso
-            </h2>
-          </div>
-
-          <div className="divide-y divide-slate-200 border-y border-slate-200 bg-white rounded-2xl px-6 shadow-xs text-left">
-            {faqItems.map((item, idx) => {
-              const isOpen = activeFaq === idx;
-              return (
-                <div key={idx} className="py-4 sm:py-5">
-                  <button
-                    type="button"
-                    onClick={() => toggleFaq(idx)}
-                    aria-expanded={isOpen}
-                    className="w-full flex items-center justify-between text-left gap-4 font-bold text-base sm:text-lg text-[#1C242B] hover:text-[#0F2438] transition-colors"
-                  >
-                    <span>{item.q}</span>
-                    <span
-                      className={`p-1.5 rounded-lg bg-slate-100 text-slate-600 shrink-0 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 bg-slate-200' : ''
-                      }`}
-                    >
-                      <ChevronDown className="w-4 h-4" />
-                    </span>
-                  </button>
-                  {isOpen && (
-                    <div className="mt-3 text-sm sm:text-base text-[#566173] leading-relaxed pr-6 animate-in fade-in duration-150">
-                      {item.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="text-sm sm:text-base text-slate-500 text-left">
-            Todo lo que necesita saber sobre el formato, la vigencia legal y la metodología de entrega del manual.
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- */}
-      {/* SECTION: FINAL CTA / OBTENER (#obtener)                       */}
-      {/* ------------------------------------------------------------- */}
-      <section
-        id="obtener"
-        className="w-full bg-[radial-gradient(60%_55%_at_50%_0%,rgba(15,36,56,0.06),transparent_70%),#ffffff] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 text-center"
-      >
-        <div className="max-w-[880px] mx-auto space-y-6 sm:space-y-8">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#1C242B] tracking-tight">
-            Inicie hoy su gestión contable con total respaldo
-          </h2>
-
-          <div className="w-16 h-0.5 bg-slate-300 mx-auto" />
-
-          <p className="text-base sm:text-lg text-[#566173] leading-relaxed max-w-xl mx-auto">
-            Acceda de forma inmediata al compendio completo en PDF y al paquete de plantillas editables en formato Word y Excel.
-          </p>
-
-          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border-2 border-[#0F2438]/15 shadow-xl space-y-6 max-w-md mx-auto relative overflow-hidden">
-            <div className="space-y-1">
-              <span className="text-xs uppercase font-mono tracking-wider text-[#C98A2C] font-extrabold block">
-                Precio de lanzamiento
-              </span>
-              <div className="flex items-baseline justify-center gap-3">
-                <span className="text-sm text-slate-400 line-through">Gs. 220.000</span>
-                <span className="text-4xl sm:text-5xl font-extrabold font-heading text-[#0F2438]">
-                  Gs. 60.000
-                </span>
-              </div>
-              <span className="text-xs text-slate-600 block pt-1 font-semibold">
-                🔥 Válido hasta el 31 de octubre de 2026
-              </span>
-            </div>
-
-            {/* Visual Countdown Timer */}
-            <div className="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs space-y-1.5">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-bold block">
-                Tiempo restante de la oferta:
-              </span>
-              <div className="flex items-center justify-center gap-2 font-mono text-center">
-                <div className="bg-[#0F2438] text-white p-1.5 rounded-lg min-w-[52px]">
-                  <span className="text-base font-bold block leading-tight">{String(obtenerTimer.days).padStart(2, '0')}</span>
-                  <span className="text-[9px] uppercase tracking-wider text-slate-300 block">Días</span>
-                </div>
-                <span className="text-[#0F2438] font-bold">:</span>
-                <div className="bg-[#0F2438] text-white p-1.5 rounded-lg min-w-[52px]">
-                  <span className="text-base font-bold block leading-tight">{String(obtenerTimer.hours).padStart(2, '0')}</span>
-                  <span className="text-[9px] uppercase tracking-wider text-slate-300 block">Horas</span>
-                </div>
-                <span className="text-[#0F2438] font-bold">:</span>
-                <div className="bg-[#0F2438] text-white p-1.5 rounded-lg min-w-[52px]">
-                  <span className="text-base font-bold block leading-tight">{String(obtenerTimer.minutes).padStart(2, '0')}</span>
-                  <span className="text-[9px] uppercase tracking-wider text-slate-300 block">Min</span>
-                </div>
-                <span className="text-[#0F2438] font-bold">:</span>
-                <div className="bg-[#0F2438] text-white p-1.5 rounded-lg min-w-[52px]">
-                  <span className="text-base font-bold block leading-tight">{String(obtenerTimer.seconds).padStart(2, '0')}</span>
-                  <span className="text-[9px] uppercase tracking-wider text-slate-300 block">Seg</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-3 pt-2">
-              <button
-                type="button"
-                onClick={handleOpenPurchase}
-                className="w-full py-4 px-6 rounded-xl text-base font-bold bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-md flex items-center justify-center gap-2 group cursor-pointer"
-              >
-                <span>Obtener manual y plantillas — Gs. 60.000</span>
-                <ChevronRight className="w-4 h-4 text-[#C98A2C] group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <a
-                href={HOTMART_CHECKOUT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-[#0F2438] bg-white border border-slate-300 hover:bg-slate-100 transition-colors flex items-center justify-center gap-1.5"
-              >
-                <CreditCard className="w-3.5 h-3.5 text-[#C98A2C]" />
-                <span>Pagar con Tarjeta de Crédito / Débito en línea</span>
-                <ExternalLink className="w-3 h-3 text-slate-400" />
-              </a>
-            </div>
-
-            {/* Medios de pago disponibles visuales */}
-            <div className="pt-3 border-t border-slate-200/90 space-y-2 text-left">
-              <span className="text-[11px] font-mono uppercase font-bold tracking-wider text-slate-500 block text-center">
-                Medios de pago habilitados:
-              </span>
-              <div className="grid grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
-                  <Building2 className="w-4 h-4 text-[#0F2438] shrink-0" />
-                  <span className="truncate">Transferencia SIPAP</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
-                  <QrCode className="w-4 h-4 text-[#C98A2C] shrink-0" />
-                  <span className="truncate">Pago vía QR</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
-                  <CreditCard className="w-4 h-4 text-[#0F2438] shrink-0" />
-                  <span className="truncate">Tarjetas PY / Ext</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
-                  <Smartphone className="w-4 h-4 text-[#C98A2C] shrink-0" />
-                  <span className="truncate">Billeteras locales</span>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-[11px] text-slate-600 leading-tight">
-              Pago 100% seguro. Aceptamos transferencias bancarias (SIPAP), pagos vía QR, tarjetas y billeteras electrónicas. Acceso digital inmediato sin costos de envío.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- */}
       {/* INTERACTIVE PURCHASE & CHECKOUT MODAL                         */}
       {/* ------------------------------------------------------------- */}
       {purchaseModalOpen && (
@@ -992,7 +1005,6 @@ export default function ManualLandingPage() {
                     <span className="text-2xl sm:text-3xl font-extrabold text-[#0F2438]">
                       Gs. 60.000
                     </span>
-                    <span className="text-xs text-slate-400 line-through">Gs. 220.000</span>
                   </div>
                 </div>
 
@@ -1029,19 +1041,6 @@ export default function ManualLandingPage() {
 
                     <button
                       type="button"
-                      onClick={() => setPaymentMethod('card')}
-                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
-                        paymentMethod === 'card'
-                          ? 'border-[#0F2438] bg-[#0F2438] text-white shadow-xs'
-                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      <CreditCard className="w-4 h-4" />
-                      <span>Tarjetas</span>
-                    </button>
-
-                    <button
-                      type="button"
                       onClick={() => setPaymentMethod('wallet')}
                       className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
                         paymentMethod === 'wallet'
@@ -1051,6 +1050,19 @@ export default function ManualLandingPage() {
                     >
                       <Smartphone className="w-4 h-4" />
                       <span>Billeteras PY</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod('card')}
+                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
+                        paymentMethod === 'card'
+                          ? 'border-[#0F2438] bg-[#0F2438] text-white shadow-xs'
+                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      <CreditCard className="w-4 h-4" />
+                      <span>Tarjeta (Hotmart)</span>
                     </button>
                   </div>
 
@@ -1078,17 +1090,6 @@ export default function ManualLandingPage() {
                         </p>
                       </div>
                     )}
-                    {paymentMethod === 'card' && (
-                      <div>
-                        <div className="flex items-center gap-1.5 font-bold text-[#0F2438]">
-                          <CreditCard className="w-4 h-4 text-[#C98A2C]" />
-                          <span>Tarjetas de Crédito y Débito (Gs. 60.000)</span>
-                        </div>
-                        <p className="mt-1 text-slate-600 leading-relaxed">
-                          Pago online seguro con tarjetas de crédito o débito (Visa, Mastercard, American Express).
-                        </p>
-                      </div>
-                    )}
                     {paymentMethod === 'wallet' && (
                       <div>
                         <div className="flex items-center gap-1.5 font-bold text-[#0F2438]">
@@ -1097,6 +1098,17 @@ export default function ManualLandingPage() {
                         </div>
                         <p className="mt-1 text-slate-600 leading-relaxed">
                           Giros directos mediante Tigo Money, Personal Pay o Billetera Zimple al número <strong className="text-slate-900">+595 993 535291</strong>.
+                        </p>
+                      </div>
+                    )}
+                    {paymentMethod === 'card' && (
+                      <div>
+                        <div className="flex items-center gap-1.5 font-bold text-[#0F2438]">
+                          <CreditCard className="w-4 h-4 text-[#C98A2C]" />
+                          <span>Tarjetas de Crédito y Débito (Gs. 60.000)</span>
+                        </div>
+                        <p className="mt-1 text-slate-600 leading-relaxed">
+                          Pago online seguro con tarjetas de crédito o débito (Visa, Mastercard, American Express).
                         </p>
                       </div>
                     )}
@@ -1218,53 +1230,86 @@ export default function ManualLandingPage() {
                 <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center">
                   <CheckCircle2 className="w-10 h-10" />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-2">
                   <h3 className="text-2xl font-bold font-heading text-[#0F2438]">
-                    ¡Acceso Concedido!
+                    Solicitud recibida
                   </h3>
-                  <p className="text-sm text-slate-600">
-                    Hemos confirmado la solicitud para{' '}
-                    <strong className="text-slate-900">{formData.email || 'su correo'}</strong>.
+                  <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+                    Solicitud recibida. Una vez confirmado tu pago, te enviamos el material al correo que indicaste.
                   </p>
+                  {formData.email && (
+                    <p className="text-xs font-mono font-medium text-slate-500">
+                      Correo registrado: <span className="text-slate-800 font-semibold">{formData.email}</span>
+                    </p>
+                  )}
                 </div>
 
+                {/* Datos de pago existentes conservados sin cambios */}
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left space-y-2 text-xs sm:text-sm text-slate-700">
                   <div className="flex items-center gap-2 font-bold text-[#0F2438]">
-                    <FileText className="w-4 h-4 text-[#C98A2C]" />
-                    <span>Contenido listo para descarga inmediata:</span>
+                    {paymentMethod === 'sipap' && <Building2 className="w-4 h-4 text-[#C98A2C]" />}
+                    {paymentMethod === 'qr' && <QrCode className="w-4 h-4 text-[#C98A2C]" />}
+                    {paymentMethod === 'wallet' && <Smartphone className="w-4 h-4 text-[#C98A2C]" />}
+                    {paymentMethod === 'card' && <CreditCard className="w-4 h-4 text-[#C98A2C]" />}
+                    <span>Datos para completar tu pago (Gs. 60.000):</span>
                   </div>
-                  <ul className="space-y-1 pl-6 list-disc text-slate-600 text-xs">
-                    <li>Manual de Contabilidad Aplicada DNIT 2026 (.PDF)</li>
-                    <li>Pack de Plantillas de Registros Editables (.DOCX)</li>
-                    <li>Lista de Chequeo y Control Interno Tributario (.XLSX/.DOCX)</li>
-                    <li>Glosario de Términos Normativos SIFEN 2026</li>
-                  </ul>
+
+                  {paymentMethod === 'sipap' && (
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Habilitado para todos los bancos y cooperativas de Paraguay. Podés transferir y adjuntarnos tu comprobante para activación inmediata.
+                    </p>
+                  )}
+                  {paymentMethod === 'qr' && (
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Escaneá desde la app de tu banco (Itaú, Continental, Ueno, Familiar, BNF, Basa, Atlas, etc.) o billetera con lector QR.
+                    </p>
+                  )}
+                  {paymentMethod === 'wallet' && (
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Giros directos mediante Tigo Money, Personal Pay o Billetera Zimple al número <strong className="text-slate-900">+595 993 535291</strong>.
+                    </p>
+                  )}
+                  {paymentMethod === 'card' && (
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Pago online seguro con tarjetas de crédito o débito (Visa, Mastercard, American Express).
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2 pt-2">
-                  {downloadStarted ? (
-                    <div className="w-full py-3 px-4 rounded-xl text-sm font-bold bg-emerald-100 text-emerald-800 flex items-center justify-center gap-2">
-                      <Check className="w-4 h-4" />
-                      <span>Descarga iniciada exitosamente</span>
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => setDownloadStarted(true)}
-                      className="w-full py-3 px-4 rounded-xl text-sm font-bold bg-[#C98A2C] text-[#0F2438] hover:bg-[#d99732] transition-colors flex items-center justify-center gap-2"
-                    >
-                      <Download className="w-4 h-4" />
-                      <span>Descargar Kit Completo Ahora</span>
-                    </button>
-                  )}
-
                   <a
-                    href={WHATSAPP_URL}
+                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                      `Hola Estudio Cáceres, ya envié mi solicitud para el Manual de Contabilidad DNIT 2026 (Gs. 60.000).\n` +
+                      `Mi nombre: ${formData.nombre || ''}\n` +
+                      `Mi correo: ${formData.email || ''}\n` +
+                      `Medio de pago elegido: ${
+                        paymentMethod === 'sipap'
+                          ? 'Transferencia Bancaria SIPAP'
+                          : paymentMethod === 'qr'
+                          ? 'Pago vía QR'
+                          : paymentMethod === 'wallet'
+                          ? 'Billetera Electrónica'
+                          : 'Tarjeta'
+                      }.\n` +
+                      `Envío este mensaje para coordinar la confirmación del pago.`
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition-colors inline-block"
+                    className="w-full py-3.5 px-4 rounded-xl text-sm font-bold bg-[#25D366] text-white hover:bg-[#20ba59] transition-colors flex items-center justify-center gap-2 shadow-sm text-center"
                   >
-                    ¿Necesita asistencia técnica? Contáctenos por WhatsApp
+                    <MessageCircle className="w-5 h-5 text-white" />
+                    <span>Coordinar pago por WhatsApp (+595 993 535291)</span>
                   </a>
+
+                  <button
+                    onClick={() => {
+                      setPurchaseModalOpen(false);
+                      setPurchaseSuccess(false);
+                    }}
+                    className="w-full py-2 px-4 rounded-xl text-xs font-semibold text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                  >
+                    Cerrar ventana
+                  </button>
                 </div>
               </div>
             )}

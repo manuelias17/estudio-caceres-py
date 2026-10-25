@@ -194,11 +194,11 @@ export default function HomePage() {
                     Material práctico exclusivo
                   </span>
                   <h3 className="text-xl sm:text-2xl font-bold font-heading text-white group-hover:text-[#C98A2C] transition-colors">
-                    Manual DNIT 2026
+                    Manual Contable Práctico
                   </h3>
                 </div>
                 <p className="text-sm text-slate-200 font-sans leading-relaxed">
-                  Compendio práctico con liquidaciones reales de IVA (Formulario 120 V.4), asientos contables, prorrateo y plantillas editables.
+                  Compendio práctico con liquidaciones reales de IVA (Formulario 120 V.4), asientos contables, prorrateo y ejercitario de casos resueltos.
                 </p>
               </div>
 
