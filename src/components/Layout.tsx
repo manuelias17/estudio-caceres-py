@@ -83,7 +83,7 @@ export default function Layout() {
                   location.pathname === '/manual' ? 'text-[#0F2438] font-bold border-b-2 border-[#C98A2C] pb-0.5' : ''
                 }`}
               >
-                Manual DNIT
+                Manual Contable
               </Link>
               <a
                 href={WHATSAPP_URL}
@@ -148,7 +148,7 @@ export default function Layout() {
                   location.pathname === '/manual' ? 'bg-slate-100 text-[#0F2438] font-bold' : 'hover:bg-slate-50'
                 }`}
               >
-                Manual DNIT
+                Manual Contable
               </Link>
               <a
                 href={WHATSAPP_URL}
@@ -232,7 +232,7 @@ export default function Layout() {
                 onClick={() => scrollToSection('obtener')}
                 className="font-bold text-[#C98A2C] bg-white/10 px-2.5 py-0.5 rounded hover:bg-white/20 transition-colors"
               >
-                Adquirir (Gs. 60.000)
+                Quiero mi manual
               </button>
             </div>
           </div>

@@ -21,6 +21,7 @@ import {
 import heroTabletImg from '../assets/images/hero_tablet_formulario120_1792156674072.jpg';
 import balanceSumasSaldosImg from '../assets/images/balance_sumas_saldos_1792161555547.jpg';
 import logoImgLocal from '../assets/images/logo_real_estudio_caceres.png';
+import fotoPerfilAutor from '../assets/images/foto_perfil_elias_caceres.jpg';
 import page1Svg from '../assets/images/muestras_manual_contabilidad.svg';
 import page2Svg from '../assets/images/muestras_manual_contabilidad2.svg';
 import page3Svg from '../assets/images/muestras_manual_contabilidad3.svg';
@@ -892,11 +893,10 @@ export default function ManualLandingPage() {
             <div className="lg:col-span-5 flex flex-col items-center text-center">
               {/* Contenedor circular de 220px con borde de 3px en #C98A2C, sombra suave y anillo exterior sutil */}
               <div className="relative w-[220px] h-[220px] rounded-full border-[3px] border-[#C98A2C] shadow-lg ring-4 ring-[#C98A2C]/20 overflow-hidden bg-slate-50 flex items-center justify-center">
-                {/* TODO: reemplazar logo por foto de perfil real cuando esté disponible */}
                 <img
-                  src={logoImgLocal}
+                  src={fotoPerfilAutor}
                   alt="Elías Cáceres - Técnico Contable, Desarrollador de Software y Fundador de Estudio Cáceres"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                   loading="lazy"
                   decoding="async"
                   width={220}
