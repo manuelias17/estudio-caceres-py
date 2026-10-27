@@ -25,6 +25,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import logoImgLocal from '../assets/images/logo_real_estudio_caceres.png';
+import capturaEntregaImg from '../assets/images/captura_entrega_whatsapp_real.jpg';
 
 const WHATSAPP_NUMBER = '595993535291';
 const WHATSAPP_BASE_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -546,77 +547,92 @@ export default function HomePage() {
       </section>
 
       {/* ------------------------------------------------------------- */}
-      {/* TESTIMONIOS                                                   */}
+      {/* TESTIMONIOS REALES / CAPTURA REAL DE ENTREGA                  */}
       {/* ------------------------------------------------------------- */}
-      <section className="py-16 sm:py-24 bg-white text-[#1C242B] border-b border-slate-200">
+      <section className="py-16 sm:py-24 bg-[#F8F9FA] text-[#1C242B] border-b border-slate-200">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#C98A2C] bg-[#C98A2C]/10 px-3.5 py-1.5 rounded-full inline-block">
-              Opiniones de Clientes
+              Testimonios reales
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold font-heading text-[#0F2438] tracking-tight">
-              Clientes que confían en Estudio Cáceres
+              Así funciona después de comprar
             </h2>
-            <p className="text-base text-slate-600 leading-relaxed font-sans">
-              Testimonios de profesionales y emprendedores que gestionan sus obligaciones tributarias con nuestro acompañamiento.
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-sans">
+              Así recibe cada cliente su acceso al manual
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {/* Testimonial 1 */}
-            <div className="p-7 rounded-2xl bg-[#F7F8F9] border border-slate-200/80 shadow-xs flex flex-col justify-between text-left space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-1 text-[#C98A2C]">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <p className="text-sm sm:text-base text-slate-700 italic leading-relaxed font-sans">
-                  "Estudio Cáceres me facilitó completamente la vida con mis impuestos mensuales. Antes vivía con miedo a las multas de la SET; ahora presento mi IVA sin presiones y 100% digital."
-                </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center max-w-5xl mx-auto">
+            {/* Imagen arriba en móvil, izquierda en desktop (lg:col-span-6) */}
+            <div className="lg:col-span-6 flex flex-col items-center">
+              <div className="w-full max-w-[500px] rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 shadow-md bg-slate-900 mx-auto">
+                <img
+                  src={capturaEntregaImg}
+                  alt="Chat real de entrega de acceso al manual por WhatsApp"
+                  className="w-full h-auto object-cover block"
+                  loading="lazy"
+                  width={500}
+                  height={880}
+                />
               </div>
 
-              <div className="pt-4 border-t border-slate-200">
-                <span className="font-bold font-heading text-sm text-[#0F2438] block">Ing. Marcelo Duarte</span>
-                <span className="text-xs text-slate-500 font-sans">Desarrollador Software Freelance · Asunción</span>
-              </div>
-            </div>
-
-            {/* Testimonial 2 */}
-            <div className="p-7 rounded-2xl bg-[#F7F8F9] border border-slate-200/80 shadow-xs flex flex-col justify-between text-left space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-1 text-[#C98A2C]">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <p className="text-sm sm:text-base text-slate-700 italic leading-relaxed font-sans">
-                  "Excelente atención personalizada. Abrieron mi RUC en menos de 24 horas y me guiaron con exactitud sobre las compras que puedo deducir para IVA y régimen Resimple."
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-slate-200">
-                <span className="font-bold font-heading text-sm text-[#0F2438] block">Andrea Benítez</span>
-                <span className="text-xs text-slate-500 font-sans">Comercio E-commerce · Ciudad del Este</span>
+              {/* Badge debajo de la captura */}
+              <div className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-700 shadow-xs">
+                <span>📱 Chat real de entrega de acceso — 21 de octubre de 2026</span>
               </div>
             </div>
 
-            {/* Testimonial 3 */}
-            <div className="p-7 rounded-2xl bg-[#F7F8F9] border border-slate-200/80 shadow-xs flex flex-col justify-between text-left space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-1 text-[#C98A2C]">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
+            {/* Texto debajo en móvil, derecha en desktop (lg:col-span-6) */}
+            <div className="lg:col-span-6 space-y-6 text-left">
+              <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+                <div className="w-10 h-10 rounded-xl bg-[#C98A2C]/15 text-[#C98A2C] flex items-center justify-center">
+                  <CheckCircle2 className="w-6 h-6 text-[#C98A2C]" />
                 </div>
-                <p className="text-sm sm:text-base text-slate-700 italic leading-relaxed font-sans">
-                  "Las clases de contabilidad práctica fueron de enorme ayuda para mis exámenes y para mi primer trabajo de auxiliar. Explican con casos del día a día, sin rodeos teóricos."
+
+                <p className="text-lg sm:text-xl font-heading font-bold text-[#0F2438] leading-snug">
+                  Hacé como Fabián y afianzate en el mundo contable con nuestro manual.
                 </p>
+
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+                  Acceso inmediato por correo con carpeta en Google Drive organizada por tema.
+                </p>
+
+                <div className="pt-3 border-t border-slate-100 space-y-2.5 text-xs sm:text-sm text-slate-700">
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span>Entrega transparente y directa vía WhatsApp y correo</span>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span>Material descargable y listo para consultar en cualquier dispositivo</span>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span>Acompañamiento profesional y soporte ante dudas</span>
+                  </div>
+                </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-200">
-                <span className="font-bold font-heading text-sm text-[#0F2438] block">Lic. Esteban Ayala</span>
-                <span className="text-xs text-slate-500 font-sans">Consultor Comercial Independiente · San Lorenzo</span>
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <Link
+                  to="/manual"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-[#0F2438] text-white hover:bg-[#163350] transition-colors shadow-sm"
+                >
+                  <BookOpen className="w-4 h-4 text-[#C98A2C]" />
+                  <span>Conocer el Manual Contable</span>
+                  <ArrowRight className="w-4 h-4 text-[#C98A2C]" />
+                </Link>
+
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Estudio Cáceres, vi la entrega del manual y quiero consultar sobre el acceso.')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-xs sm:text-sm text-[#0F2438] bg-white border border-slate-200 hover:bg-slate-50 transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                  <span>Consultar por WhatsApp</span>
+                </a>
               </div>
             </div>
           </div>

@@ -919,7 +919,7 @@ export default function ManualLandingPage() {
                 {/* Micro-stat 1 */}
                 <div className="flex flex-col items-center lg:items-start">
                   <span className="text-xl sm:text-2xl font-bold font-heading text-[#0F2438] leading-none">
-                    5+ años
+                    3+ años
                   </span>
                   <span className="text-xs sm:text-sm text-slate-500 font-sans mt-1">
                     de experiencia
@@ -956,7 +956,7 @@ export default function ManualLandingPage() {
               {/* Paragraphs with max reading width ~65ch and key terms bolded */}
               <div className="space-y-4 max-w-[65ch] text-slate-700 font-sans text-base sm:text-lg leading-relaxed">
                 <p>
-                  Soy Elías Cáceres, Técnico Contable y desarrollador de software con más de <strong>5 años de experiencia en auditorías externas</strong> a empresas de distintos rubros.
+                  Soy Elías Cáceres, Técnico Contable y desarrollador de software con más de <strong>3 años de experiencia en auditorías externas</strong> a empresas de distintos rubros.
                 </p>
                 <p>
                   En auditoría vi los mismos errores una y otra vez: comprobantes mal analizados, asientos mal imputados, controles internos débiles y liquidaciones de IVA armadas a ciegas.
