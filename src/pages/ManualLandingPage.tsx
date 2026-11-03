@@ -3,90 +3,64 @@ import {
   ChevronDown,
   Check,
   ShieldCheck,
-  Download,
-  CreditCard,
   Building2,
   Smartphone,
-  Lock,
   CheckCircle2,
   FileText,
   MessageCircle,
-  ExternalLink,
   Eye,
   X,
-  QrCode,
   ChevronRight
 } from 'lucide-react';
 
 import heroTabletImg from '../assets/images/hero_tablet_formulario120_1792156674072.jpg';
 import balanceSumasSaldosImg from '../assets/images/balance_sumas_saldos_1792161555547.jpg';
-import logoImgLocal from '../assets/images/logo_real_estudio_caceres.png';
 import fotoPerfilAutor from '../assets/images/foto_perfil_elias_caceres.jpg';
 import page1Svg from '../assets/images/muestras_manual_contabilidad.svg';
 import page2Svg from '../assets/images/muestras_manual_contabilidad2.svg';
 import page3Svg from '../assets/images/muestras_manual_contabilidad3.svg';
 
-const HOTMART_CHECKOUT_URL = 'https://pay.hotmart.com/Y108013354Q?bid=1792156131415';
 const WHATSAPP_NUMBER = '595993535291';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Estudio Cáceres, deseo más información sobre el Manual de Contabilidad DNIT 2026.')}`;
 
-// Constantes configurables para la versión impresa anillada
-const PRECIO_VERSION_IMPRESA = 'Gs. 150.000';
-const ANTICIPO_VERSION_IMPRESA = 'Gs. 80.000';
+// Constantes configurables para la versión impresa premium
+const PRECIO_TOMO_1 = 'Gs. 135.000';
+const PRECIO_EJERCITARIO = 'Gs. 55.000';
+const PRECIO_COMBO = 'Gs. 170.000';
 
-interface TimeLeft {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
+const WHATSAPP_TOMO_1_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  'Hola Estudio Cáceres, quiero pedir el Tomo I del Manual Contable (Fundamentos + Asientos de liquidación del IVA) por Gs. 135.000.\n\n' +
+  'Mi nombre:\n' +
+  'Mi ciudad / dirección:\n' +
+  'Forma de entrega preferida (Delivery / Retiro / Encomienda):'
+)}`;
 
-function useCountdown(targetDateIso: string): TimeLeft {
-  const calculate = (): TimeLeft => {
-    const diff = Math.max(0, new Date(targetDateIso).getTime() - Date.now());
-    return {
-      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((diff / (1000 * 60)) % 60),
-      seconds: Math.floor((diff / 1000) % 60),
-    };
-  };
+const WHATSAPP_EJERCITARIO_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  'Hola Estudio Cáceres, quiero pedir el Ejercitario Práctico del Manual Contable (100 cuentas + solucionario) por Gs. 55.000.\n\n' +
+  'Mi nombre:\n' +
+  'Mi ciudad / dirección:\n' +
+  'Forma de entrega preferida (Delivery / Retiro / Encomienda):'
+)}`;
 
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculate);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft(calculate());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [targetDateIso]);
-
-  return timeLeft;
-}
+const WHATSAPP_COMBO_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  'Hola Estudio Cáceres, quiero pedir el Combo Completo recomendado del Manual Contable (Tomo I + Ejercitario) por Gs. 170.000 con delivery incluido en Asunción / Gran Asunción.\n\n' +
+  'Mi nombre:\n' +
+  'Mi ciudad / dirección exacta:\n' +
+  'Forma de entrega preferida (Delivery Asu y Gran Asu / Retiro / Encomienda interior):'
+)}`;
 
 export default function ManualLandingPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [purchaseModalOpen, setPurchaseModalOpen] = useState(false);
   const [previewDoc, setPreviewDoc] = useState<{ src: string; title: string; caption: string } | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<'sipap' | 'qr' | 'card' | 'wallet'>('sipap');
-  const [purchaseSuccess, setPurchaseSuccess] = useState(false);
-  const [downloadStarted, setDownloadStarted] = useState(false);
-  const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    ruc: '',
-    telefono: '',
-  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Close modal on Escape key
+  // Close preview modal on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setPurchaseModalOpen(false);
         setPreviewDoc(null);
       }
     };
@@ -94,26 +68,14 @@ export default function ManualLandingPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Prevent background scroll when modal is open
+  // Prevent background scroll when preview modal is open
   useEffect(() => {
-    if (purchaseModalOpen) {
+    if (previewDoc) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-  }, [purchaseModalOpen]);
-
-  const handleOpenPurchase = (e?: React.MouseEvent) => {
-    if (e) e.preventDefault();
-    setPurchaseSuccess(false);
-    setDownloadStarted(false);
-    setPurchaseModalOpen(true);
-  };
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setPurchaseSuccess(true);
-  };
+  }, [previewDoc]);
 
   const toggleFaq = (index: number) => {
     setActiveFaq(activeFaq === index ? null : index);
@@ -128,20 +90,20 @@ export default function ManualLandingPage() {
 
   const faqItems = [
     {
-      q: '¿El manual contempla las disposiciones para 2026?',
-      a: 'Sí, el compendio integra las disposiciones normativas de la DNIT y las regulaciones vinculadas a SIFEN proyectadas para el ejercicio.'
-    },
-    {
-      q: '¿En qué formato se entregan los modelos de registro?',
-      a: 'Los modelos de trabajo se facilitan en archivos .docx editables para permitir su adaptación rápida a cada cliente.'
+      q: '¿Cómo se entrega el material impreso?',
+      a: 'El material se entrega en formato físico con encuadernación anillada profesional de alta durabilidad y portadas a full color. El Combo Completo incluye delivery en Asunción y Gran Asunción sin costo adicional. Para el interior del país realizamos envíos seguros vía encomienda.'
     },
     {
       q: '¿Qué medios de pago se encuentran disponibles?',
-      a: 'Aceptamos transferencias bancarias directas (SIPAP a todos los bancos y cooperativas del país), pagos rápidos vía QR, tarjetas de crédito y débito, y billeteras electrónicas (Tigo Money, Personal Pay, Zimple). Una vez confirmado el pago, recibís acceso digital inmediato al compendio y a todas las plantillas.'
+      a: 'Aceptamos transferencias bancarias directas (SIPAP a todos los bancos y cooperativas del país), pagos rápidos vía QR, y giros por billeteras electrónicas (Tigo Money, Personal Pay, Zimple). Una vez coordinado el pedido por WhatsApp, te facilitamos los datos de pago y despachamos tu ejemplar.'
+    },
+    {
+      q: '¿El manual contempla las disposiciones de la DNIT para 2026?',
+      a: 'Sí, el compendio integra las disposiciones normativas actualizadas de la DNIT, criterios vigentes de la Ley N° 6380/19 y regulaciones vinculadas a SIFEN proyectadas para el ejercicio.'
     },
     {
       q: '¿Sirve para estudiantes y recién egresados?',
-      a: 'El contenido está formulado para brindar criterio práctico y seguridad técnica a quienes inician su actividad independiente.'
+      a: 'Totalmente. El contenido fue diseñado por auditores externos para eliminar la brecha entre la teoría académica y la práctica real en oficinas contables, con 100 cuentas reales resueltas paso a paso.'
     }
   ];
 
@@ -151,16 +113,16 @@ export default function ManualLandingPage() {
       {/* STICKY PROMO BANNER                                           */}
       {/* ------------------------------------------------------------- */}
       <aside
-        aria-label="Aviso de preventa versión impresa anillada"
+        aria-label="Aviso de material impreso premium"
         className="sticky top-16 sm:top-20 z-30 w-full bg-[#C98A2C] text-[#0F2438] py-2.5 px-3 sm:px-4 shadow-sm"
       >
         <div className="max-w-[1280px] mx-auto flex items-center justify-center gap-2 sm:gap-3 text-center">
           <button
             type="button"
-            onClick={() => scrollToSection('version-impresa')}
+            onClick={() => scrollToSection('opciones-compra')}
             className="text-xs sm:text-[13px] font-bold leading-tight hover:underline flex items-center justify-center gap-1.5 group cursor-pointer"
           >
-            <span>Versión impresa anillada en preventa: Gs. 150.000 (incluye la versión digital)</span>
+            <span>Material impreso premium · Disponible ahora · Combo recomendado Gs. 170.000 (incluye delivery Asu y Gran Asunción)</span>
             <span className="font-extrabold group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
           </button>
         </div>
@@ -179,7 +141,7 @@ export default function ManualLandingPage() {
             <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/5 border border-slate-900/10 text-[#0F2438] text-xs font-bold tracking-wide uppercase">
                 <span className="w-2 h-2 rounded-full bg-[#C98A2C] animate-pulse" />
-                Actualizado con Criterios Técnicos DNIT 2026
+                Edición Impresa · Normativa DNIT 2026
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-[#0F2438] leading-[1.15] tracking-tight">
@@ -187,24 +149,23 @@ export default function ManualLandingPage() {
               </h1>
 
               <p className="text-base sm:text-lg text-[#566173] leading-relaxed max-w-2xl font-sans">
-                Compendio técnico con casos prácticos resueltos paso a paso, análisis de comprobantes según la Ley N° 6380/19, modelos de asientos contables y liquidación en Formulario 120 V.4.
+                Compendio técnico impreso de máxima calidad con casos prácticos resueltos paso a paso, análisis de comprobantes según la Ley N° 6380/19, modelos de asientos contables y liquidación en Formulario 120 V.4. Material 100% práctico, con encuadernación anillada profesional y adaptado a la normativa DNIT vigente.
               </p>
 
               <div className="w-full pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <a
-                  href={HOTMART_CHECKOUT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-base font-bold bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-md group"
+                <button
+                  type="button"
+                  onClick={() => scrollToSection('opciones-compra')}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-base font-bold bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-md group cursor-pointer"
                 >
-                  <span>Obtener manual y plantillas</span>
-                  <span className="text-[#C98A2C] group-hover:translate-x-1 transition-transform">→</span>
-                </a>
+                  <span>Ver opciones de compra</span>
+                  <ChevronRight className="w-4 h-4 text-[#C98A2C] group-hover:translate-x-1 transition-transform" />
+                </button>
 
                 <button
                   type="button"
                   onClick={() => scrollToSection('contenido')}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-sm font-semibold bg-white text-[#1C242B] border border-slate-200 hover:bg-slate-50 transition-colors shadow-xs"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-sm font-semibold bg-white text-[#1C242B] border border-slate-200 hover:bg-slate-50 transition-colors shadow-xs cursor-pointer"
                 >
                   <Eye className="w-4 h-4 text-[#C98A2C]" />
                   <span>Explorar contenido incluido</span>
@@ -214,15 +175,15 @@ export default function ManualLandingPage() {
               <div className="pt-4 border-t border-slate-200/80 w-full flex flex-wrap items-center justify-center lg:justify-start gap-y-3 gap-x-6 text-xs text-[#566173]">
                 <div className="flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-[#C98A2C]" />
-                  <span>Acceso digital inmediato</span>
+                  <span>Material impreso premium (anillado profesional)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <FileText className="w-4 h-4 text-[#C98A2C]" />
-                  <span>Plantillas en formato Word y Excel</span>
+                  <span>100% adaptado a la Ley 6380/19 y DNIT vigente</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Check className="w-4 h-4 text-[#C98A2C]" />
-                  <span>Criterio tributario verificado</span>
+                  <span>Casos reales y ejercitario de práctica</span>
                 </div>
               </div>
             </div>
@@ -331,7 +292,7 @@ export default function ManualLandingPage() {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute bottom-2 left-2 right-2 bg-slate-900/80 backdrop-blur-xs text-white text-[10px] font-mono px-2 py-1 rounded text-center">
-                    Extracto real del PDF (Pág. 12)
+                    Extracto real del Tomo I (Pág. 12)
                   </div>
                 </div>
               </div>
@@ -344,10 +305,10 @@ export default function ManualLandingPage() {
                   01
                 </div>
                 <h3 className="text-base sm:text-lg font-bold font-heading text-[#1C242B]">
-                  Manual Guía en PDF
+                  Tomo I: Fundamentos y Liquidación
                 </h3>
                 <p className="text-sm text-[#566173] leading-relaxed">
-                  Desglose paso a paso de asientos contables y liquidación en Formulario 120 V.4.
+                  Desglose paso a paso de asientos contables y liquidación en Formulario 120 V.4 con normativa DNIT 2026.
                 </p>
               </div>
 
@@ -356,10 +317,10 @@ export default function ManualLandingPage() {
                   02
                 </div>
                 <h3 className="text-base sm:text-lg font-bold font-heading text-[#1C242B]">
-                  Plantillas en Word Editables
+                  Ejercitario Práctico de Casos
                 </h3>
                 <p className="text-sm text-[#566173] leading-relaxed">
-                  Modelos de papeles de trabajo listos para adaptar a cada cliente o empresa.
+                  100 cuentas reales con solucionario detallado y modelos de papeles de trabajo listos para ejercitar.
                 </p>
               </div>
 
@@ -628,14 +589,13 @@ export default function ManualLandingPage() {
                 El ejercicio profesional en Paraguay exige rigor ante las fiscalizaciones de la DNIT. Este material fue diseñado para eliminar la incertidumbre en cada cierre mensual.
               </p>
               <div className="pt-2">
-                <a
-                  href={HOTMART_CHECKOUT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl text-sm font-bold bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-sm"
+                <button
+                  type="button"
+                  onClick={() => scrollToSection('opciones-compra')}
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl text-sm font-bold bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-sm cursor-pointer"
                 >
-                  Asegurar mi práctica profesional
-                </a>
+                  Ver opciones de compra
+                </button>
               </div>
             </div>
 
@@ -724,146 +684,256 @@ export default function ManualLandingPage() {
       </section>
 
       {/* ------------------------------------------------------------- */}
-      {/* SECTION: FINAL CTA / OBTENER (#obtener)                       */}
-      {/* ------------------------------------------------------------- */}
-      {/* ------------------------------------------------------------- */}
-      {/* SECTION: VERSIÓN IMPRESA (#version-impresa)                   */}
+      {/* SECTION: OPCIONES DE COMPRA / PRECIOS (#opciones-compra)      */}
       {/* ------------------------------------------------------------- */}
       <section
-        id="version-impresa"
-        className="w-full bg-[#F7F8F9] py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-200/80 text-center"
+        id="opciones-compra"
+        className="w-full bg-[#F7F8F9] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-200/80 text-center scroll-mt-20"
       >
-        <div className="max-w-[880px] mx-auto space-y-6">
-          <div className="p-8 sm:p-10 rounded-3xl bg-white border-2 border-[#0F2438]/15 shadow-xl space-y-6 max-w-xl mx-auto text-center">
-            <div className="space-y-3">
-              <span className="text-xs uppercase font-mono tracking-wider text-[#C98A2C] font-extrabold inline-block bg-[#C98A2C]/10 px-3.5 py-1 rounded-full">
-                Edición física en papel
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-bold font-heading text-[#0F2438] tracking-tight">
-                Manual de Contabilidad Aplicada, anillado
-              </h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-sans max-w-lg mx-auto">
-                Juego anillado de 2 volúmenes más un ejercitario para practicar, con portadas a color. Incluye además la versión digital, que te enviamos por correo al completarse la compra.
-              </p>
+        <div id="obtener" className="max-w-[1240px] mx-auto space-y-12">
+          {/* Header */}
+          <div className="max-w-3xl mx-auto space-y-3.5 text-center">
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#C98A2C] bg-[#C98A2C]/10 px-4 py-1.5 rounded-full inline-block">
+              Edición Física Impresa · Disponible Ahora
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-[#0F2438] tracking-tight">
+              Elegí tu material y da el salto profesional definitivo
+            </h2>
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-sans max-w-2xl mx-auto">
+              Libros físicos con tapa full color, anillado profesional reforzado y papel de alto gramaje. Diseñados para tener abiertos sobre tu escritorio mientras liquidás impuestos reales.
+            </p>
+          </div>
+
+          {/* 3 Pricing Cards Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch pt-6 text-left">
+            {/* CARD 1: Tomo I */}
+            <div className="p-7 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-md flex flex-col justify-between hover:shadow-xl hover:border-slate-300 transition-all">
+              <div className="space-y-4">
+                <div className="space-y-1.5">
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C98A2C] block">
+                    Volumen Principal
+                  </span>
+                  <h3 className="text-2xl font-bold font-heading text-[#0F2438]">
+                    Tomo I
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 font-sans min-h-[38px] leading-relaxed">
+                    Fundamentos + asientos de liquidación del IVA
+                  </p>
+                </div>
+
+                <div className="py-4 border-y border-slate-100 my-2">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl sm:text-4xl font-extrabold font-heading text-[#0F2438]">
+                      {PRECIO_TOMO_1}
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-500 font-medium block mt-1">
+                    Ejemplar físico impreso anillado
+                  </span>
+                </div>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span><strong>Tapa full color</strong> y anillado profesional de alta resistencia</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span>Liquidación paso a paso en <strong>Formulario 120 V.4</strong> en Marangatu</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span>Asientos contables de compras, ventas y <strong>prorrateo de IVA Crédito</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span>Análisis de comprobantes bajo la <strong>Ley N° 6380/19</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span><strong>100% adaptado</strong> a la normativa DNIT 2026</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pt-6">
+                <a
+                  href={WHATSAPP_TOMO_1_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 text-center"
+                >
+                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                  <span>Pedir Tomo I</span>
+                </a>
+              </div>
             </div>
 
-            <div className="pt-2">
-              <span className="text-4xl sm:text-5xl font-extrabold font-heading text-[#0F2438]">
-                {PRECIO_VERSION_IMPRESA}
-              </span>
+            {/* CARD 2: Combo Completo (RECOMENDADO) */}
+            <div className="relative p-7 sm:p-9 rounded-3xl bg-white border-2 border-[#C98A2C] shadow-2xl flex flex-col justify-between ring-4 ring-[#C98A2C]/15 lg:-translate-y-3 hover:shadow-[0_25px_50px_rgba(201,138,44,0.2)] transition-all">
+              {/* Badge Recomendado */}
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#C98A2C] via-[#e2a443] to-[#C98A2C] text-[#0F2438] text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-md whitespace-nowrap flex items-center gap-1.5">
+                <span>⭐ RECOMENDADO · MEJOR VALOR</span>
+              </div>
+
+              <div className="space-y-4 pt-1">
+                <div className="space-y-1.5">
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C98A2C] block">
+                    Juego de 2 Volúmenes
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#0F2438]">
+                    Combo Completo
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 font-sans min-h-[38px] leading-relaxed">
+                    Tomo I (Fundamentos + IVA) + Ejercitario Práctico
+                  </p>
+                </div>
+
+                <div className="py-4 border-y border-[#C98A2C]/30 my-2 bg-[#C98A2C]/5 -mx-7 sm:-mx-9 px-7 sm:px-9">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl sm:text-5xl font-extrabold font-heading text-[#0F2438]">
+                      {PRECIO_COMBO}
+                    </span>
+                    <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full whitespace-nowrap">
+                      Ahorrás Gs. 20.000
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-600 font-medium block mt-1">
+                    Juego físico completo: 2 tomos anillados
+                  </span>
+                </div>
+
+                {/* Delivery Gratis Callout */}
+                <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-300 text-xs text-emerald-950 font-bold flex items-center gap-2.5 shadow-2xs">
+                  <span className="text-lg shrink-0">🚚</span>
+                  <span>Delivery incluido</span>
+                </div>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-700 pt-1">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span><strong>Tomo I completo:</strong> Asientos, análisis y liquidación Formulario 120</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span><strong>Ejercitario Práctico completo:</strong> 100 cuentas reales + solucionario</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span><strong>Delivery a domicilio</strong> en Asunción y Gran Asunción sin costo</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span><strong>Tapas full color</strong> y anillado profesional reforzado en ambos tomos</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span>Casos de <strong>control interno tributario</strong> y verificación legal</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span>Envíos rápidos por encomienda a todo el interior del país</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pt-6">
+                <a
+                  href={WHATSAPP_COMBO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-4 px-6 rounded-2xl font-black text-base bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.98] text-white shadow-lg shadow-[#25D366]/30 transition-all flex items-center justify-center gap-2.5 text-center group"
+                >
+                  <MessageCircle className="w-5 h-5 fill-current shrink-0" />
+                  <span>Pedir Combo Completo</span>
+                </a>
+              </div>
             </div>
 
-            <div className="space-y-2.5 text-xs sm:text-sm text-slate-700 font-medium text-left max-w-md mx-auto bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200/80">
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
-                <span>Reserva con un anticipo de {ANTICIPO_VERSION_IMPRESA}</span>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
-                <span>Entrega estimada: 2 a 3 días hábiles desde la confirmación</span>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
-                <span>Retiro, delivery o encomienda (se coordina por WhatsApp)</span>
-              </div>
-            </div>
+            {/* CARD 3: Ejercitario Práctico */}
+            <div className="p-7 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-md flex flex-col justify-between hover:shadow-xl hover:border-slate-300 transition-all">
+              <div className="space-y-4">
+                <div className="space-y-1.5">
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C98A2C] block">
+                    Práctica Intensiva
+                  </span>
+                  <h3 className="text-2xl font-bold font-heading text-[#0F2438]">
+                    Ejercitario Práctico
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 font-sans min-h-[38px] leading-relaxed">
+                    100 cuentas + solucionario + casos de control interno
+                  </p>
+                </div>
 
-            <div className="pt-2">
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                  `Hola Estudio Cáceres, quiero reservar la versión impresa anillada del Manual de Contabilidad Aplicada (preventa): 2 volúmenes + ejercitario, ${PRECIO_VERSION_IMPRESA}. Entiendo que se reserva con un anticipo de ${ANTICIPO_VERSION_IMPRESA}.\n\nMi nombre:\nMi ciudad:\nPrefiero: retiro / delivery / encomienda\nCorreo para los digitales:`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-base font-bold bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.98] text-white shadow-lg shadow-[#25D366]/20 transition-all group"
-              >
-                <MessageCircle className="w-5 h-5 fill-current" />
-                <span>Pedir versión impresa (preventa)</span>
-              </a>
+                <div className="py-4 border-y border-slate-100 my-2">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl sm:text-4xl font-extrabold font-heading text-[#0F2438]">
+                      {PRECIO_EJERCITARIO}
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-500 font-medium block mt-1">
+                    Ejemplar físico impreso anillado
+                  </span>
+                </div>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span><strong>100 cuentas contables</strong> reales para ejercitar y fijar criterio</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span><strong>Solucionario completo</strong> paso a paso con fundamentación técnica</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span>Casos de <strong>control interno tributario</strong> y detección de fallas</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span><strong>Tapa full color</strong> y anillado profesional para estudio cómodo</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+                    <span>Ideal para estudiantes, postulantes y auxiliares contables</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pt-6">
+                <a
+                  href={WHATSAPP_EJERCITARIO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 text-center"
+                >
+                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                  <span>Pedir Ejercitario</span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ------------------------------------------------------------- */}
-      {/* SECTION: FINAL CTA / OBTENER (#obtener)                       */}
-      {/* ------------------------------------------------------------- */}
-      <section
-        id="obtener"
-        className="w-full bg-[radial-gradient(60%_55%_at_50%_0%,rgba(15,36,56,0.06),transparent_70%),#ffffff] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 text-center"
-      >
-        <div className="max-w-[880px] mx-auto space-y-6 sm:space-y-8">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#1C242B] tracking-tight">
-            Inicie hoy su gestión contable con total respaldo
-          </h2>
-
-          <div className="w-16 h-0.5 bg-slate-300 mx-auto" />
-
-          <p className="text-base sm:text-lg text-[#566173] leading-relaxed max-w-xl mx-auto">
-            Acceda de forma inmediata al compendio completo en PDF y al paquete de plantillas editables en formato Word y Excel.
-          </p>
-
-          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border-2 border-[#0F2438]/15 shadow-xl space-y-6 max-w-md mx-auto relative overflow-hidden">
-            <div className="space-y-1">
-              <span className="text-xs uppercase font-mono tracking-wider text-[#C98A2C] font-extrabold block">
-                Versión Digital
-              </span>
-              <div className="flex items-center justify-center">
-                <span className="text-4xl sm:text-5xl font-extrabold font-heading text-[#0F2438]">
-                  Gs. 60.000
-                </span>
+          {/* Medios de pago y despacho */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm max-w-4xl mx-auto space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-700 text-left">
+              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                <Building2 className="w-5 h-5 text-[#C98A2C] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-[#0F2438] block">Medios de pago disponibles:</span>
+                  <p className="text-slate-600 mt-0.5">Transferencia SIPAP (todos los bancos y cooperativas), Pago vía QR y Billeteras (Tigo Money, Personal Pay, Zimple).</p>
+                </div>
               </div>
-            </div>
-
-            <div className="space-y-3 pt-2">
-              <button
-                type="button"
-                onClick={handleOpenPurchase}
-                className="w-full py-4 px-6 rounded-xl text-base font-bold bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-md flex items-center justify-center gap-2 group cursor-pointer"
-              >
-                <span>Obtener manual y plantillas — Gs. 60.000</span>
-                <ChevronRight className="w-4 h-4 text-[#C98A2C] group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <a
-                href={HOTMART_CHECKOUT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-[#0F2438] bg-white border border-slate-300 hover:bg-slate-100 transition-colors flex items-center justify-center gap-1.5"
-              >
-                <CreditCard className="w-3.5 h-3.5 text-[#C98A2C]" />
-                <span>Pagar con Tarjeta (Hotmart) en línea</span>
-                <ExternalLink className="w-3 h-3 text-slate-400" />
-              </a>
-            </div>
-
-            {/* Medios de pago disponibles visuales: primero SIPAP y QR, tarjeta (Hotmart) última */}
-            <div className="pt-3 border-t border-slate-200/90 space-y-2 text-left">
-              <span className="text-[11px] font-mono uppercase font-bold tracking-wider text-slate-500 block text-center">
-                Medios de pago habilitados:
-              </span>
-              <div className="grid grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
-                  <Building2 className="w-4 h-4 text-[#0F2438] shrink-0" />
-                  <span className="truncate">Transferencia SIPAP</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
-                  <QrCode className="w-4 h-4 text-[#C98A2C] shrink-0" />
-                  <span className="truncate">Pago vía QR</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
-                  <Smartphone className="w-4 h-4 text-[#C98A2C] shrink-0" />
-                  <span className="truncate">Billeteras locales</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 shadow-2xs">
-                  <CreditCard className="w-4 h-4 text-[#0F2438] shrink-0" />
-                  <span className="truncate">Tarjeta (Hotmart)</span>
+              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                <Smartphone className="w-5 h-5 text-[#25D366] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-[#0F2438] block">Entregas y Envíos:</span>
+                  <p className="text-slate-600 mt-0.5">Delivery rápido en Asunción y Gran Asunción (incluido en el Combo Completo) y encomienda a todo el interior del país.</p>
                 </div>
               </div>
             </div>
-
-            <p className="text-[11px] text-slate-600 leading-tight">
-              Pago 100% seguro. Aceptamos transferencias bancarias (SIPAP), pagos vía QR, billeteras electrónicas y tarjetas. Acceso digital inmediato sin costos de envío.
+            <p className="text-xs text-slate-500 font-sans border-t border-slate-100 pt-3">
+              ¿Tenés dudas antes de pedir? Escribinos directamente al WhatsApp <strong className="text-slate-800 font-mono">+595 993 535291</strong> para asistencia personalizada.
             </p>
           </div>
         </div>
@@ -971,353 +1041,6 @@ export default function ManualLandingPage() {
       </section>
 
       {/* ------------------------------------------------------------- */}
-      {/* INTERACTIVE PURCHASE & CHECKOUT MODAL                         */}
-      {/* ------------------------------------------------------------- */}
-      {purchaseModalOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-200"
-          onClick={() => setPurchaseModalOpen(false)}
-        >
-          <div
-            className="relative w-full max-w-lg rounded-2xl bg-white border border-slate-200 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setPurchaseModalOpen(false)}
-              className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
-              aria-label="Cerrar modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {!purchaseSuccess ? (
-              <div className="space-y-6 text-left">
-                <div className="space-y-1">
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C98A2C]">
-                    Adquisición del Kit Digital
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#0F2438]">
-                    Manual de Contabilidad DNIT 2026
-                  </h3>
-                  <div className="flex items-baseline gap-2 pt-1">
-                    <span className="text-2xl sm:text-3xl font-extrabold text-[#0F2438]">
-                      Gs. 60.000
-                    </span>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <label className="text-xs font-bold uppercase tracking-wider text-slate-600 block">
-                    Seleccione su medio de pago preferido:
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('sipap')}
-                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
-                        paymentMethod === 'sipap'
-                          ? 'border-[#0F2438] bg-[#0F2438] text-white shadow-xs'
-                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      <Building2 className="w-4 h-4" />
-                      <span>SIPAP / Bancos</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('qr')}
-                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
-                        paymentMethod === 'qr'
-                          ? 'border-[#0F2438] bg-[#0F2438] text-white shadow-xs'
-                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      <QrCode className="w-4 h-4" />
-                      <span>Pago vía QR</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('wallet')}
-                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
-                        paymentMethod === 'wallet'
-                          ? 'border-[#0F2438] bg-[#0F2438] text-white shadow-xs'
-                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      <Smartphone className="w-4 h-4" />
-                      <span>Billeteras PY</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('card')}
-                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
-                        paymentMethod === 'card'
-                          ? 'border-[#0F2438] bg-[#0F2438] text-white shadow-xs'
-                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      <CreditCard className="w-4 h-4" />
-                      <span>Tarjeta (Hotmart)</span>
-                    </button>
-                  </div>
-
-                  {/* Dynamic Instructions box according to selected payment method */}
-                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-1.5">
-                    {paymentMethod === 'sipap' && (
-                      <div>
-                        <div className="flex items-center gap-1.5 font-bold text-[#0F2438]">
-                          <Building2 className="w-4 h-4 text-[#C98A2C]" />
-                          <span>Transferencia Bancaria SIPAP (Gs. 60.000)</span>
-                        </div>
-                        <p className="mt-1 text-slate-600 leading-relaxed">
-                          Habilitado para todos los bancos y cooperativas de Paraguay. Podés transferir y adjuntarnos tu comprobante para activación inmediata.
-                        </p>
-                      </div>
-                    )}
-                    {paymentMethod === 'qr' && (
-                      <div>
-                        <div className="flex items-center gap-1.5 font-bold text-[#0F2438]">
-                          <QrCode className="w-4 h-4 text-[#C98A2C]" />
-                          <span>Pago Inmediato con Código QR (Gs. 60.000)</span>
-                        </div>
-                        <p className="mt-1 text-slate-600 leading-relaxed">
-                          Escaneá desde la app de tu banco (Itaú, Continental, Ueno, Familiar, BNF, Basa, Atlas, etc.) o billetera con lector QR.
-                        </p>
-                      </div>
-                    )}
-                    {paymentMethod === 'wallet' && (
-                      <div>
-                        <div className="flex items-center gap-1.5 font-bold text-[#0F2438]">
-                          <Smartphone className="w-4 h-4 text-[#C98A2C]" />
-                          <span>Billeteras Electrónicas (Gs. 60.000)</span>
-                        </div>
-                        <p className="mt-1 text-slate-600 leading-relaxed">
-                          Giros directos mediante Tigo Money, Personal Pay o Billetera Zimple al número <strong className="text-slate-900">+595 993 535291</strong>.
-                        </p>
-                      </div>
-                    )}
-                    {paymentMethod === 'card' && (
-                      <div>
-                        <div className="flex items-center gap-1.5 font-bold text-[#0F2438]">
-                          <CreditCard className="w-4 h-4 text-[#C98A2C]" />
-                          <span>Tarjetas de Crédito y Débito (Gs. 60.000)</span>
-                        </div>
-                        <p className="mt-1 text-slate-600 leading-relaxed">
-                          Pago online seguro con tarjetas de crédito o débito (Visa, Mastercard, American Express).
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <form onSubmit={handleFormSubmit} className="space-y-4 pt-1">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Nombre completo o Razón Social *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Ej: Marcelo Cáceres"
-                      value={formData.nombre}
-                      onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#C98A2C] focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Correo electrónico de recepción del material *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="tunombre@correo.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#C98A2C] focus:border-transparent"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        RUC o CI
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="1458932-3"
-                        value={formData.ruc}
-                        onChange={(e) => setFormData({ ...formData, ruc: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#C98A2C] focus:border-transparent font-mono"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">
-                        Teléfono / WhatsApp *
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="0981 123 456"
-                        value={formData.telefono}
-                        onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#C98A2C] focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="pt-2 space-y-2">
-                    {paymentMethod === 'card' ? (
-                      <a
-                        href={HOTMART_CHECKOUT_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full py-3.5 px-4 rounded-xl text-sm font-bold bg-[#0F2438] text-white hover:bg-[#163350] transition-colors flex items-center justify-center gap-2 text-center"
-                      >
-                        <Lock className="w-4 h-4 text-[#C98A2C]" />
-                        <span>Proceder al Pago Seguro con Tarjeta en Línea</span>
-                      </a>
-                    ) : (
-                      <button
-                        type="submit"
-                        className="w-full py-3.5 px-4 rounded-xl text-sm font-bold bg-[#0F2438] text-white hover:bg-[#163350] transition-colors flex items-center justify-center gap-2 text-center cursor-pointer"
-                      >
-                        <Check className="w-4 h-4 text-[#C98A2C]" />
-                        <span>
-                          {paymentMethod === 'sipap'
-                            ? 'Confirmar Registro y Datos para Transferencia SIPAP'
-                            : paymentMethod === 'qr'
-                            ? 'Confirmar Registro y Solicitar Código QR'
-                            : 'Confirmar Registro y Datos de Billetera'}
-                        </span>
-                      </button>
-                    )}
-                    
-                    <a
-                      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                        `Hola Estudio Cáceres, deseo adquirir el Manual Contable 2026 abonando mediante ${
-                          paymentMethod === 'sipap'
-                            ? 'Transferencia Bancaria (SIPAP)'
-                            : paymentMethod === 'qr'
-                            ? 'Pago vía QR'
-                            : paymentMethod === 'card'
-                            ? 'Tarjeta'
-                            : 'Billetera Electrónica'
-                        } (Gs. 60.000).`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-[#15803d] bg-emerald-50 hover:bg-emerald-100 transition-colors flex items-center justify-center gap-2 text-center"
-                    >
-                      <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                      <span>Coordinar pago directo por WhatsApp (+595 993 535291)</span>
-                    </a>
-                  </div>
-
-                  <p className="text-[11px] text-center text-slate-500">
-                    Transacción segura con cifrado SSL de 256 bits. Aceptamos transferencias bancarias (SIPAP), pagos vía QR, tarjetas y billeteras electrónicas.
-                  </p>
-                </form>
-              </div>
-            ) : (
-              <div className="text-center py-4 space-y-5">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center">
-                  <CheckCircle2 className="w-10 h-10" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-bold font-heading text-[#0F2438]">
-                    Solicitud recibida
-                  </h3>
-                  <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Solicitud recibida. Una vez confirmado tu pago, te enviamos el material al correo que indicaste.
-                  </p>
-                  {formData.email && (
-                    <p className="text-xs font-mono font-medium text-slate-500">
-                      Correo registrado: <span className="text-slate-800 font-semibold">{formData.email}</span>
-                    </p>
-                  )}
-                </div>
-
-                {/* Datos de pago existentes conservados sin cambios */}
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-left space-y-2 text-xs sm:text-sm text-slate-700">
-                  <div className="flex items-center gap-2 font-bold text-[#0F2438]">
-                    {paymentMethod === 'sipap' && <Building2 className="w-4 h-4 text-[#C98A2C]" />}
-                    {paymentMethod === 'qr' && <QrCode className="w-4 h-4 text-[#C98A2C]" />}
-                    {paymentMethod === 'wallet' && <Smartphone className="w-4 h-4 text-[#C98A2C]" />}
-                    {paymentMethod === 'card' && <CreditCard className="w-4 h-4 text-[#C98A2C]" />}
-                    <span>Datos para completar tu pago (Gs. 60.000):</span>
-                  </div>
-
-                  {paymentMethod === 'sipap' && (
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      Habilitado para todos los bancos y cooperativas de Paraguay. Podés transferir y adjuntarnos tu comprobante para activación inmediata.
-                    </p>
-                  )}
-                  {paymentMethod === 'qr' && (
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      Escaneá desde la app de tu banco (Itaú, Continental, Ueno, Familiar, BNF, Basa, Atlas, etc.) o billetera con lector QR.
-                    </p>
-                  )}
-                  {paymentMethod === 'wallet' && (
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      Giros directos mediante Tigo Money, Personal Pay o Billetera Zimple al número <strong className="text-slate-900">+595 993 535291</strong>.
-                    </p>
-                  )}
-                  {paymentMethod === 'card' && (
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      Pago online seguro con tarjetas de crédito o débito (Visa, Mastercard, American Express).
-                    </p>
-                  )}
-                </div>
-
-                <div className="space-y-2 pt-2">
-                  <a
-                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                      `Hola Estudio Cáceres, ya envié mi solicitud para el Manual de Contabilidad DNIT 2026 (Gs. 60.000).\n` +
-                      `Mi nombre: ${formData.nombre || ''}\n` +
-                      `Mi correo: ${formData.email || ''}\n` +
-                      `Medio de pago elegido: ${
-                        paymentMethod === 'sipap'
-                          ? 'Transferencia Bancaria SIPAP'
-                          : paymentMethod === 'qr'
-                          ? 'Pago vía QR'
-                          : paymentMethod === 'wallet'
-                          ? 'Billetera Electrónica'
-                          : 'Tarjeta'
-                      }.\n` +
-                      `Envío este mensaje para coordinar la confirmación del pago.`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-3.5 px-4 rounded-xl text-sm font-bold bg-[#25D366] text-white hover:bg-[#20ba59] transition-colors flex items-center justify-center gap-2 shadow-sm text-center"
-                  >
-                    <MessageCircle className="w-5 h-5 text-white" />
-                    <span>Coordinar pago por WhatsApp (+595 993 535291)</span>
-                  </a>
-
-                  <button
-                    onClick={() => {
-                      setPurchaseModalOpen(false);
-                      setPurchaseSuccess(false);
-                    }}
-                    className="w-full py-2 px-4 rounded-xl text-xs font-semibold text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors"
-                  >
-                    Cerrar ventana
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* ------------------------------------------------------------- */}
       {/* DOCUMENT PREVIEW MODAL                                        */}
       {/* ------------------------------------------------------------- */}
       {previewDoc && (
@@ -1368,23 +1091,25 @@ export default function ManualLandingPage() {
             {/* Modal Footer */}
             <div className="px-5 py-3 border-t border-slate-200 bg-white flex flex-col sm:flex-row items-center justify-between gap-3">
               <span className="text-xs text-slate-500">
-                Extracto oficial del Manual de Contabilidad DNIT 2026
+                Extracto oficial del Manual de Contabilidad DNIT 2026 (Material Impreso)
               </span>
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => setPreviewDoc(null)}
-                  className="w-full sm:w-auto px-4 py-2 rounded-xl border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+                  className="w-full sm:w-auto px-4 py-2 rounded-xl border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer"
                 >
                   Cerrar
                 </button>
-                <a
-                  href={HOTMART_CHECKOUT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#0F2438] text-white text-xs font-bold hover:bg-[#163350] transition-colors whitespace-nowrap text-center"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPreviewDoc(null);
+                    scrollToSection('opciones-compra');
+                  }}
+                  className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#0F2438] text-white text-xs font-bold hover:bg-[#163350] transition-colors whitespace-nowrap text-center cursor-pointer"
                 >
-                  Adquirir Manual Completo
-                </a>
+                  Ver opciones de compra
+                </button>
               </div>
             </div>
           </div>

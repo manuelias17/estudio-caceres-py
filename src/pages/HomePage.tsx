@@ -71,7 +71,7 @@ export default function HomePage() {
     },
     {
       q: '¿Cómo puedo adquirir el Manual de Contabilidad DNIT 2026?',
-      a: 'El manual cuenta con acceso digital inmediato en formato PDF con plantillas editables en Word y Excel. Podés abonar de forma 100% segura mediante transferencias bancarias (SIPAP), pagos vía QR, tarjetas de crédito o débito y billeteras locales.'
+      a: 'El manual se entrega en versión física impresa premium (anillado profesional y tapa a color). Podés pedir el Tomo I (Gs. 135.000), el Ejercitario Práctico (Gs. 55.000) o el Combo Completo recomendado (Gs. 170.000) que incluye delivery en Asunción y Gran Asunción. Coordinamos los pedidos directamente por WhatsApp.'
     }
   ];
 

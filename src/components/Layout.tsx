@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 import logoImgLocal from '../assets/images/logo_real_estudio_caceres.png';
 
-const HOTMART_CHECKOUT_URL = 'https://pay.hotmart.com/Y108013354Q?bid=1792156131415';
 const WHATSAPP_NUMBER = '595993535291';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Estudio Cáceres, quisiera hacer una consulta tributaria.')}`;
 
@@ -97,14 +96,17 @@ export default function Layout() {
 
             {/* Desktop Action Button: "Comprar manual" */}
             <div className="hidden sm:flex items-center gap-3">
-              <a
-                href={HOTMART_CHECKOUT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-sm whitespace-nowrap"
+              <Link
+                to="/manual#opciones-compra"
+                onClick={() => {
+                  if (location.pathname === '/manual') {
+                    scrollToSection('opciones-compra');
+                  }
+                }}
+                className="inline-flex items-center justify-center px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#0F2438] text-white hover:bg-[#163350] active:scale-[0.98] transition-all shadow-sm whitespace-nowrap cursor-pointer"
               >
                 Comprar manual
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -163,15 +165,18 @@ export default function Layout() {
             </div>
 
             <div className="pt-2 border-t border-slate-100">
-              <a
-                href={HOTMART_CHECKOUT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center py-3 px-4 rounded-xl text-sm font-bold bg-[#0F2438] text-white hover:bg-[#163350] transition-colors shadow-sm"
+              <Link
+                to="/manual#opciones-compra"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  if (location.pathname === '/manual') {
+                    scrollToSection('opciones-compra');
+                  }
+                }}
+                className="w-full flex items-center justify-center py-3 px-4 rounded-xl text-sm font-bold bg-[#0F2438] text-white hover:bg-[#163350] transition-colors shadow-sm cursor-pointer"
               >
                 Comprar manual
-              </a>
+              </Link>
             </div>
           </div>
         )}
