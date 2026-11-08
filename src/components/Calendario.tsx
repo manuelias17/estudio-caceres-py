@@ -7,13 +7,8 @@ import {
   Download,
   Filter,
   FileSpreadsheet,
-  AlertTriangle,
   Info,
-  Clock,
-  ArrowRight,
-  ExternalLink,
-  ShieldCheck,
-  Check
+  ArrowRight
 } from 'lucide-react';
 
 const WHATSAPP_NUMBER = '595993535291';
@@ -83,14 +78,12 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState<number>(2026);
   const [selectedRubro, setSelectedRubro] = useState<TaxRubro>('all');
-  const [alertSubscribed, setAlertSubscribed] = useState(false);
 
   // Extract last digit before verification dash or last character of number
   const handleRucChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setRucInput(val);
 
-    // Look for digits before dash, or last digit in string
     const match = val.match(/(\d+)(?:-\d+)?$/);
     if (match && match[1]) {
       const numbersOnly = match[1];
@@ -119,15 +112,12 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
     });
   };
 
-  // Base day for current digit
   const baseDay = BASE_DUE_DAYS[selectedDigit] ?? 21;
 
-  // Exact due date for selected month/year
   const exactDueDate = useMemo(() => {
     return getNextBusinessDay(selectedYear, selectedMonth, baseDay);
   }, [selectedYear, selectedMonth, baseDay]);
 
-  // Next 3 due dates calculated dynamically
   const upcomingDueDates = useMemo(() => {
     const list = [];
     for (let i = 0; i < 3; i++) {
@@ -139,7 +129,7 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
       }
       const due = getNextBusinessDay(y, m, baseDay);
       list.push({
-        periodMonth: MONTH_NAMES[(m + 11) % 12], // the previous month which is being declared
+        periodMonth: MONTH_NAMES[(m + 11) % 12],
         declarationMonth: MONTH_NAMES[m],
         day: due.getDate(),
         monthShort: MONTH_NAMES[m].slice(0, 3),
@@ -151,7 +141,6 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
     return list;
   }, [selectedMonth, selectedYear, baseDay]);
 
-  // Full 12-month annual schedule for table
   const annualSchedule = useMemo(() => {
     const months = [];
     for (let m = 0; m < 12; m++) {
@@ -159,44 +148,33 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
       const periodIndex = (m + 11) % 12;
       const periodYear = m === 0 ? selectedYear - 1 : selectedYear;
 
-      const taxes = [
-        { id: 'iva', name: 'IVA General (F. 120)', required: true },
-        { id: 'rg90', name: 'Registro Comprobantes RG 90', required: true },
-        { id: 'retenciones', name: 'Retenciones IVA/IRE (F. 122)', required: false },
-        { id: 'ire', name: 'IRE Resimple (Declaración Anual)', required: m === 1 }, // Feb
-        { id: 'irp', name: 'IRP Servicios Personales (Anual)', required: m === 2 }, // Mar
-      ];
-
-      const filteredTaxes = taxes.filter(t => {
-        if (selectedRubro === 'all') return true;
-        return t.id === selectedRubro;
-      });
-
       months.push({
         monthIndex: m,
         periodLabel: `${MONTH_NAMES[periodIndex]} ${periodYear}`,
         declarationLabel: `${MONTH_NAMES[m]} ${selectedYear}`,
         dueDate: due,
-        dateFormatted: `${due.getDate()} de ${MONTH_NAMES[m]}`,
         dayName: DAY_NAMES[due.getDay()],
-        taxes: filteredTaxes
+        dateFormatted: `${due.getDate()} de ${MONTH_NAMES[m]}`,
+        taxes: [
+          { name: 'IVA (F-120)', required: true },
+          { name: 'RG 90', required: true },
+          ...(m === 2 ? [{ name: 'IRP Serv. Personales', required: false }] : []),
+          ...(m === 1 ? [{ name: 'IRE Resimple', required: false }] : [])
+        ]
       });
     }
     return months;
-  }, [selectedYear, baseDay, selectedRubro]);
+  }, [selectedYear, baseDay]);
 
-  // Export annual schedule to CSV
   const handleExportCSV = () => {
-    const headers = ['Periodo Declarado', 'Mes de Vencimiento', 'Fecha Limite', 'Dia de Semana', 'Terminacion RUC', 'Obligaciones'];
-    const rows = annualSchedule.map(item => {
-      const taxNames = item.taxes.map(t => t.name).join('; ');
+    const headers = ['Periodo Fiscal', 'Mes Presentacion', 'Dia Base', 'Fecha Limite Exacta', 'Dia de la Semana'];
+    const rows = annualSchedule.map((item) => {
       return [
         `"${item.periodLabel}"`,
         `"${item.declarationLabel}"`,
-        `"${item.dateFormatted} de ${selectedYear}"`,
-        `"${item.dayName}"`,
-        `"${selectedDigit}"`,
-        `"${taxNames}"`
+        baseDay,
+        `"${item.dateFormatted}"`,
+        `"${item.dayName}"`
       ];
     });
 
@@ -218,19 +196,19 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
   )}`;
 
   return (
-    <div id="vencimientos" className="w-full bg-[#F7F8F9] text-[#1C242B] py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
+    <div id="vencimientos" className="w-full bg-[#E9E6E0] text-[#213C2F] py-12 sm:py-20 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-7xl mx-auto space-y-12">
         {/* Section Header */}
         {showHero && (
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-1.5 bg-[#C98A2C]/15 border border-[#C98A2C]/30 text-[#0F2438] px-3.5 py-1.5 rounded-full text-xs font-bold font-mono tracking-wider uppercase">
-              <CalendarIcon className="w-3.5 h-3.5 text-[#C98A2C]" />
+            <div className="inline-flex items-center gap-1.5 bg-[#B8955E]/15 border border-[#B8955E]/30 text-[#213C2F] px-3.5 py-1.5 rounded-full text-xs font-bold font-mono tracking-wider uppercase">
+              <CalendarIcon className="w-3.5 h-3.5 text-[#B8955E]" />
               <span>Herramienta Oficial DNIT Paraguay 2026</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-[#0F2438] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-[#213C2F] tracking-tight">
               Calendario Perpetuo de Vencimientos DNIT
             </h1>
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-sans">
+            <p className="text-base sm:text-lg text-[#213C2F]/80 leading-relaxed font-sans">
               En Paraguay, las declaraciones de IVA, IRP, IRE y RG 90 vencen según el último dígito del RUC antes del guion. 
               Consultá con exactitud tu fecha límite, exportá tus calendarios a Excel y programá recordatorios para operar sin multas.
             </p>
@@ -240,24 +218,24 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
         {/* Main Grid: Control Panel (Left) & Result Card (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Column: Form & Filters */}
-          <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <h2 className="text-lg font-bold font-heading text-[#0F2438] flex items-center gap-2">
-                <Search className="w-5 h-5 text-[#C98A2C]" />
+          <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-2xl border border-[#C6C3BE] shadow-sm space-y-6">
+            <div className="flex items-center justify-between border-b border-[#C6C3BE]/50 pb-4">
+              <h2 className="text-lg font-bold font-heading text-[#213C2F] flex items-center gap-2">
+                <Search className="w-5 h-5 text-[#B8955E]" />
                 <span>Paso 1: Ingresá tu RUC o CI</span>
               </h2>
-              <span className="text-xs font-mono font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
+              <span className="text-xs font-mono font-bold text-[#213C2F]/70 bg-[#E9E6E0] px-2.5 py-1 rounded-md">
                 DNIT Res. 2026
               </span>
             </div>
 
             {/* RUC Input with auto detection */}
             <div>
-              <label htmlFor="ruc-input" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-600 mb-2">
+              <label htmlFor="ruc-input" className="block text-xs font-mono font-bold uppercase tracking-wider text-[#213C2F]/80 mb-2">
                 Escribí tu RUC o Cédula de Identidad:
               </label>
               <div className="relative rounded-xl shadow-xs">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#213C2F]/40">
                   <Search className="h-5 w-5" />
                 </div>
                 <input
@@ -266,23 +244,23 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
                   value={rucInput}
                   onChange={handleRucChange}
                   placeholder="Ej: 1458932-3 o 2548971"
-                  className="block w-full pl-11 pr-32 py-3.5 bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C98A2C] focus:border-transparent rounded-xl text-base font-semibold text-slate-900 font-mono transition-all"
+                  className="block w-full pl-11 pr-32 py-3.5 bg-[#E9E6E0]/40 border border-[#C6C3BE] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#B8955E] focus:border-transparent rounded-xl text-base font-semibold text-[#213C2F] font-mono transition-all"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <span className="text-xs font-mono font-bold bg-[#0F2438] text-white px-2.5 py-1 rounded-lg">
-                    Termina en: <strong className="text-[#C98A2C]">{selectedDigit}</strong>
+                  <span className="text-xs font-mono font-bold bg-[#213C2F] text-white px-2.5 py-1 rounded-lg border border-[#B8955E]/40">
+                    Termina en: <strong className="text-[#B8955E]">{selectedDigit}</strong>
                   </span>
                 </div>
               </div>
-              <p className="mt-2 text-xs text-slate-500 flex items-center gap-1.5 font-sans">
-                <Info className="h-3.5 w-3.5 text-[#C98A2C] shrink-0" />
+              <p className="mt-2 text-xs text-[#213C2F]/70 flex items-center gap-1.5 font-sans">
+                <Info className="h-3.5 w-3.5 text-[#B8955E] shrink-0" />
                 <span>La DNIT toma el último número antes del guion de control.</span>
               </p>
             </div>
 
             {/* Direct Digit Selector Buttons (0 to 9) */}
             <div>
-              <span className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-600 mb-3">
+              <span className="block text-xs font-mono font-bold uppercase tracking-wider text-[#213C2F]/80 mb-3">
                 O hacé clic en tu número final de RUC:
               </span>
               <div className="grid grid-cols-5 gap-2">
@@ -295,8 +273,8 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
                       onClick={() => handleSelectDigit(digit)}
                       className={`h-11 rounded-xl font-mono text-base font-bold flex items-center justify-center transition-all ${
                         isSelected
-                          ? 'bg-[#0F2438] text-white shadow-md scale-105 border-2 border-[#C98A2C]'
-                          : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200 hover:border-slate-300'
+                          ? 'bg-[#213C2F] text-white shadow-md scale-105 border-2 border-[#B8955E]'
+                          : 'bg-white text-[#213C2F] hover:bg-[#E9E6E0] border border-[#C6C3BE]'
                       }`}
                     >
                       {digit}
@@ -309,14 +287,14 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
             {/* Month and Year Selectors */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="select-month" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-600 mb-2">
+                <label htmlFor="select-month" className="block text-xs font-mono font-bold uppercase tracking-wider text-[#213C2F]/80 mb-2">
                   Mes de Presentación:
                 </label>
                 <select
                   id="select-month"
                   value={selectedMonth}
                   onChange={(e) => setSelectedMonth(parseInt(e.target.value, 10))}
-                  className="block w-full py-3 pl-3 pr-8 bg-white border border-slate-200 rounded-xl font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#C98A2C] transition-all text-sm"
+                  className="block w-full py-3 pl-3 pr-8 bg-white border border-[#C6C3BE] rounded-xl font-medium text-[#213C2F] focus:outline-none focus:ring-2 focus:ring-[#B8955E] transition-all text-sm"
                 >
                   {MONTH_NAMES.map((name, idx) => (
                     <option key={idx} value={idx}>
@@ -327,14 +305,14 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
               </div>
 
               <div>
-                <label htmlFor="select-year" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-600 mb-2">
+                <label htmlFor="select-year" className="block text-xs font-mono font-bold uppercase tracking-wider text-[#213C2F]/80 mb-2">
                   Año Fiscal:
                 </label>
                 <select
                   id="select-year"
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))}
-                  className="block w-full py-3 pl-3 pr-8 bg-white border border-slate-200 rounded-xl font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#C98A2C] transition-all text-sm"
+                  className="block w-full py-3 pl-3 pr-8 bg-white border border-[#C6C3BE] rounded-xl font-medium text-[#213C2F] focus:outline-none focus:ring-2 focus:ring-[#B8955E] transition-all text-sm"
                 >
                   <option value={2026}>2026</option>
                   <option value={2027}>2027</option>
@@ -345,15 +323,15 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
 
             {/* Tax / Rubro Filter */}
             <div>
-              <label htmlFor="select-rubro" className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-600 mb-2 flex items-center justify-between">
+              <label htmlFor="select-rubro" className="block text-xs font-mono font-bold uppercase tracking-wider text-[#213C2F]/80 mb-2 flex items-center justify-between">
                 <span>Filtrar por Impuesto:</span>
-                <Filter className="w-3.5 h-3.5 text-slate-400" />
+                <Filter className="w-3.5 h-3.5 text-[#B8955E]" />
               </label>
               <select
                 id="select-rubro"
                 value={selectedRubro}
                 onChange={(e) => setSelectedRubro(e.target.value as TaxRubro)}
-                className="block w-full py-3 pl-3 pr-8 bg-white border border-slate-200 rounded-xl font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#C98A2C] transition-all text-sm"
+                className="block w-full py-3 pl-3 pr-8 bg-white border border-[#C6C3BE] rounded-xl font-medium text-[#213C2F] focus:outline-none focus:ring-2 focus:ring-[#B8955E] transition-all text-sm"
               >
                 <option value="all">Todos los impuestos aplicables</option>
                 <option value="iva">IVA General (Formulario 120 Mensual)</option>
@@ -365,8 +343,8 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
             </div>
 
             {/* Note alert */}
-            <div className="p-4 bg-amber-50/70 border border-amber-200/60 rounded-xl text-xs text-slate-700 leading-relaxed flex gap-3">
-              <Info className="w-4 h-4 text-[#C98A2C] shrink-0 mt-0.5" />
+            <div className="p-4 bg-[#E9E6E0]/60 border border-[#C6C3BE] rounded-xl text-xs text-[#213C2F] leading-relaxed flex gap-3">
+              <Info className="w-4 h-4 text-[#B8955E] shrink-0 mt-0.5" />
               <div>
                 <strong>Regla de prórroga DNIT:</strong> Si el día cae en sábado, domingo o feriado oficial nacional, el vencimiento se traslada automáticamente al <strong>primer día hábil siguiente</strong>.
               </div>
@@ -375,23 +353,23 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
 
           {/* Right Column: Result Card & Upcoming Dates */}
           <div className="lg:col-span-7 flex flex-col gap-6">
-            <div className="bg-[#0F2438] text-white rounded-2xl shadow-xl overflow-hidden border border-slate-800">
+            <div className="bg-[#213C2F] text-white rounded-2xl shadow-xl overflow-hidden border border-[#C6C3BE]/30">
               {/* Header result */}
-              <div className="bg-gradient-to-r from-[#0F2438] via-[#163350] to-[#0F2438] p-6 sm:p-7 border-b border-white/10 text-left">
+              <div className="bg-gradient-to-r from-[#213C2F] via-[#274737] to-[#213C2F] p-6 sm:p-7 border-b border-white/10 text-left">
                 <div className="flex items-center justify-between flex-wrap gap-2">
-                  <span className="text-[11px] uppercase font-mono font-bold tracking-widest text-[#C98A2C] bg-white/10 px-3 py-1 rounded-full">
+                  <span className="text-[11px] uppercase font-mono font-bold tracking-widest text-[#B8955E] bg-white/10 px-3 py-1 rounded-full border border-[#B8955E]/30">
                     Resultado Oficial para Dígito {selectedDigit}
                   </span>
-                  <span className="text-xs text-slate-300 font-mono">
+                  <span className="text-xs text-white/70 font-mono">
                     Período: {MONTH_NAMES[(selectedMonth + 11) % 12]} {selectedMonth === 0 ? selectedYear - 1 : selectedYear}
                   </span>
                 </div>
 
                 <div className="mt-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
                   <h3 className="text-3xl sm:text-4xl font-display font-extrabold flex items-baseline gap-2">
-                    Vence el día: <span className="text-[#C98A2C] text-4xl sm:text-5xl">{baseDay}</span>
+                    Vence el día: <span className="text-[#B8955E] text-4xl sm:text-5xl">{baseDay}</span>
                   </h3>
-                  <span className="text-xs text-slate-300 bg-white/10 px-2.5 py-1 rounded-md">
+                  <span className="text-xs text-white/70 bg-white/10 px-2.5 py-1 rounded-md">
                     Día base establecido por el calendario perpetuo
                   </span>
                 </div>
@@ -400,18 +378,18 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
               {/* Exact deadline box */}
               <div className="p-6 sm:p-8 space-y-6 text-left">
                 <div className="bg-white/5 rounded-2xl p-5 border border-white/10 flex items-start gap-4">
-                  <div className="p-3 bg-[#C98A2C]/20 text-[#C98A2C] rounded-xl border border-[#C98A2C]/30 shrink-0">
+                  <div className="p-3 bg-[#B8955E]/20 text-[#B8955E] rounded-xl border border-[#B8955E]/30 shrink-0">
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-xs text-slate-400 font-mono uppercase tracking-wider block">
+                    <span className="text-xs text-white/60 font-mono uppercase tracking-wider block">
                       Fecha Límite Exacta en {MONTH_NAMES[selectedMonth]} {selectedYear}:
                     </span>
                     <strong className="text-xl sm:text-2xl font-bold font-heading text-white block mt-1">
                       {DAY_NAMES[exactDueDate.getDay()]}, {exactDueDate.getDate()} de {MONTH_NAMES[selectedMonth]} de {selectedYear}
                     </strong>
                     {exactDueDate.getDate() !== baseDay && (
-                      <span className="text-xs text-[#C98A2C] font-semibold mt-1 inline-block">
+                      <span className="text-xs text-[#B8955E] font-semibold mt-1 inline-block">
                         * Prorrogado por fin de semana o feriado (fecha original: {baseDay})
                       </span>
                     )}
@@ -420,23 +398,23 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
 
                 {/* Next 3 due dates */}
                 <div>
-                  <span className="block text-xs font-mono font-bold uppercase tracking-widest text-slate-400 mb-3.5">
+                  <span className="block text-xs font-mono font-bold uppercase tracking-widest text-white/70 mb-3.5">
                     Próximas 3 Fechas de Vencimiento:
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                     {upcomingDueDates.map((item, idx) => (
                       <div
                         key={idx}
-                        className="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-[#C98A2C]/40 transition-all flex flex-col text-left"
+                        className="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-[#B8955E]/40 transition-all flex flex-col text-left"
                       >
-                        <span className="text-xs text-[#C98A2C] font-semibold font-mono">
+                        <span className="text-xs text-[#B8955E] font-semibold font-mono">
                           Periodo: {item.periodMonth}
                         </span>
                         <span className="text-xl font-heading font-extrabold text-white mt-1">
                           {item.day}
-                          <span className="text-xs text-slate-300 font-sans ml-1">{item.monthShort}</span>
+                          <span className="text-xs text-white/70 font-sans ml-1">{item.monthShort}</span>
                         </span>
-                        <span className="text-xs text-slate-400 font-medium font-sans mt-0.5">
+                        <span className="text-xs text-white/60 font-medium font-sans mt-0.5">
                           {item.dayName} · {item.year}
                         </span>
                       </div>
@@ -449,9 +427,9 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
                   <button
                     type="button"
                     onClick={handleExportCSV}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs border border-white/15 transition-all shadow-xs"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs border border-white/15 transition-all shadow-xs cursor-pointer"
                   >
-                    <Download className="w-4 h-4 text-[#C98A2C]" />
+                    <Download className="w-4 h-4 text-[#B8955E]" />
                     <span>Descargar Calendario Anual (.CSV / Excel)</span>
                   </button>
 
@@ -459,9 +437,9 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
                     href={whatsappReminderUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-[#C98A2C] hover:bg-[#d99732] text-[#0F2438] font-extrabold text-xs py-3 px-6 rounded-xl shadow-md transition-all uppercase tracking-wider"
+                    className="inline-flex items-center justify-center gap-2 bg-[#B8955E] hover:bg-[#a3824e] text-white font-extrabold text-xs py-3 px-6 rounded-xl shadow-md transition-all uppercase tracking-wider"
                   >
-                    <BellRing className="w-4 h-4" />
+                    <BellRing className="w-4 h-4 text-white" />
                     <span>Agendar Recordatorio WhatsApp</span>
                   </a>
                 </div>
@@ -469,12 +447,12 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
             </div>
 
             {/* Quick Consultation Banner */}
-            <div className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
+            <div className="p-5 rounded-2xl bg-white border border-[#C6C3BE] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
               <div className="space-y-1">
-                <h4 className="font-bold font-heading text-[#0F2438] text-base">
+                <h4 className="font-bold font-heading text-[#213C2F] text-base">
                   ¿Querés delegar la liquidación y evitar multas?
                 </h4>
-                <p className="text-xs text-slate-600">
+                <p className="text-xs text-[#213C2F]/80">
                   En Estudio Cáceres presentamos tu IVA y RG 90 cada mes con reporte anticipado y respaldo técnico.
                 </p>
               </div>
@@ -482,32 +460,32 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
                 href={whatsappReminderUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#0F2438] text-white hover:bg-[#163350] font-bold text-xs shrink-0 transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#213C2F] text-white hover:bg-[#16271f] font-bold text-xs shrink-0 transition-colors border border-[#B8955E]/40"
               >
                 <span>Solicitar Presupuesto</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#C98A2C]" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#B8955E]" />
               </a>
             </div>
           </div>
         </div>
 
         {/* Full Annual Table */}
-        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-          <div className="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-white rounded-2xl border border-[#C6C3BE] shadow-sm overflow-hidden">
+          <div className="p-6 border-b border-[#C6C3BE] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h3 className="text-xl font-bold font-heading text-[#0F2438]">
+              <h3 className="text-xl font-bold font-heading text-[#213C2F]">
                 Cronograma Anual de Vencimientos DNIT ({selectedYear})
               </h3>
-              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              <p className="text-xs sm:text-sm text-[#213C2F]/70 mt-0.5">
                 Fechas exactas para contribuyentes con RUC terminado en <strong>{selectedDigit}</strong>.
               </p>
             </div>
             <button
               type="button"
               onClick={handleExportCSV}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors self-start sm:self-auto"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#E9E6E0] hover:bg-[#C6C3BE] text-[#213C2F] font-bold text-xs transition-colors self-start sm:self-auto cursor-pointer"
             >
-              <FileSpreadsheet className="w-4 h-4 text-[#C98A2C]" />
+              <FileSpreadsheet className="w-4 h-4 text-[#B8955E]" />
               <span>Exportar a Excel</span>
             </button>
           </div>
@@ -515,7 +493,7 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-sm">
               <thead>
-                <tr className="bg-slate-50 text-slate-700 font-mono text-xs uppercase tracking-wider border-b border-slate-200">
+                <tr className="bg-[#E9E6E0]/60 text-[#213C2F] font-mono text-xs uppercase tracking-wider border-b border-[#C6C3BE]">
                   <th className="py-3.5 px-4 sm:px-6">Periodo Fiscal</th>
                   <th className="py-3.5 px-4 sm:px-6">Mes de Presentación</th>
                   <th className="py-3.5 px-4 sm:px-6">Fecha Límite Exacta</th>
@@ -524,28 +502,28 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
                   <th className="py-3.5 px-4 sm:px-6 text-right">Acción</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-sans">
+              <tbody className="divide-y divide-[#C6C3BE]/40 font-sans">
                 {annualSchedule.map((item, idx) => {
                   const isCurrent = item.monthIndex === selectedMonth;
                   return (
                     <tr
                       key={idx}
-                      className={`hover:bg-slate-50/80 transition-colors ${
-                        isCurrent ? 'bg-amber-50/40 font-semibold' : ''
+                      className={`hover:bg-[#E9E6E0]/40 transition-colors ${
+                        isCurrent ? 'bg-[#B8955E]/15 font-semibold' : ''
                       }`}
                     >
-                      <td className="py-3.5 px-4 sm:px-6 text-[#0F2438] font-medium">
+                      <td className="py-3.5 px-4 sm:px-6 text-[#213C2F] font-medium">
                         {item.periodLabel}
                       </td>
-                      <td className="py-3.5 px-4 sm:px-6 text-slate-600">
+                      <td className="py-3.5 px-4 sm:px-6 text-[#213C2F]/80">
                         {item.declarationLabel}
                       </td>
                       <td className="py-3.5 px-4 sm:px-6">
-                        <span className="font-heading font-bold text-[#0F2438]">
+                        <span className="font-heading font-bold text-[#213C2F]">
                           {item.dateFormatted}
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 sm:px-6 text-slate-500 font-mono text-xs">
+                      <td className="py-3.5 px-4 sm:px-6 text-[#213C2F]/70 font-mono text-xs">
                         {item.dayName}
                       </td>
                       <td className="py-3.5 px-4 sm:px-6">
@@ -555,8 +533,8 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
                               key={tIdx}
                               className={`text-[11px] px-2 py-0.5 rounded-md font-medium ${
                                 t.required
-                                  ? 'bg-blue-50 text-blue-700 border border-blue-200/60'
-                                  : 'bg-slate-100 text-slate-600'
+                                  ? 'bg-[#213C2F]/10 text-[#213C2F] border border-[#213C2F]/20'
+                                  : 'bg-[#E9E6E0] text-[#213C2F]/70'
                               }`}
                             >
                               {t.name}
@@ -569,7 +547,7 @@ export default function Calendario({ initialDigit = 7, showHero = true }: Calend
                           href={whatsappReminderUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs font-bold text-[#C98A2C] hover:text-[#0F2438] transition-colors"
+                          className="text-xs font-bold text-[#B8955E] hover:text-[#213C2F] transition-colors"
                         >
                           Recordarme
                         </a>
