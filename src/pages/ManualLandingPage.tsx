@@ -14,7 +14,6 @@ import {
   Sparkles
 } from 'lucide-react';
 
-import heroTabletImg from '../assets/images/hero_tablet_formulario120_1792156674072.jpg';
 import balanceSumasSaldosImg from '../assets/images/balance_sumas_saldos_1792161555547.jpg';
 import fotoPerfilAutor from '../assets/images/foto_perfil_elias_caceres.jpg';
 import page1Svg from '../assets/images/muestras_manual_contabilidad.svg';
@@ -193,24 +192,16 @@ export default function ManualLandingPage() {
             <div className="lg:col-span-5 relative flex justify-center">
               <div className="relative w-full max-w-[420px] lg:max-w-none">
                 <div className="relative mx-auto rounded-[32px] p-3 sm:p-4 bg-[#213C2F] border-4 border-[#213C2F] shadow-[0_25px_50px_-12px_rgba(33,60,47,0.35)]">
-                  <div className="overflow-hidden rounded-[20px] border border-[#B8955E]/40 bg-white aspect-[3/4] relative">
+                  <div className="overflow-hidden rounded-[20px] border border-[#B8955E]/40 bg-white aspect-[2/3] relative">
                     <img
-                      src={heroTabletImg}
-                      alt="Manual de Contabilidad Aplicada con Formulario 120 y asientos contables"
-                      width={600}
-                      height={800}
+                      src="/assets/aistudio/Portada_oficial_de_manual_Contabilidad_Aplicada_ab64a4d5.png"
+                      alt="Portada oficial del Manual Práctico de Contabilidad Aplicada - Estudio Cáceres"
+                      width={1024}
+                      height={1536}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#213C2F]/90 via-transparent to-transparent flex flex-col justify-end p-5 text-left text-white pointer-events-none">
-                      <span className="text-[11px] font-mono tracking-widest text-[#B8955E] uppercase font-bold">
-                        Edición Profesional · Auditoría Externa
-                      </span>
-                      <p className="text-sm font-bold font-heading text-white">
-                        Papeles de trabajo y registro contable de la liquidación del IVA
-                      </p>
-                    </div>
                   </div>
                 </div>
 
