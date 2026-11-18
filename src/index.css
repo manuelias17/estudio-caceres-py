@@ -1,20 +1,26 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+}
+
 @layer base {
   :root {
-    --primary: #213C2F;
-    --accent: #B8955E;
-    --bg-stone-light: #E9E6E0;
-    --border-stone: #C6C3BE;
-    --white: #FFFFFF;
-    --font-heading: 'Playfair Display', Georgia, serif;
-    --font-body: 'Open Sans', system-ui, -apple-system, sans-serif;
+    --navy: #1E3A5F;
+    --sand: #E8DCC4;
+    --cream: #F5F0E6;
+    --ink: #2C2C2C;
+    --success: #4A7C59;
+    --error: #B85450;
+    --font-heading: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+    --font-body: 'Source Sans 3', system-ui, -apple-system, sans-serif;
   }
 
   body {
     font-family: var(--font-body);
-    color: #213C2F;
-    background-color: var(--bg-stone-light);
+    color: var(--ink);
+    background-color: var(--cream);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -23,7 +29,6 @@
 
   h1, h2, h3, h4, h5, h6, .font-heading {
     font-family: var(--font-heading);
-    color: #213C2F;
     letter-spacing: -0.015em;
   }
 }
