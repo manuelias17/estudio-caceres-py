@@ -135,7 +135,7 @@ export default function ManualLandingPage() {
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-1 px-3 py-1 rounded bg-[#F59E0B] hover:bg-[#FBBF24] text-[#1E3A5F] text-[11px] sm:text-xs font-extrabold tracking-wide uppercase transition-colors shrink-0 cursor-pointer"
             >
-              <span>VER OFERTA DIGITAL</span>
+              <span>QUIERO MI ACCESO</span>
               <span className="group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
             </a>
           </div>
