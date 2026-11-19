@@ -247,7 +247,7 @@ export default function ManualLandingPage() {
                       {PRECIO_TOMO_1_DIGITAL}
                     </span>
                     <span className="text-xs text-[#2C2C2C]/80 font-medium block mt-1 leading-relaxed">
-                      PDF del TOMO I. Precio promocional por tomo separado (Precio de Lista regular: {PRECIO_TOMO_1_DIGITAL_LISTA}). Entrega al correo en 24-48h tras confirmación de pago.
+                      PDF del TOMO I. Precio promocional por tomo separado (Precio de Lista regular: {PRECIO_TOMO_1_DIGITAL_LISTA}). Acceso inmediato vía correo tras confirmar tu pago (Pago único).
                     </span>
                   </div>
 
@@ -360,7 +360,7 @@ export default function ManualLandingPage() {
                       {PRECIO_COMBO_DIGITAL}
                     </span>
                     <span className="text-xs text-[#2C2C2C] font-medium block mt-2 leading-relaxed">
-                      Pack Completo (Tomo I + Tomo II + Ejercitario + Bonus en PDF y plantillas .docx editables): ahorro directo de Gs. 46.000 sobre el valor regular de Gs. 155.000. Entrega al correo en 24-48h tras confirmación de pago.
+                      Pack Completo (Tomo I + Tomo II + Ejercitario + Bonus en PDF y plantillas .docx editables): ahorro directo de Gs. 46.000 sobre el valor regular de Gs. 155.000. Acceso inmediato vía correo tras confirmar tu pago (Pago único).
                     </span>
                   </div>
 
@@ -468,7 +468,7 @@ export default function ManualLandingPage() {
                       {PRECIO_TOMO_2_DIGITAL}
                     </span>
                     <span className="text-xs text-[#2C2C2C]/80 font-medium block mt-1 leading-relaxed">
-                      PDF + plantillas .docx editables. Precio promocional por tomo separado (Precio de Lista regular: {PRECIO_TOMO_2_DIGITAL_LISTA}). Entrega al correo en 24-48h tras confirmación de pago.
+                      PDF + plantillas .docx editables. Precio promocional por tomo separado (Precio de Lista regular: {PRECIO_TOMO_2_DIGITAL_LISTA}). Acceso inmediato vía correo tras confirmar tu pago (Pago único).
                     </span>
                   </div>
 
@@ -513,7 +513,7 @@ export default function ManualLandingPage() {
                   Cómo recibís la Versión Digital
                 </span>
                 <p className="text-sm sm:text-base font-semibold text-[#1E3A5F] font-sans">
-                  🛒 Comprá → 💳 Pagá → 📧 Recibís al correo con acceso inmediato
+                  🧾 Enviá comprobante → 📝 Completá el formulario que te enviaremos → 📧 Recibís al correo indicado con acceso inmediato
                 </p>
               </div>
               <div className="p-5 rounded-2xl bg-white border border-[#1E3A5F]/15 space-y-2">
