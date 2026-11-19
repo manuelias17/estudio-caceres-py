@@ -32,7 +32,7 @@ const WHATSAPP_TOMO_1_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${enc
 )}`;
 
 const WHATSAPP_TOMO_2_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  'Hola Estudio Cáceres, quiero comprar el Tomo II — Ejercitario Práctico de Contabilidad Aplicada (Edición Digital en PDF + plantillas .docx editables) por Gs. 39.000.\n\n' +
+  'Hola Estudio Cáceres, quiero comprar el Tomo II — Ejercitario Práctico de Contabilidad Aplicada (Edición Digital en PDF) por Gs. 39.000.\n\n' +
   'Mis datos para el envío al correo electrónico:\n' +
   '• Nombre completo:\n' +
   '• Correo electrónico:\n' +
@@ -40,7 +40,7 @@ const WHATSAPP_TOMO_2_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${enc
 )}`;
 
 const WHATSAPP_COMBO_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  'Hola Estudio Cáceres, quiero aprovechar la oferta del Combo Completo Digital (Tomo I + Tomo II + Ejercitario + Bonus en PDF y plantillas .docx editables) con 30% OFF por Gs. 109.000 (ahorro directo de Gs. 46.000 sobre Gs. 155.000).\n\n' +
+  'Hola Estudio Cáceres, quiero aprovechar la oferta del Combo Completo Digital (Tomo I + Tomo II en PDF + 1 mes de soporte técnico por WhatsApp) con 30% OFF por Gs. 109.000 (ahorro directo de Gs. 46.000 sobre Gs. 155.000).\n\n' +
   'Mis datos para el envío al correo electrónico:\n' +
   '• Nombre completo:\n' +
   '• Correo electrónico:\n' +
@@ -158,8 +158,8 @@ export default function ManualLandingPage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#1E3A5F] tracking-tight text-balance">
               Elegí tu material y aprendé contabilidad con criterio de auditor
             </h2>
-            <p className="text-base sm:text-lg text-[#2C2C2C] leading-relaxed font-sans max-w-2xl mx-auto">
-              Accedé de forma inmediata a los Tomos I y II en versión digital (PDF + plantillas editables al correo) o solicitá los ejemplares físicos impresos con envío a domicilio.
+            <p className="text-base sm:text-[1.1rem] text-[#2C2C2C] leading-[1.6] font-sans max-w-2xl mx-auto">
+              Accedé de forma inmediata a los Tomos I y II en versión digital (PDF completo con acceso al correo) + Bonus: 1 mes de soporte técnico para resolver tus dudas. También disponible en edición impresa con envío a domicilio.
             </p>
           </div>
 
@@ -286,9 +286,9 @@ export default function ManualLandingPage() {
 
               {/* TARJETA COMBO DIGITAL (Borde dorado #C98A2C y badge MEJOR VALOR) */}
               <div className="relative p-7 sm:p-8 rounded-2xl bg-white border-2 border-[#C98A2C] flex flex-col justify-between lg:-translate-y-2">
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#C98A2C] text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-white" />
-                  <span>MEJOR VALOR · 30% OFF</span>
+                <div className="absolute -top-3.5 right-4 sm:right-6 bg-[#4A7C59] text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full whitespace-nowrap flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>MEJOR VALOR · ACCESO A SOPORTE</span>
                 </div>
 
                 <div className="space-y-4 pt-1">
@@ -320,7 +320,7 @@ export default function ManualLandingPage() {
                       onClick={() =>
                         setPreviewDoc({
                           src: previewTomo2Ejercitario,
-                          title: 'Tomo II Digital — Ejercitario Práctico y Plantillas .docx',
+                          title: 'Tomo II Digital — Ejercitario Práctico de Contabilidad Aplicada',
                           caption: 'Incluido en el Combo Digital'
                         })
                       }
@@ -360,7 +360,7 @@ export default function ManualLandingPage() {
                       {PRECIO_COMBO_DIGITAL}
                     </span>
                     <span className="text-xs text-[#2C2C2C] font-medium block mt-2 leading-relaxed">
-                      Pack Completo (Tomo I + Tomo II + Ejercitario + Bonus en PDF y plantillas .docx editables): ahorro directo de Gs. 46.000 sobre el valor regular de Gs. 155.000. Acceso inmediato vía correo tras confirmar tu pago (Pago único).
+                      Pack Completo (Tomo I + Tomo II en PDF + 1 mes de soporte técnico por WhatsApp): ahorro directo de Gs. 46.000 sobre el valor regular de Gs. 155.000. Acceso inmediato vía correo tras confirmar tu pago (Pago único).
                     </span>
                   </div>
 
@@ -371,11 +371,11 @@ export default function ManualLandingPage() {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
-                      <span><strong>Tomo II completo (PDF + .docx):</strong> 100 cuentas, solucionario y control interno</span>
+                      <span><strong>Tomo II completo (PDF):</strong> 100 cuentas, solucionario oficial y control interno</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
-                      <span><strong>Plantillas .docx editables</strong> listas para usar en tu estudio o estudio contable</span>
+                      <span><strong>1 mes de soporte técnico por WhatsApp</strong></span>
                     </li>
                   </ul>
                 </div>
@@ -390,6 +390,9 @@ export default function ManualLandingPage() {
                     <MessageCircle className="w-5 h-5 text-[#E8DCC4]" />
                     <span>Comprar Combo Digital</span>
                   </a>
+                  <div className="p-3 rounded-xl bg-[#E8DCC4] border border-[#C98A2C]/50 text-xs font-semibold text-[#1E3A5F] text-center leading-snug">
+                    🎁 Bonus exclusivo del combo: 1 mes de soporte técnico por WhatsApp
+                  </div>
                   <div className="text-[11px] sm:text-xs text-[#2C2C2C]/75 space-y-1 text-center leading-snug">
                     <p>💳 Pago por transferencia o billetera digital</p>
                     <p>📧 Envío al correo electrónico con acceso inmediato</p>
@@ -429,7 +432,7 @@ export default function ManualLandingPage() {
                         setPreviewDoc({
                           src: previewTomo2Matriz,
                           title: 'Matriz Práctica de Clasificación de 100 Cuentas — Tomo II',
-                          caption: 'Incluye solucionario oficial y plantillas .docx'
+                          caption: 'Incluye matriz de 100 cuentas y solucionario oficial'
                         })
                       }
                       className="group relative aspect-[3/4] rounded-lg overflow-hidden border border-[#1E3A5F]/15 bg-white cursor-pointer"
@@ -448,7 +451,7 @@ export default function ManualLandingPage() {
 
                   <div className="space-y-1.5">
                     <span className="text-xs font-bold uppercase tracking-wider text-[#4A7C59] block">
-                      Edición Digital · PDF + .docx
+                      Edición Digital · PDF
                     </span>
                     <h4 className="text-xl sm:text-2xl font-bold font-heading text-[#1E3A5F] leading-snug">
                       Tomo II — Ejercitario práctico de Contabilidad Aplicada (Digital)
@@ -468,7 +471,7 @@ export default function ManualLandingPage() {
                       {PRECIO_TOMO_2_DIGITAL}
                     </span>
                     <span className="text-xs text-[#2C2C2C]/80 font-medium block mt-1 leading-relaxed">
-                      PDF + plantillas .docx editables. Precio promocional por tomo separado (Precio de Lista regular: {PRECIO_TOMO_2_DIGITAL_LISTA}). Acceso inmediato vía correo tras confirmar tu pago (Pago único).
+                      PDF del TOMO II completo. Precio promocional por tomo separado (Precio de Lista regular: {PRECIO_TOMO_2_DIGITAL_LISTA}). Acceso inmediato vía correo tras confirmar tu pago (Pago único).
                     </span>
                   </div>
 
@@ -483,7 +486,7 @@ export default function ManualLandingPage() {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
-                      <span>Incluye plantillas .docx editables para ejercitar sin límites</span>
+                      <span>Formato PDF de alta definición para PC, tablet o celular</span>
                     </li>
                   </ul>
                 </div>
@@ -505,6 +508,10 @@ export default function ManualLandingPage() {
                 </div>
               </div>
             </div>
+
+            <p className="text-[0.85rem] text-[#2C2C2C]/70 text-center font-sans max-w-2xl mx-auto">
+              El soporte técnico por WhatsApp está incluido únicamente con la compra del Combo Tomo I + II.
+            </p>
 
             {/* Mini-flujo visual de entrega */}
             <div id="flujo-entrega" className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 text-left scroll-mt-36">
