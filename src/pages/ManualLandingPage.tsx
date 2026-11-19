@@ -17,9 +17,11 @@ const WHATSAPP_NUMBER = '595993535291';
 
 // Constantes configurables para la Edición Digital (PDF)
 const PRECIO_TOMO_1_DIGITAL = 'Gs. 85.000';
+const PRECIO_TOMO_1_DIGITAL_LISTA = 'Gs. 100.000';
 const PRECIO_TOMO_2_DIGITAL = 'Gs. 39.000';
+const PRECIO_TOMO_2_DIGITAL_LISTA = 'Gs. 55.000';
 const PRECIO_COMBO_DIGITAL = 'Gs. 109.000';
-const PRECIO_COMBO_DIGITAL_NORMAL = 'Gs. 124.000';
+const PRECIO_COMBO_DIGITAL_NORMAL = 'Gs. 155.000';
 
 const WHATSAPP_TOMO_1_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   'Hola Estudio Cáceres, quiero comprar el Tomo I — Contabilidad Aplicada (Edición Digital en PDF) por Gs. 85.000.\n\n' +
@@ -38,11 +40,15 @@ const WHATSAPP_TOMO_2_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${enc
 )}`;
 
 const WHATSAPP_COMBO_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  'Hola Estudio Cáceres, quiero aprovechar el Combo Tomo I + II Digital del Manual de Contabilidad Aplicada (PDF + plantillas .docx editables) por Gs. 109.000.\n\n' +
+  'Hola Estudio Cáceres, quiero aprovechar la oferta del Combo Completo Digital (Tomo I + Tomo II + Ejercitario + Bonus en PDF y plantillas .docx editables) con 30% OFF por Gs. 109.000 (ahorro directo de Gs. 46.000 sobre Gs. 155.000).\n\n' +
   'Mis datos para el envío al correo electrónico:\n' +
   '• Nombre completo:\n' +
   '• Correo electrónico:\n' +
   '• Medio de pago (Transferencia bancaria o Billetera digital):'
+)}`;
+
+const WHATSAPP_BANNER_OFERTA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  '¡Hola Estudio Cáceres! 👋 Quiero aprovechar la oferta del Combo Completo (Tomo I + Tomo II + Ejercitario) por Gs. 109.000. ¿Me envían los datos para la transferencia / alias QR?'
 )}`;
 
 const WHATSAPP_IMPRESA_CONSULTA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -117,18 +123,22 @@ export default function ManualLandingPage() {
       {/* BANNER STICKY SUPERIOR: Fondo #1E3A5F, texto crema #F5F0E6    */}
       {/* ------------------------------------------------------------- */}
       <aside
-        aria-label="Precios Edición Digital Manual DNIT 2026"
+        aria-label="Oferta 30% OFF Manual Digital DNIT 2026"
         className="sticky top-16 sm:top-20 z-30 w-full bg-[#1E3A5F] text-[#F5F0E6] py-2.5 px-3 sm:px-4 border-b border-[#E8DCC4]/20"
       >
         <div className="max-w-[1280px] mx-auto flex items-center justify-center gap-2 sm:gap-3 text-center">
-          <button
-            type="button"
-            onClick={() => scrollToSection('opciones-compra')}
-            className="text-xs sm:text-[13px] font-bold leading-tight text-[#F5F0E6] hover:underline underline-offset-4 flex items-center justify-center gap-1.5 group cursor-pointer tabular-nums"
-          >
-            <span>📚 Tomo I Digital: Gs. 85.000 · Tomo II Digital: Gs. 39.000 · Combo: Gs. 109.000</span>
-            <span className="font-bold text-[#E8DCC4] group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
-          </button>
+          <div className="text-xs sm:text-[13px] font-bold leading-tight text-[#F5F0E6] flex flex-wrap items-center justify-center gap-2 sm:gap-3 tabular-nums">
+            <span>🛡️ Evitá inconsistencias y hacé que todo te cuadre: Manual + Ejercitario con 30% OFF</span>
+            <a
+              href={WHATSAPP_BANNER_OFERTA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-1 px-3 py-1 rounded bg-[#F59E0B] hover:bg-[#FBBF24] text-[#1E3A5F] text-[11px] sm:text-xs font-extrabold tracking-wide uppercase transition-colors shrink-0 cursor-pointer"
+            >
+              <span>VER OFERTA DIGITAL</span>
+              <span className="group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </aside>
 
@@ -137,7 +147,7 @@ export default function ManualLandingPage() {
       {/* ------------------------------------------------------------- */}
       <section
         id="opciones-compra"
-        className="w-full bg-[#F5F0E6] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#1E3A5F]/15 text-center scroll-mt-20"
+        className="w-full bg-[#F5F0E6] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#1E3A5F]/15 text-center scroll-mt-36"
       >
         <div id="obtener" className="max-w-[1240px] mx-auto space-y-14">
           {/* Header */}
@@ -154,7 +164,7 @@ export default function ManualLandingPage() {
           </div>
 
           {/* SUB-SECCIÓN: Opciones de compra — Edición Digital */}
-          <div className="space-y-8">
+          <div id="edicion-digital" className="space-y-8 scroll-mt-36">
             <div className="text-center space-y-2">
               <span className="text-xs font-bold uppercase tracking-widest text-[#4A7C59] block">
                 Descarga y envío por correo electrónico
@@ -225,11 +235,19 @@ export default function ManualLandingPage() {
                   </div>
 
                   <div className="py-3.5 border-y border-[#1E3A5F]/15">
-                    <span className="text-3xl sm:text-4xl font-bold font-heading text-[#1E3A5F] tabular-nums block">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-xs sm:text-sm text-[#2C2C2C]/60 font-semibold tabular-nums">
+                        Precio de Lista: <span className="line-through">{PRECIO_TOMO_1_DIGITAL_LISTA}</span>
+                      </span>
+                      <span className="text-[11px] font-bold text-[#4A7C59] uppercase tracking-wide">
+                        Promo por tomo separado
+                      </span>
+                    </div>
+                    <span className="text-3xl sm:text-4xl font-bold font-heading text-[#1E3A5F] tabular-nums block mt-0.5">
                       {PRECIO_TOMO_1_DIGITAL}
                     </span>
-                    <span className="text-xs text-[#2C2C2C]/80 font-medium block mt-1">
-                      PDF del TOMO I. Entrega al correo en 24-48h tras confirmación de pago.
+                    <span className="text-xs text-[#2C2C2C]/80 font-medium block mt-1 leading-relaxed">
+                      PDF del TOMO I. Precio promocional por tomo separado (Precio de Lista regular: {PRECIO_TOMO_1_DIGITAL_LISTA}). Entrega al correo en 24-48h tras confirmación de pago.
                     </span>
                   </div>
 
@@ -270,7 +288,7 @@ export default function ManualLandingPage() {
               <div className="relative p-7 sm:p-8 rounded-2xl bg-white border-2 border-[#C98A2C] flex flex-col justify-between lg:-translate-y-2">
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#C98A2C] text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap flex items-center gap-1.5">
                   <Check className="w-3.5 h-3.5 text-white" />
-                  <span>MEJOR VALOR</span>
+                  <span>MEJOR VALOR · 30% OFF</span>
                 </div>
 
                 <div className="space-y-4 pt-1">
@@ -322,7 +340,7 @@ export default function ManualLandingPage() {
 
                   <div className="space-y-1.5">
                     <span className="text-xs font-bold uppercase tracking-wider text-[#C98A2C] block">
-                      Pack Completo Digital · Ahorro Gs. 15.000
+                      Pack Completo Digital · Ahorro Gs. 46.000 (30% OFF)
                     </span>
                     <h4 className="text-2xl sm:text-[26px] font-bold font-heading text-[#1E3A5F] leading-snug">
                       Combo Tomo I + II Digital
@@ -330,14 +348,19 @@ export default function ManualLandingPage() {
                   </div>
 
                   <div className="py-3.5 border-y border-[#C98A2C]/30 bg-[#F5F0E6]/70 -mx-7 sm:-mx-8 px-7 sm:px-8">
-                    <span className="text-xs sm:text-sm text-[#2C2C2C]/55 line-through font-semibold tabular-nums block">
-                      {PRECIO_COMBO_DIGITAL_NORMAL}
-                    </span>
-                    <span className="text-4xl sm:text-5xl font-bold font-heading text-[#1E3A5F] tabular-nums block leading-none mt-0.5">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs sm:text-sm text-[#2C2C2C]/55 line-through font-semibold tabular-nums">
+                        {PRECIO_COMBO_DIGITAL_NORMAL}
+                      </span>
+                      <span className="text-[11px] font-bold text-[#4A7C59] uppercase tracking-wide">
+                        30% OFF · Ahorrás Gs. 46.000
+                      </span>
+                    </div>
+                    <span className="text-4xl sm:text-5xl font-bold font-heading text-[#1E3A5F] tabular-nums block leading-none mt-1">
                       {PRECIO_COMBO_DIGITAL}
                     </span>
                     <span className="text-xs text-[#2C2C2C] font-medium block mt-2 leading-relaxed">
-                      Llevá la biblioteca completa: Tomo I en PDF + Tomo II Ejercitario en PDF + plantillas .docx editables para practicar, auditar y aplicar desde el día uno. Entrega al correo en 24-48h tras confirmación de pago.
+                      Pack Completo (Tomo I + Tomo II + Ejercitario + Bonus en PDF y plantillas .docx editables): ahorro directo de Gs. 46.000 sobre el valor regular de Gs. 155.000. Entrega al correo en 24-48h tras confirmación de pago.
                     </span>
                   </div>
 
@@ -433,11 +456,19 @@ export default function ManualLandingPage() {
                   </div>
 
                   <div className="py-3.5 border-y border-[#1E3A5F]/15">
-                    <span className="text-3xl sm:text-4xl font-bold font-heading text-[#1E3A5F] tabular-nums block">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-xs sm:text-sm text-[#2C2C2C]/60 font-semibold tabular-nums">
+                        Precio de Lista: <span className="line-through">{PRECIO_TOMO_2_DIGITAL_LISTA}</span>
+                      </span>
+                      <span className="text-[11px] font-bold text-[#4A7C59] uppercase tracking-wide">
+                        Promo por tomo separado
+                      </span>
+                    </div>
+                    <span className="text-3xl sm:text-4xl font-bold font-heading text-[#1E3A5F] tabular-nums block mt-0.5">
                       {PRECIO_TOMO_2_DIGITAL}
                     </span>
-                    <span className="text-xs text-[#2C2C2C]/80 font-medium block mt-1">
-                      PDF + plantillas .docx editables. Entrega al correo en 24-48h tras confirmación de pago.
+                    <span className="text-xs text-[#2C2C2C]/80 font-medium block mt-1 leading-relaxed">
+                      PDF + plantillas .docx editables. Precio promocional por tomo separado (Precio de Lista regular: {PRECIO_TOMO_2_DIGITAL_LISTA}). Entrega al correo en 24-48h tras confirmación de pago.
                     </span>
                   </div>
 
@@ -476,7 +507,7 @@ export default function ManualLandingPage() {
             </div>
 
             {/* Mini-flujo visual de entrega */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 text-left">
+            <div id="flujo-entrega" className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 text-left scroll-mt-36">
               <div className="p-5 rounded-2xl bg-white border border-[#1E3A5F]/15 space-y-2">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#4A7C59] block">
                   Cómo recibís la Versión Digital
@@ -497,7 +528,7 @@ export default function ManualLandingPage() {
           </div>
 
           {/* NUEVA SECCIÓN: Envío físico — Edición Impresa */}
-          <div className="p-7 sm:p-9 rounded-2xl bg-[#E8DCC4] border border-[#1E3A5F]/20 text-left space-y-6">
+          <div id="edicion-impresa" className="p-7 sm:p-9 rounded-2xl bg-[#E8DCC4] border border-[#1E3A5F]/20 text-left space-y-6 scroll-mt-36">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div className="space-y-2.5 max-w-2xl">
                 <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1E3A5F]">
@@ -746,7 +777,7 @@ export default function ManualLandingPage() {
           </div>
 
           {/* Medios de pago y despacho */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-white border border-[#1E3A5F]/15 max-w-4xl mx-auto space-y-4">
+          <div id="medios-pago" className="p-6 sm:p-8 rounded-2xl bg-white border border-[#1E3A5F]/15 max-w-4xl mx-auto space-y-4 scroll-mt-36">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm text-[#2C2C2C] text-left">
               <div className="flex items-start gap-3 p-4 rounded-xl bg-[#F5F0E6] border border-[#1E3A5F]/10">
                 <CheckCircle2 className="w-5 h-5 text-[#4A7C59] shrink-0 mt-0.5" />
@@ -776,7 +807,7 @@ export default function ManualLandingPage() {
       {/* ------------------------------------------------------------- */}
       <section
         id="autor"
-        className="w-full bg-[#F5F0E6] py-12 sm:py-20 px-4 sm:px-6 lg:px-8"
+        className="w-full bg-[#F5F0E6] py-12 sm:py-20 px-4 sm:px-6 lg:px-8 scroll-mt-36"
       >
         <div className="max-w-[1180px] mx-auto">
           {/* Eyebrow & Title */}

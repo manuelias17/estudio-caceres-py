@@ -182,31 +182,31 @@ export default function Layout() {
             <div className="max-w-[1280px] mx-auto flex items-center justify-center gap-7 whitespace-nowrap font-semibold">
               <button
                 type="button"
-                onClick={() => scrollToSection('contenido')}
+                onClick={() => scrollToSection('edicion-digital')}
                 className="text-[#1E3A5F] hover:underline underline-offset-4 transition-colors py-1 cursor-pointer"
               >
-                Material incluido
+                Edición Digital
               </button>
               <button
                 type="button"
-                onClick={() => scrollToSection('pasos')}
+                onClick={() => scrollToSection('flujo-entrega')}
                 className="text-[#1E3A5F] hover:underline underline-offset-4 transition-colors py-1 cursor-pointer"
               >
-                Ruta de aplicación
+                Entrega y envío
               </button>
               <button
                 type="button"
-                onClick={() => scrollToSection('ejemplos')}
+                onClick={() => scrollToSection('edicion-impresa')}
                 className="text-[#1E3A5F] hover:underline underline-offset-4 transition-colors py-1 cursor-pointer"
               >
-                Casos reales
+                Edición Impresa
               </button>
               <button
                 type="button"
-                onClick={() => scrollToSection('comparativa')}
+                onClick={() => scrollToSection('medios-pago')}
                 className="text-[#1E3A5F] hover:underline underline-offset-4 transition-colors py-1 cursor-pointer"
               >
-                Evolución profesional
+                Medios de pago
               </button>
               <button
                 type="button"
@@ -214,13 +214,6 @@ export default function Layout() {
                 className="text-[#1E3A5F] hover:underline underline-offset-4 transition-colors py-1 cursor-pointer"
               >
                 El autor
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToSection('preguntas')}
-                className="text-[#1E3A5F] hover:underline underline-offset-4 transition-colors py-1 cursor-pointer"
-              >
-                Resolución de dudas
               </button>
               <button
                 type="button"
