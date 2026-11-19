@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 840" width="600" height="840">
+  <rect width="600" height="840" fill="#FFFFFF"/>
+  <rect x="28" y="28" width="544" height="784" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1"/>
+  <!-- Running Header -->
+  <text x="48" y="64" font-family="Georgia, serif" font-style="italic" font-weight="bold" font-size="13" fill="#1E3A5F">Contabilidad aplicada - de la teoría a la práctica</text>
+  <line x1="48" y1="74" x2="552" y2="74" stroke="#1E3A5F" stroke-width="1.2"/>
+
+  <!-- Table Header -->
+  <rect x="56" y="96" width="488" height="30" fill="#9BBAD6" stroke="#1E3A5F" stroke-width="1"/>
+  <line x1="468" y1="96" x2="468" y2="758" stroke="#1E3A5F" stroke-width="1"/>
+  <text x="262" y="116" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="13" fill="#111827">CONTENIDO — TOMO I</text>
+  <text x="506" y="116" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="13" fill="#111827">PAG.</text>
+
+  <!-- Table Outer Border -->
+  <rect x="56" y="96" width="488" height="662" fill="none" stroke="#1E3A5F" stroke-width="1"/>
+
+  <!-- Module 1 -->
+  <rect x="56" y="126" width="488" height="28" fill="#F3F4F6"/>
+  <line x1="56" y1="154" x2="544" y2="154" stroke="#9CA3AF" stroke-width="0.8"/>
+  <text x="66" y="145" font-family="Georgia, serif" font-weight="bold" font-size="11.5" fill="#111827">MÓDULO 1: FUNDAMENTOS CONTABLES Y MARCO NORMATIVO</text>
+  <text x="506" y="145" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="11.5" fill="#111827">2</text>
+
+  <text x="74" y="175" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 1: Introducción a la Contabilidad, Objetivos y Divisiones</text>
+  <text x="506" y="175" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">2</text>
+  <line x1="56" y1="184" x2="544" y2="184" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="204" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 2: Análisis de Documentos Contables y Tributarios</text>
+  <text x="506" y="204" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">3</text>
+  <line x1="56" y1="213" x2="544" y2="213" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="233" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 3: Régimen de Timbrado y Validación de Comprobantes</text>
+  <text x="506" y="233" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">5</text>
+  <line x1="56" y1="242" x2="544" y2="242" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="262" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 4: Reglas Contables, Ecuación Patrimonial y Partida Doble</text>
+  <text x="506" y="262" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">7</text>
+  <line x1="56" y1="272" x2="544" y2="272" stroke="#9CA3AF" stroke-width="0.8"/>
+
+  <!-- Module 2 -->
+  <rect x="56" y="272" width="488" height="28" fill="#F3F4F6"/>
+  <line x1="56" y1="300" x2="544" y2="300" stroke="#9CA3AF" stroke-width="0.8"/>
+  <text x="66" y="291" font-family="Georgia, serif" font-weight="bold" font-size="11.5" fill="#111827">MÓDULO 2: PRINCIPIOS CLAVES DEL PATRIMONIO CONTABLE</text>
+  <text x="506" y="291" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="11.5" fill="#111827">12</text>
+
+  <text x="74" y="320" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 1: El Patrimonio y la Ecuación Contable Fundamental</text>
+  <text x="506" y="320" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">12</text>
+  <line x1="56" y1="329" x2="544" y2="329" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="349" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 2: Principios de la Partida Doble, Cargo y Abono</text>
+  <text x="506" y="349" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">15</text>
+  <line x1="56" y1="358" x2="544" y2="358" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="378" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 3: Marco Legal de Libros Contables y Libro Diario General</text>
+  <text x="506" y="378" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">18</text>
+  <line x1="56" y1="387" x2="544" y2="387" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="407" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 4: PCGA y Registraciones del Libro Diario</text>
+  <text x="506" y="407" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">20</text>
+  <line x1="56" y1="417" x2="544" y2="417" stroke="#9CA3AF" stroke-width="0.8"/>
+
+  <!-- Module 3 -->
+  <rect x="56" y="417" width="488" height="28" fill="#F3F4F6"/>
+  <line x1="56" y1="445" x2="544" y2="445" stroke="#9CA3AF" stroke-width="0.8"/>
+  <text x="66" y="436" font-family="Georgia, serif" font-weight="bold" font-size="11.5" fill="#111827">MÓDULO 3: MÓDULO LEGAL Y REGISTRAL</text>
+  <text x="506" y="436" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="11.5" fill="#111827">29</text>
+
+  <text x="74" y="465" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 1: Rúbrica de Libros y Sistemas Modernos de Contabilidad</text>
+  <text x="506" y="465" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">29</text>
+  <line x1="56" y1="475" x2="544" y2="475" stroke="#9CA3AF" stroke-width="0.8"/>
+
+  <!-- Module 4 -->
+  <rect x="56" y="475" width="488" height="28" fill="#F3F4F6"/>
+  <line x1="56" y1="503" x2="544" y2="503" stroke="#9CA3AF" stroke-width="0.8"/>
+  <text x="66" y="494" font-family="Georgia, serif" font-weight="bold" font-size="11.5" fill="#111827">MÓDULO 4: IVA — ASIENTOS Y CORRESPONDENCIA F. 120</text>
+  <text x="506" y="494" text-anchor="middle" font-family="Georgia, serif" font-weight="bold" font-size="11.5" fill="#111827">32</text>
+
+  <text x="74" y="523" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 1: A favor del contribuyente sin retención</text>
+  <text x="506" y="523" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">32</text>
+  <line x1="56" y1="532" x2="544" y2="532" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="552" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 2: A favor del fisco sin retención</text>
+  <text x="506" y="552" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">35</text>
+  <line x1="56" y1="561" x2="544" y2="561" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="581" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 3: Retención del IVA como anticipo parcial</text>
+  <text x="506" y="581" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">37</text>
+  <line x1="56" y1="590" x2="544" y2="590" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="610" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 4: Explicación y aplicación contable de la retención</text>
+  <text x="506" y="610" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">40</text>
+  <line x1="56" y1="619" x2="544" y2="619" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="639" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 5: Saldo a favor financiero que cubre la obligación</text>
+  <text x="506" y="639" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">41</text>
+  <line x1="56" y1="648" x2="544" y2="648" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="668" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 6: Prorrateo del Crédito Fiscal (Ventas Mixtas)</text>
+  <text x="506" y="668" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">45</text>
+  <line x1="56" y1="677" x2="544" y2="677" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="697" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 7: Asientos de liquidación, intereses y Form. 120 V.4</text>
+  <text x="506" y="697" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">47</text>
+  <line x1="56" y1="706" x2="544" y2="706" stroke="#E5E7EB" stroke-width="0.8"/>
+
+  <text x="74" y="726" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">Lección 8–9: Regla de Inmutabilidad Rubro 4 y Mapeo F. 120</text>
+  <text x="506" y="726" text-anchor="middle" font-family="Georgia, serif" font-size="10.8" fill="#1F2937">50–52</text>
+
+  <!-- Vertical column divider -->
+  <line x1="468" y1="96" x2="468" y2="758" stroke="#1E3A5F" stroke-width="1"/>
+
+  <!-- Footer -->
+  <text x="300" y="790" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6B7280">Estudio Cáceres • Tomo I Digital (PDF) • Normativa DNIT Paraguay</text>
+</svg>

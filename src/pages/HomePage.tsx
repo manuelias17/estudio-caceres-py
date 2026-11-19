@@ -182,7 +182,7 @@ export default function HomePage() {
               </div>
 
               <div className="mt-6 pt-4 border-t border-[#1E3A5F]/15 flex items-center justify-between text-sm font-bold text-[#1E3A5F]">
-                <span className="group-hover:underline underline-offset-4">Ver opciones y casos</span>
+                <span className="group-hover:underline underline-offset-4">Ver opciones de compra</span>
                 <ArrowRight className="w-4 h-4 text-[#1E3A5F] group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>

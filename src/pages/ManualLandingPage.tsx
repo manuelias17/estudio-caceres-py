@@ -1,21 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import {
-  ChevronDown,
   Check,
   CheckCircle2,
   MessageCircle,
   Eye,
   X,
-  ChevronRight
+  Truck
 } from 'lucide-react';
 
-import balanceSumasSaldosImg from '../assets/images/balance_sumas_saldos_1792161555547.jpg';
 import fotoPerfilAutor from '../assets/images/foto_perfil_elias_caceres.jpg';
-import page1Svg from '../assets/images/muestras_manual_contabilidad.svg';
-import page2Svg from '../assets/images/muestras_manual_contabilidad2.svg';
-import page3Svg from '../assets/images/muestras_manual_contabilidad3.svg';
+import previewTomo1Indice from '../assets/images/preview_tomo1_indice.svg';
+import previewTomo2Ejercitario from '../assets/images/preview_tomo2_ejercitario.svg';
+import previewTomo2Matriz from '../assets/images/preview_tomo2_matriz.svg';
 
 const WHATSAPP_NUMBER = '595993535291';
+
+// Constantes configurables para la Edición Digital (PDF)
+const PRECIO_TOMO_1_DIGITAL = 'Gs. 85.000';
+const PRECIO_TOMO_2_DIGITAL = 'Gs. 39.000';
+const PRECIO_COMBO_DIGITAL = 'Gs. 109.000';
+const PRECIO_COMBO_DIGITAL_NORMAL = 'Gs. 124.000';
+
+const WHATSAPP_TOMO_1_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  'Hola Estudio Cáceres, quiero comprar el Tomo I — Contabilidad Aplicada (Edición Digital en PDF) por Gs. 85.000.\n\n' +
+  'Mis datos para el envío al correo electrónico:\n' +
+  '• Nombre completo:\n' +
+  '• Correo electrónico:\n' +
+  '• Medio de pago (Transferencia bancaria o Billetera digital):'
+)}`;
+
+const WHATSAPP_TOMO_2_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  'Hola Estudio Cáceres, quiero comprar el Tomo II — Ejercitario Práctico de Contabilidad Aplicada (Edición Digital en PDF + plantillas .docx editables) por Gs. 39.000.\n\n' +
+  'Mis datos para el envío al correo electrónico:\n' +
+  '• Nombre completo:\n' +
+  '• Correo electrónico:\n' +
+  '• Medio de pago (Transferencia bancaria o Billetera digital):'
+)}`;
+
+const WHATSAPP_COMBO_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  'Hola Estudio Cáceres, quiero aprovechar el Combo Tomo I + II Digital del Manual de Contabilidad Aplicada (PDF + plantillas .docx editables) por Gs. 109.000.\n\n' +
+  'Mis datos para el envío al correo electrónico:\n' +
+  '• Nombre completo:\n' +
+  '• Correo electrónico:\n' +
+  '• Medio de pago (Transferencia bancaria o Billetera digital):'
+)}`;
+
+const WHATSAPP_IMPRESA_CONSULTA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  'Hola Estudio Cáceres, quiero consultar disponibilidad y costo de envío a domicilio para la Edición Impresa del Manual de Contabilidad Aplicada.\n\n' +
+  '• Mi nombre:\n' +
+  '• Ciudad / Barrio de entrega:'
+)}`;
 
 // Constantes configurables para la versión impresa premium
 const PRECIO_TOMO_1 = 'Gs. 135.000';
@@ -44,7 +78,6 @@ const WHATSAPP_COMBO_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICom
 )}`;
 
 export default function ManualLandingPage() {
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [previewDoc, setPreviewDoc] = useState<{ src: string; title: string; caption: string } | null>(null);
 
   useEffect(() => {
@@ -71,10 +104,6 @@ export default function ManualLandingPage() {
     }
   }, [previewDoc]);
 
-  const toggleFaq = (index: number) => {
-    setActiveFaq(activeFaq === index ? null : index);
-  };
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -82,620 +111,430 @@ export default function ManualLandingPage() {
     }
   };
 
-  const faqItems = [
-    {
-      q: '¿El manual es un instructivo para liquidar o llenar formularios tributarios?',
-      a: 'No. El manual NO es un instructivo de liquidación tributaria ni una guía de llenado de formularios. Es un manual de Contabilidad Aplicada con criterio de auditor externo. Enseña a confeccionar los papeles de trabajo indispensables, el análisis de comprobantes y el registro correcto en el Libro Diario y Mayor de los asientos de la liquidación del IVA en exacta correspondencia con las casillas del Formulario 120.'
-    },
-    {
-      q: '¿Cómo se entrega el material impreso?',
-      a: 'El material se entrega en formato físico con encuadernación anillada profesional de alta durabilidad y portadas a full color. El Combo Completo incluye delivery en Asunción y Gran Asunción sin costo adicional. Para el interior del país realizamos envíos seguros vía encomienda.'
-    },
-    {
-      q: '¿Qué medios de pago se encuentran disponibles?',
-      a: 'Aceptamos transferencias bancarias directas (SIPAP a todos los bancos y cooperativas del país), pagos rápidos vía QR, y giros por billeteras electrónicas (Tigo Money, Personal Pay, Zimple). Una vez coordinado el pedido por WhatsApp, te facilitamos los datos de pago y despachamos tu ejemplar.'
-    },
-    {
-      q: '¿Sirve para auxiliares contables, estudiantes y recién egresados?',
-      a: 'Totalmente. Fue diseñado específicamente por un auditor externo para quienes comienzan o trabajan en estudios contables y empresas. Ayuda a superar la teoría abstracta y a registrar con seguridad técnica comprobantes reales, asientos de compras, ventas, prorrateo y 100 cuentas resueltas paso a paso.'
-    }
-  ];
-
   return (
     <div className="w-full flex flex-col font-sans">
       {/* ------------------------------------------------------------- */}
-      {/* BANNER STICKY SUPERIOR: Fondo arena #E8DCC4, texto #1E3A5F     */}
+      {/* BANNER STICKY SUPERIOR: Fondo #1E3A5F, texto crema #F5F0E6    */}
       {/* ------------------------------------------------------------- */}
       <aside
-        aria-label="Aviso de material impreso premium"
-        className="sticky top-16 sm:top-20 z-30 w-full bg-[#E8DCC4] text-[#1E3A5F] py-2.5 px-3 sm:px-4 border-b border-[#1E3A5F]/15"
+        aria-label="Precios Edición Digital Manual DNIT 2026"
+        className="sticky top-16 sm:top-20 z-30 w-full bg-[#1E3A5F] text-[#F5F0E6] py-2.5 px-3 sm:px-4 border-b border-[#E8DCC4]/20"
       >
         <div className="max-w-[1280px] mx-auto flex items-center justify-center gap-2 sm:gap-3 text-center">
           <button
             type="button"
             onClick={() => scrollToSection('opciones-compra')}
-            className="text-xs sm:text-[13px] font-bold leading-tight text-[#1E3A5F] hover:underline underline-offset-4 flex items-center justify-center gap-1.5 group cursor-pointer tabular-nums"
+            className="text-xs sm:text-[13px] font-bold leading-tight text-[#F5F0E6] hover:underline underline-offset-4 flex items-center justify-center gap-1.5 group cursor-pointer tabular-nums"
           >
-            <span>Material impreso premium · Disponible ahora · Combo recomendado Gs. 170.000 (incluye delivery Asu y Gran Asunción)</span>
-            <span className="font-bold group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
+            <span>📚 Tomo I Digital: Gs. 85.000 · Tomo II Digital: Gs. 39.000 · Combo: Gs. 109.000</span>
+            <span className="font-bold text-[#E8DCC4] group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
           </button>
         </div>
       </aside>
-
-      {/* ------------------------------------------------------------- */}
-      {/* HERO (#inicio): Fondo azul noche #1E3A5F, titular Source Serif */}
-      {/* ------------------------------------------------------------- */}
-      <section
-        id="inicio"
-        className="relative w-full pt-12 pb-16 sm:pt-16 sm:pb-24 lg:pt-20 lg:pb-28 px-4 sm:px-6 lg:px-8 bg-[#1E3A5F] text-[#F5F0E6] border-b border-[#E8DCC4]/20"
-      >
-        <div className="max-w-[1280px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left Content Column */}
-            <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
-              <p className="text-xs font-bold tracking-wider uppercase text-[#E8DCC4]">
-                Edición Impresa · Criterio de Auditor Externo
-              </p>
-
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#F5F0E6] leading-[1.15] tracking-tight text-balance">
-                Manual de Contabilidad Aplicada para la Práctica Profesional en Paraguay
-              </h1>
-
-              <p className="text-base sm:text-lg text-[#F5F0E6]/85 leading-relaxed max-w-2xl font-sans">
-                Compendio técnico impreso con criterio de auditor externo para dominar la práctica contable real. Aprendé a confeccionar los papeles de trabajo indispensables, el análisis de comprobantes según la Ley N° 6380/19 y los asientos contables de la liquidación del IVA en exacta correspondencia con las casillas del Formulario 120 V.4.
-              </p>
-
-              <div className="w-full pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('opciones-compra')}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-base font-bold bg-[#E8DCC4] text-[#1E3A5F] hover:bg-[#F5F0E6] active:scale-[0.98] transition-all group cursor-pointer"
-                >
-                  <span>Ver opciones de compra</span>
-                  <ChevronRight className="w-4 h-4 text-[#1E3A5F] group-hover:translate-x-1 transition-transform" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('contenido')}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold bg-transparent text-[#F5F0E6] border border-[#F5F0E6]/35 hover:bg-[#F5F0E6]/10 transition-colors cursor-pointer"
-                >
-                  <Eye className="w-4 h-4 text-[#E8DCC4]" />
-                  <span>Explorar contenido incluido</span>
-                </button>
-              </div>
-
-              <div className="pt-4 border-t border-[#F5F0E6]/15 w-full flex flex-wrap items-center justify-center lg:justify-start gap-y-3 gap-x-6 text-xs text-[#F5F0E6]/85">
-                <div className="flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#4A7C59] shrink-0" />
-                  <span>Material impreso premium (anillado profesional)</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#4A7C59] shrink-0" />
-                  <span>Criterio de auditor externo · Ley 6380/19</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#4A7C59] shrink-0" />
-                  <span>Papeles de trabajo y asientos contables reales</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Cover Column */}
-            <div className="lg:col-span-5 relative flex justify-center">
-              <div className="relative w-full max-w-[400px] lg:max-w-none">
-                <div className="relative mx-auto rounded-2xl p-2.5 sm:p-3 bg-[#F5F0E6] border border-[#E8DCC4]">
-                  <div className="overflow-hidden rounded-xl border border-[#1E3A5F]/15 bg-white aspect-[2/3] relative">
-                    <img
-                      src="/assets/aistudio/Portada_oficial_de_manual_Contabilidad_Aplicada_ab64a4d5.png"
-                      alt="Portada oficial del Manual Práctico de Contabilidad Aplicada - Estudio Cáceres"
-                      width={1024}
-                      height={1536}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-
-                <div className="absolute -bottom-4 -left-4 sm:-bottom-5 sm:-left-5 p-3.5 sm:p-4 rounded-xl bg-[#F5F0E6] border border-[#1E3A5F]/20 text-left max-w-[220px] hidden sm:block">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#4A7C59] block">
-                    Criterio de auditor
-                  </span>
-                  <span className="text-xs font-bold text-[#1E3A5F] block mt-0.5">
-                    Asientos contables y papeles de trabajo reales
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- */}
-      {/* SECTION: CONTENIDO / MATERIAL INCLUIDO (#contenido)           */}
-      {/* ------------------------------------------------------------- */}
-      <section
-        id="contenido"
-        className="w-full bg-[#F5F0E6] py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#1E3A5F]/15"
-      >
-        <div className="max-w-[1180px] mx-auto space-y-12 sm:space-y-16">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#4A7C59]">
-              Material Incluido
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-heading text-[#1E3A5F] tracking-tight text-balance">
-              Herramientas y papeles de trabajo para tu ejercicio contable
-            </h2>
-            <p className="text-sm sm:text-base text-[#2C2C2C] leading-relaxed font-sans">
-              Aprendé la técnica contable y el criterio de auditoría detrás de cada registro: papeles de trabajo, asientos del Libro Diario y Mayor, y su correlación técnica con las casillas del Formulario 120 V.4.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            {/* Left Column: Stacked Pages Mockup (Preserved) */}
-            <div className="lg:col-span-5 flex justify-center py-6">
-              <div className="relative w-64 h-80 sm:w-72 sm:h-96">
-                <div
-                  className="absolute inset-0 rounded-2xl bg-white border border-[#1E3A5F]/20 overflow-hidden transform -rotate-4 transition-transform hover:-rotate-6 duration-300"
-                  style={{ transform: 'rotate(-4deg)' }}
-                >
-                  <img
-                    src={page1Svg}
-                    alt="Muestra de página del Manual de Contabilidad - Estructura y papeles de trabajo del IVA"
-                    width={320}
-                    height={440}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div
-                  className="absolute inset-0 rounded-2xl bg-white border border-[#1E3A5F]/20 overflow-hidden transform rotate-0 transition-transform hover:scale-[1.02] duration-300"
-                  style={{ transform: 'rotate(0deg)' }}
-                >
-                  <img
-                    src={page2Svg}
-                    alt="Muestra de página del Manual de Contabilidad - Asiento contable de la liquidación del IVA"
-                    width={320}
-                    height={440}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div
-                  className="absolute inset-0 rounded-2xl bg-white border border-[#1E3A5F]/25 overflow-hidden transform rotate-3 transition-transform hover:rotate-6 duration-300"
-                  style={{ transform: 'rotate(3deg)' }}
-                >
-                  <img
-                    src={page3Svg}
-                    alt="Muestra de página del Manual de Contabilidad - Prorrateo de IVA crédito y asientos de ajuste"
-                    width={320}
-                    height={440}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-2 left-2 right-2 bg-[#1E3A5F] text-[#F5F0E6] text-[11px] font-semibold px-2.5 py-1 rounded text-center tabular-nums">
-                    Extracto real del Tomo I (Pág. 12)
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Key Components */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="p-6 rounded-2xl bg-white border border-[#1E3A5F]/15 space-y-2.5 text-left">
-                <div className="w-10 h-10 rounded-xl bg-[#1E3A5F] text-[#F5F0E6] flex items-center justify-center font-bold text-sm tabular-nums">
-                  01
-                </div>
-                <h3 className="text-base sm:text-lg font-bold font-heading text-[#1E3A5F]">
-                  Tomo I: Fundamentos y Asientos del IVA
-                </h3>
-                <p className="text-sm text-[#2C2C2C] leading-relaxed font-sans">
-                  Criterio contable de compras, ventas, prorrateo y los asientos de la liquidación del IVA en correspondencia con las casillas del Formulario 120 V.4.
-                </p>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-white border border-[#1E3A5F]/15 space-y-2.5 text-left">
-                <div className="w-10 h-10 rounded-xl bg-[#1E3A5F] text-[#F5F0E6] flex items-center justify-center font-bold text-sm tabular-nums">
-                  02
-                </div>
-                <h3 className="text-base sm:text-lg font-bold font-heading text-[#1E3A5F]">
-                  Ejercitario Práctico de 100 Casos
-                </h3>
-                <p className="text-sm text-[#2C2C2C] leading-relaxed font-sans">
-                  100 cuentas reales con solucionario analítico, papeles de trabajo y casos de control interno analizados con criterio de auditor externo.
-                </p>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-white border border-[#1E3A5F]/15 space-y-2.5 text-left">
-                <div className="w-10 h-10 rounded-xl bg-[#1E3A5F] text-[#F5F0E6] flex items-center justify-center font-bold text-sm tabular-nums">
-                  03
-                </div>
-                <h3 className="text-base sm:text-lg font-bold font-heading text-[#1E3A5F]">
-                  Papeles de Trabajo y Control Interno
-                </h3>
-                <p className="text-sm text-[#2C2C2C] leading-relaxed font-sans">
-                  Checklist de auditoría para análisis de comprobantes deducibles, requisitos formales de la Ley N° 6380/19 y prevención de inconsistencias.
-                </p>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-white border border-[#1E3A5F]/15 space-y-2.5 text-left">
-                <div className="w-10 h-10 rounded-xl bg-[#1E3A5F] text-[#F5F0E6] flex items-center justify-center font-bold text-sm tabular-nums">
-                  04
-                </div>
-                <h3 className="text-base sm:text-lg font-bold font-heading text-[#1E3A5F]">
-                  Casos Prácticos Resueltos Paso a Paso
-                </h3>
-                <p className="text-sm text-[#2C2C2C] leading-relaxed font-sans">
-                  Asientos contables completos con números reales, fundamentación técnica y cruce directo con las cuentas de mayor y balance.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- */}
-      {/* SECTION: PASOS / RUTA DE APLICACIÓN (#pasos)                  */}
-      {/* ------------------------------------------------------------- */}
-      <section
-        id="pasos"
-        className="w-full bg-[#E8DCC4] py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#1E3A5F]/15"
-      >
-        <div className="max-w-[1180px] mx-auto space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#1E3A5F]">
-              Ruta Contable de Aplicación
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-heading text-[#1E3A5F] tracking-tight text-balance">
-              Circuito contable con criterio de auditor externo
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Steps list */}
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <div className="p-6 rounded-2xl bg-white border border-[#1E3A5F]/15 flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#1E3A5F] text-[#F5F0E6] flex items-center justify-center font-bold shrink-0 tabular-nums">
-                  1
-                </div>
-                <div className="space-y-1">
-                  <h3 className="text-lg font-bold font-heading text-[#1E3A5F]">
-                    Control Interno y Análisis de Comprobantes
-                  </h3>
-                  <p className="text-sm text-[#2C2C2C] leading-relaxed font-sans">
-                    Criterios de validez formal, timbrado vigente y análisis de deducibilidad según rubro bajo la Ley N° 6380/19 previo a cualquier imputación.
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-white border border-[#1E3A5F]/15 flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#1E3A5F] text-[#F5F0E6] flex items-center justify-center font-bold shrink-0 tabular-nums">
-                  2
-                </div>
-                <div className="space-y-1">
-                  <h3 className="text-lg font-bold font-heading text-[#1E3A5F]">
-                    Asientos en Libro Diario y Mayor
-                  </h3>
-                  <p className="text-sm text-[#2C2C2C] leading-relaxed font-sans">
-                    Imputación correcta de IVA Crédito 10%, 5% y compras exentas, factor de prorrateo y balance de comprobación de sumas y saldos cuadrado.
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-white border border-[#1E3A5F]/15 flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#1E3A5F] text-[#F5F0E6] flex items-center justify-center font-bold shrink-0 tabular-nums">
-                  3
-                </div>
-                <div className="space-y-1">
-                  <h3 className="text-lg font-bold font-heading text-[#1E3A5F]">
-                    Registro Contable de la Liquidación del IVA
-                  </h3>
-                  <p className="text-sm text-[#2C2C2C] leading-relaxed font-sans">
-                    Asiento de compensación de débito y crédito fiscal en Libro Diario, determinación del saldo contable y su correspondencia con las casillas del Formulario 120 V.4.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Steps Visual preview */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="w-full max-w-sm rounded-2xl overflow-hidden border border-[#1E3A5F]/20 bg-white p-3">
-                <img
-                  src={balanceSumasSaldosImg}
-                  alt="Balance de Comprobación de Sumas y Saldos - Papel de trabajo contable en Paraguay"
-                  width={600}
-                  height={450}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-auto object-cover rounded-xl"
-                />
-                <p className="text-xs text-[#2C2C2C]/80 text-center mt-3 font-medium">
-                  Papel de trabajo: Balance de Sumas y Saldos con criterio de auditoría
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- */}
-      {/* SECTION: CASOS REALES / VISTA PREVIA (#ejemplos)              */}
-      {/* ------------------------------------------------------------- */}
-      <section
-        id="ejemplos"
-        className="w-full bg-[#F5F0E6] py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#1E3A5F]/15"
-      >
-        <div className="max-w-[1180px] mx-auto space-y-10 sm:space-y-14">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#4A7C59]">
-              Extractos Reales del Tomo I: Asientos Contables del IVA
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-heading text-[#1E3A5F] tracking-tight text-balance">
-              Vista previa: papeles de trabajo y asientos reales
-            </h2>
-            <p className="text-sm sm:text-base text-[#2C2C2C] leading-relaxed font-sans">
-              Hacé clic en cualquier captura para inspeccionar la estructura contable, los asientos del Libro Diario y las notas técnicas con criterio de auditoría.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {/* Case Card 1: Portada */}
-            <div
-              onClick={() => setPreviewDoc({
-                src: page1Svg,
-                title: 'Papeles de trabajo y análisis del débito y crédito fiscal',
-                caption: 'Estructura contable previa al registro de la liquidación'
-              })}
-              className="group cursor-pointer rounded-2xl bg-white border border-[#1E3A5F]/15 overflow-hidden hover:border-[#1E3A5F] transition-colors duration-200 flex flex-col text-left"
-            >
-              <div className="relative aspect-[3/4] bg-[#E8DCC4]/40 overflow-hidden">
-                <img
-                  src={page1Svg}
-                  alt="Portada del capítulo IVA - Papeles de trabajo y análisis de débito y crédito fiscal"
-                  width={380}
-                  height={500}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-[#1E3A5F]/0 group-hover:bg-[#1E3A5F]/25 transition-colors flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity px-4 py-2 rounded-full bg-[#F5F0E6] text-[#1E3A5F] text-xs font-bold border border-[#1E3A5F]/20 flex items-center gap-1.5">
-                    <Eye className="w-4 h-4 text-[#1E3A5F]" />
-                    <span>Ver captura ampliada</span>
-                  </span>
-                </div>
-              </div>
-              <div className="p-5 space-y-1">
-                <span className="text-[11px] uppercase tracking-wider text-[#4A7C59] font-bold block">
-                  Estructura Contable
-                </span>
-                <h3 className="text-base font-bold font-heading text-[#1E3A5F] group-hover:underline underline-offset-4">
-                  Papeles de trabajo y análisis del débito y crédito fiscal
-                </h3>
-              </div>
-            </div>
-
-            {/* Case Card 2: Caso 2 */}
-            <div
-              onClick={() => setPreviewDoc({
-                src: page2Svg,
-                title: 'Registro contable de la liquidación del IVA (Saldo a pagar)',
-                caption: 'Asiento en Libro Diario compensando débito y crédito con boleta de pago'
-              })}
-              className="group cursor-pointer rounded-2xl bg-white border border-[#1E3A5F]/15 overflow-hidden hover:border-[#1E3A5F] transition-colors duration-200 flex flex-col text-left"
-            >
-              <div className="relative aspect-[3/4] bg-[#E8DCC4]/40 overflow-hidden">
-                <img
-                  src={page2Svg}
-                  alt="Caso 2 - Registro contable de la liquidación del IVA y pago"
-                  width={380}
-                  height={500}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-[#1E3A5F]/0 group-hover:bg-[#1E3A5F]/25 transition-colors flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity px-4 py-2 rounded-full bg-[#F5F0E6] text-[#1E3A5F] text-xs font-bold border border-[#1E3A5F]/20 flex items-center gap-1.5">
-                    <Eye className="w-4 h-4 text-[#1E3A5F]" />
-                    <span>Ver captura ampliada</span>
-                  </span>
-                </div>
-              </div>
-              <div className="p-5 space-y-1">
-                <span className="text-[11px] uppercase tracking-wider text-[#4A7C59] font-bold block">
-                  Asiento de Cierre
-                </span>
-                <h3 className="text-base font-bold font-heading text-[#1E3A5F] group-hover:underline underline-offset-4">
-                  Registro contable de la liquidación del IVA (Saldo a pagar)
-                </h3>
-              </div>
-            </div>
-
-            {/* Case Card 3: Caso 5 */}
-            <div
-              onClick={() => setPreviewDoc({
-                src: page3Svg,
-                title: 'Prorrateo de IVA crédito en ventas mixtas y su contabilización',
-                caption: 'Cálculo del factor de proporcionalidad y asientos contables de ajuste'
-              })}
-              className="group cursor-pointer rounded-2xl bg-white border border-[#1E3A5F]/15 overflow-hidden hover:border-[#1E3A5F] transition-colors duration-200 flex flex-col text-left"
-            >
-              <div className="relative aspect-[3/4] bg-[#E8DCC4]/40 overflow-hidden">
-                <img
-                  src={page3Svg}
-                  alt="Caso 5 - Prorrateo de IVA crédito fiscal en actividades con ventas gravadas y exentas"
-                  width={380}
-                  height={500}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-[#1E3A5F]/0 group-hover:bg-[#1E3A5F]/25 transition-colors flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity px-4 py-2 rounded-full bg-[#F5F0E6] text-[#1E3A5F] text-xs font-bold border border-[#1E3A5F]/20 flex items-center gap-1.5">
-                    <Eye className="w-4 h-4 text-[#1E3A5F]" />
-                    <span>Ver captura ampliada</span>
-                  </span>
-                </div>
-              </div>
-              <div className="p-5 space-y-1">
-                <span className="text-[11px] uppercase tracking-wider text-[#4A7C59] font-bold block">
-                  Caso Complejo
-                </span>
-                <h3 className="text-base font-bold font-heading text-[#1E3A5F] group-hover:underline underline-offset-4">
-                  Prorrateo de IVA crédito en ventas mixtas y su contabilización
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- */}
-      {/* SECTION: COMPARATIVA / EVOLUCIÓN (#comparativa)               */}
-      {/* Cruz roja #B85450 solo para errores reales; Verde #4A7C59 ok  */}
-      {/* ------------------------------------------------------------- */}
-      <section
-        id="comparativa"
-        className="w-full bg-[#E8DCC4] py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#1E3A5F]/15"
-      >
-        <div className="max-w-[1180px] mx-auto space-y-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Column: Heading */}
-            <div className="lg:col-span-5 space-y-4 text-center lg:text-left">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#1E3A5F]">
-                Criterio Profesional
-              </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-heading text-[#1E3A5F] tracking-tight text-balance">
-                La diferencia entre cargar números a ciegas y contabilizar con criterio de auditor
-              </h2>
-              <p className="text-sm sm:text-base text-[#2C2C2C] leading-relaxed font-sans">
-                Cualquiera puede intentar llenar casillas en un sistema; el profesional que se destaca entiende la contabilidad aplicada, domina los asientos y sustenta técnicamente cada comprobante ante la DNIT.
-              </p>
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('opciones-compra')}
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-full text-sm font-semibold bg-[#1E3A5F] text-[#F5F0E6] hover:bg-[#162d4a] active:scale-[0.98] transition-all cursor-pointer"
-                >
-                  Ver opciones de compra
-                </button>
-              </div>
-            </div>
-
-            {/* Right Column: Comparison Cards */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 text-left">
-              {/* Before: Errores reales (#B85450 con cruz X) */}
-              <div className="p-6 sm:p-7 rounded-2xl bg-white border border-[#B85450]/35 space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-[#B85450]/10 text-[#B85450] flex items-center justify-center font-bold border border-[#B85450]/30">
-                  <X className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold font-heading text-[#1E3A5F]">
-                  Registros con dudas operativas
-                </h3>
-                <p className="text-sm sm:text-base text-[#2C2C2C] leading-relaxed font-sans">
-                  Asientos mecánicos sin papeles de trabajo, cálculo errático del prorrateo, desconocimiento del origen contable de las casillas y temor ante una auditoría.
-                </p>
-              </div>
-
-              {/* After: Éxito (#4A7C59 con tilde Check) */}
-              <div className="p-6 sm:p-7 rounded-2xl bg-white border-2 border-[#4A7C59] space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-[#4A7C59] text-white flex items-center justify-center font-bold">
-                  <Check className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold font-heading text-[#1E3A5F]">
-                  Contabilidad Aplicada con criterio de auditor
-                </h3>
-                <p className="text-sm sm:text-base text-[#2C2C2C] leading-relaxed font-sans">
-                  Papeles de trabajo estructurados, asientos de la liquidación del IVA técnicamente fundamentados y control interno estricto de comprobantes deducibles.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- */}
-      {/* SECTION: RESOLUCIÓN DE DUDAS / FAQ (#preguntas)               */}
-      {/* ------------------------------------------------------------- */}
-      <section
-        id="preguntas"
-        className="w-full bg-[#F5F0E6] py-14 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#1E3A5F]/15"
-      >
-        <div className="max-w-[1180px] mx-auto space-y-8 sm:space-y-12">
-          <div className="max-w-2xl text-left">
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#4A7C59] block mb-2">
-              Preguntas Frecuentes
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-heading text-[#1E3A5F] tracking-tight text-balance">
-              Respuestas técnicas sobre el material y su uso
-            </h2>
-          </div>
-
-          <div className="divide-y divide-[#1E3A5F]/10 border border-[#1E3A5F]/15 bg-white rounded-2xl px-6 text-left">
-            {faqItems.map((item, idx) => {
-              const isOpen = activeFaq === idx;
-              return (
-                <div key={idx} className="py-4 sm:py-5">
-                  <button
-                    type="button"
-                    onClick={() => toggleFaq(idx)}
-                    aria-expanded={isOpen}
-                    className="w-full flex items-center justify-between text-left gap-4 font-bold text-base sm:text-lg text-[#1E3A5F] hover:underline underline-offset-4 transition-colors cursor-pointer"
-                  >
-                    <span>{item.q}</span>
-                    <span
-                      className={`p-1.5 rounded-lg shrink-0 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 bg-[#1E3A5F] text-[#F5F0E6]' : 'bg-[#E8DCC4] text-[#1E3A5F]'
-                      }`}
-                    >
-                      <ChevronDown className="w-4 h-4" />
-                    </span>
-                  </button>
-                  {isOpen && (
-                    <div className="mt-3 text-sm sm:text-base text-[#2C2C2C] leading-relaxed pr-6 font-sans">
-                      {item.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="text-sm sm:text-base text-[#2C2C2C]/80 text-left">
-            Todo lo que necesita saber sobre el formato, la vigencia legal y la metodología de entrega del manual.
-          </div>
-        </div>
-      </section>
 
       {/* ------------------------------------------------------------- */}
       {/* SECTION: OPCIONES DE COMPRA / PRECIOS (#opciones-compra)      */}
       {/* ------------------------------------------------------------- */}
       <section
         id="opciones-compra"
-        className="w-full bg-[#E8DCC4] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#1E3A5F]/15 text-center scroll-mt-20"
+        className="w-full bg-[#F5F0E6] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#1E3A5F]/15 text-center scroll-mt-20"
       >
-        <div id="obtener" className="max-w-[1240px] mx-auto space-y-12">
+        <div id="obtener" className="max-w-[1240px] mx-auto space-y-14">
           {/* Header */}
           <div className="max-w-3xl mx-auto space-y-3.5 text-center">
             <span className="text-xs font-bold uppercase tracking-widest text-white bg-[#4A7C59] px-4 py-1.5 rounded-full inline-block">
-              Edición Física Impresa · Disponible Ahora
+              Lanzamiento 2026 · Edición Digital e Impresa
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#1E3A5F] tracking-tight text-balance">
               Elegí tu material y aprendé contabilidad con criterio de auditor
             </h2>
             <p className="text-base sm:text-lg text-[#2C2C2C] leading-relaxed font-sans max-w-2xl mx-auto">
-              Libros físicos impresos con tapa full color, anillado profesional reforzado y papel de alto gramaje. Diseñados para tener abiertos sobre tu escritorio mientras analizás comprobantes y registrás asientos contables.
+              Accedé de forma inmediata a los Tomos I y II en versión digital (PDF + plantillas editables al correo) o solicitá los ejemplares físicos impresos con envío a domicilio.
             </p>
           </div>
 
-          {/* 3 Pricing Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch pt-6 text-left">
+          {/* SUB-SECCIÓN: Opciones de compra — Edición Digital */}
+          <div className="space-y-8">
+            <div className="text-center space-y-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#4A7C59] block">
+                Descarga y envío por correo electrónico
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-bold font-heading text-[#1E3A5F]">
+                Opciones de compra — Edición Digital
+              </h3>
+            </div>
+
+            {/* 3 Tarjetas Digitales lado a lado */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch text-left">
+              {/* TARJETA TOMO I DIGITAL */}
+              <div className="p-7 sm:p-8 rounded-2xl bg-white border border-[#1E3A5F]/15 flex flex-col justify-between hover:border-[#1E3A5F] transition-colors">
+                <div className="space-y-4">
+                  {/* Vista previa real del Tomo I */}
+                  <div className="grid grid-cols-2 gap-2.5 p-2.5 rounded-xl bg-[#F5F0E6] border border-[#1E3A5F]/10">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPreviewDoc({
+                          src: '/assets/aistudio/Portada_oficial_de_manual_Contabilidad_Aplicada_ab64a4d5.png',
+                          title: 'Portada Oficial — Tomo I Manual de Contabilidad Aplicada',
+                          caption: 'Edición Digital (PDF)'
+                        })
+                      }
+                      className="group relative aspect-[3/4] rounded-lg overflow-hidden border border-[#1E3A5F]/15 bg-white cursor-pointer"
+                    >
+                      <img
+                        src="/assets/aistudio/Portada_oficial_de_manual_Contabilidad_Aplicada_ab64a4d5.png"
+                        alt="Portada oficial Tomo I Contabilidad Aplicada Digital"
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <span className="absolute bottom-1.5 left-1.5 right-1.5 bg-[#1E3A5F]/90 text-[#F5F0E6] text-[10px] font-bold py-0.5 px-1.5 rounded text-center">
+                        Portada PDF
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPreviewDoc({
+                          src: previewTomo1Indice,
+                          title: 'Índice de Contenidos — Tomo I (Módulos 1 al 4)',
+                          caption: 'Vista previa real del PDF Tomo I'
+                        })
+                      }
+                      className="group relative aspect-[3/4] rounded-lg overflow-hidden border border-[#1E3A5F]/15 bg-white cursor-pointer"
+                    >
+                      <img
+                        src={previewTomo1Indice}
+                        alt="Índice de contenidos real del Tomo I Digital"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <span className="absolute bottom-1.5 left-1.5 right-1.5 bg-[#1E3A5F]/90 text-[#F5F0E6] text-[10px] font-bold py-0.5 px-1.5 rounded text-center flex items-center justify-center gap-1">
+                        <Eye className="w-3 h-3" /> Índice real
+                      </span>
+                    </button>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#4A7C59] block">
+                      Edición Digital · PDF
+                    </span>
+                    <h4 className="text-xl sm:text-2xl font-bold font-heading text-[#1E3A5F] leading-snug">
+                      Tomo I — Contabilidad Aplicada (Digital)
+                    </h4>
+                  </div>
+
+                  <div className="py-3.5 border-y border-[#1E3A5F]/15">
+                    <span className="text-3xl sm:text-4xl font-bold font-heading text-[#1E3A5F] tabular-nums block">
+                      {PRECIO_TOMO_1_DIGITAL}
+                    </span>
+                    <span className="text-xs text-[#2C2C2C]/80 font-medium block mt-1">
+                      PDF del TOMO I. Entrega al correo en 24-48h tras confirmación de pago.
+                    </span>
+                  </div>
+
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-[#2C2C2C]">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
+                      <span>Módulos 1 al 4: Fundamentos, Partida Doble, Libros e IVA Form. 120</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
+                      <span>Asientos contables reales, prorrateo y papeles de trabajo</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
+                      <span>Formato PDF de alta definición para PC, tablet o celular</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="pt-6 space-y-3">
+                  <a
+                    href={WHATSAPP_TOMO_1_DIGITAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 px-6 rounded-full font-semibold text-sm bg-[#1E3A5F] text-[#F5F0E6] hover:bg-[#162d4a] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-center"
+                  >
+                    <MessageCircle className="w-4 h-4 text-[#E8DCC4]" />
+                    <span>Comprar Tomo I Digital</span>
+                  </a>
+                  <div className="text-[11px] sm:text-xs text-[#2C2C2C]/75 space-y-1 text-center leading-snug">
+                    <p>💳 Pago por transferencia o billetera digital</p>
+                    <p>📧 Envío al correo electrónico con acceso inmediato</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* TARJETA COMBO DIGITAL (Borde dorado #C98A2C y badge MEJOR VALOR) */}
+              <div className="relative p-7 sm:p-8 rounded-2xl bg-white border-2 border-[#C98A2C] flex flex-col justify-between lg:-translate-y-2">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#C98A2C] text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-white" />
+                  <span>MEJOR VALOR</span>
+                </div>
+
+                <div className="space-y-4 pt-1">
+                  {/* Vista previa combinada Tomo I + Tomo II */}
+                  <div className="grid grid-cols-2 gap-2.5 p-2.5 rounded-xl bg-[#E8DCC4]/55 border border-[#C98A2C]/40">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPreviewDoc({
+                          src: '/assets/aistudio/Portada_oficial_de_manual_Contabilidad_Aplicada_ab64a4d5.png',
+                          title: 'Tomo I Digital — Manual de Contabilidad Aplicada',
+                          caption: 'Incluido en el Combo Digital'
+                        })
+                      }
+                      className="group relative aspect-[3/4] rounded-lg overflow-hidden border border-[#1E3A5F]/15 bg-white cursor-pointer"
+                    >
+                      <img
+                        src="/assets/aistudio/Portada_oficial_de_manual_Contabilidad_Aplicada_ab64a4d5.png"
+                        alt="Tomo I incluido en el Combo Digital"
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <span className="absolute bottom-1.5 left-1.5 right-1.5 bg-[#1E3A5F]/90 text-[#F5F0E6] text-[10px] font-bold py-0.5 px-1.5 rounded text-center">
+                        Tomo I PDF
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPreviewDoc({
+                          src: previewTomo2Ejercitario,
+                          title: 'Tomo II Digital — Ejercitario Práctico y Plantillas .docx',
+                          caption: 'Incluido en el Combo Digital'
+                        })
+                      }
+                      className="group relative aspect-[3/4] rounded-lg overflow-hidden border border-[#1E3A5F]/15 bg-white cursor-pointer"
+                    >
+                      <img
+                        src={previewTomo2Ejercitario}
+                        alt="Tomo II Ejercitario Práctico incluido en el Combo Digital"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <span className="absolute bottom-1.5 left-1.5 right-1.5 bg-[#1E3A5F]/90 text-[#F5F0E6] text-[10px] font-bold py-0.5 px-1.5 rounded text-center flex items-center justify-center gap-1">
+                        <Eye className="w-3 h-3" /> Tomo II PDF
+                      </span>
+                    </button>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#C98A2C] block">
+                      Pack Completo Digital · Ahorro Gs. 15.000
+                    </span>
+                    <h4 className="text-2xl sm:text-[26px] font-bold font-heading text-[#1E3A5F] leading-snug">
+                      Combo Tomo I + II Digital
+                    </h4>
+                  </div>
+
+                  <div className="py-3.5 border-y border-[#C98A2C]/30 bg-[#F5F0E6]/70 -mx-7 sm:-mx-8 px-7 sm:px-8">
+                    <span className="text-xs sm:text-sm text-[#2C2C2C]/55 line-through font-semibold tabular-nums block">
+                      {PRECIO_COMBO_DIGITAL_NORMAL}
+                    </span>
+                    <span className="text-4xl sm:text-5xl font-bold font-heading text-[#1E3A5F] tabular-nums block leading-none mt-0.5">
+                      {PRECIO_COMBO_DIGITAL}
+                    </span>
+                    <span className="text-xs text-[#2C2C2C] font-medium block mt-2 leading-relaxed">
+                      Llevá la biblioteca completa: Tomo I en PDF + Tomo II Ejercitario en PDF + plantillas .docx editables para practicar, auditar y aplicar desde el día uno. Entrega al correo en 24-48h tras confirmación de pago.
+                    </span>
+                  </div>
+
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-[#2C2C2C]">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
+                      <span><strong>Tomo I completo (PDF):</strong> Fundamentos, papeles de trabajo y asientos del IVA</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
+                      <span><strong>Tomo II completo (PDF + .docx):</strong> 100 cuentas, solucionario y control interno</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
+                      <span><strong>Plantillas .docx editables</strong> listas para usar en tu estudio o estudio contable</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="pt-6 space-y-3">
+                  <a
+                    href={WHATSAPP_COMBO_DIGITAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-4 px-6 rounded-full font-bold text-base bg-[#1E3A5F] hover:bg-[#162d4a] active:scale-[0.98] text-[#F5F0E6] transition-all flex items-center justify-center gap-2 text-center"
+                  >
+                    <MessageCircle className="w-5 h-5 text-[#E8DCC4]" />
+                    <span>Comprar Combo Digital</span>
+                  </a>
+                  <div className="text-[11px] sm:text-xs text-[#2C2C2C]/75 space-y-1 text-center leading-snug">
+                    <p>💳 Pago por transferencia o billetera digital</p>
+                    <p>📧 Envío al correo electrónico con acceso inmediato</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* TARJETA TOMO II DIGITAL */}
+              <div className="p-7 sm:p-8 rounded-2xl bg-white border border-[#1E3A5F]/15 flex flex-col justify-between hover:border-[#1E3A5F] transition-colors">
+                <div className="space-y-4">
+                  {/* Vista previa real del Tomo II */}
+                  <div className="grid grid-cols-2 gap-2.5 p-2.5 rounded-xl bg-[#F5F0E6] border border-[#1E3A5F]/10">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPreviewDoc({
+                          src: previewTomo2Ejercitario,
+                          title: 'Tomo II — Ejercitario Práctico de Contabilidad Aplicada',
+                          caption: 'Índice y contenido real del PDF Tomo II'
+                        })
+                      }
+                      className="group relative aspect-[3/4] rounded-lg overflow-hidden border border-[#1E3A5F]/15 bg-white cursor-pointer"
+                    >
+                      <img
+                        src={previewTomo2Ejercitario}
+                        alt="Portada y contenido real Tomo II Ejercitario Práctico"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <span className="absolute bottom-1.5 left-1.5 right-1.5 bg-[#1E3A5F]/90 text-[#F5F0E6] text-[10px] font-bold py-0.5 px-1.5 rounded text-center flex items-center justify-center gap-1">
+                        <Eye className="w-3 h-3" /> Contenido
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPreviewDoc({
+                          src: previewTomo2Matriz,
+                          title: 'Matriz Práctica de Clasificación de 100 Cuentas — Tomo II',
+                          caption: 'Incluye solucionario oficial y plantillas .docx'
+                        })
+                      }
+                      className="group relative aspect-[3/4] rounded-lg overflow-hidden border border-[#1E3A5F]/15 bg-white cursor-pointer"
+                    >
+                      <img
+                        src={previewTomo2Matriz}
+                        alt="Matriz práctica de 100 cuentas Tomo II Digital"
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <span className="absolute bottom-1.5 left-1.5 right-1.5 bg-[#1E3A5F]/90 text-[#F5F0E6] text-[10px] font-bold py-0.5 px-1.5 rounded text-center flex items-center justify-center gap-1">
+                        <Eye className="w-3 h-3" /> 100 cuentas
+                      </span>
+                    </button>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#4A7C59] block">
+                      Edición Digital · PDF + .docx
+                    </span>
+                    <h4 className="text-xl sm:text-2xl font-bold font-heading text-[#1E3A5F] leading-snug">
+                      Tomo II — Ejercitario práctico de Contabilidad Aplicada (Digital)
+                    </h4>
+                  </div>
+
+                  <div className="py-3.5 border-y border-[#1E3A5F]/15">
+                    <span className="text-3xl sm:text-4xl font-bold font-heading text-[#1E3A5F] tabular-nums block">
+                      {PRECIO_TOMO_2_DIGITAL}
+                    </span>
+                    <span className="text-xs text-[#2C2C2C]/80 font-medium block mt-1">
+                      PDF + plantillas .docx editables. Entrega al correo en 24-48h tras confirmación de pago.
+                    </span>
+                  </div>
+
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-[#2C2C2C]">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
+                      <span>Casos reales de análisis documental y control interno DNIT</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
+                      <span>Matriz práctica de 100 cuentas + solucionario oficial completo</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0 mt-0.5" />
+                      <span>Incluye plantillas .docx editables para ejercitar sin límites</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="pt-6 space-y-3">
+                  <a
+                    href={WHATSAPP_TOMO_2_DIGITAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 px-6 rounded-full font-semibold text-sm bg-[#1E3A5F] text-[#F5F0E6] hover:bg-[#162d4a] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-center"
+                  >
+                    <MessageCircle className="w-4 h-4 text-[#E8DCC4]" />
+                    <span>Comprar Tomo II Digital</span>
+                  </a>
+                  <div className="text-[11px] sm:text-xs text-[#2C2C2C]/75 space-y-1 text-center leading-snug">
+                    <p>💳 Pago por transferencia o billetera digital</p>
+                    <p>📧 Envío al correo electrónico con acceso inmediato</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mini-flujo visual de entrega */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 text-left">
+              <div className="p-5 rounded-2xl bg-white border border-[#1E3A5F]/15 space-y-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#4A7C59] block">
+                  Cómo recibís la Versión Digital
+                </span>
+                <p className="text-sm sm:text-base font-semibold text-[#1E3A5F] font-sans">
+                  🛒 Comprá → 💳 Pagá → 📧 Recibís al correo con acceso inmediato
+                </p>
+              </div>
+              <div className="p-5 rounded-2xl bg-white border border-[#1E3A5F]/15 space-y-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#1E3A5F] block">
+                  Cómo recibís los Ejemplares Impresos
+                </span>
+                <p className="text-sm sm:text-base font-semibold text-[#1E3A5F] font-sans">
+                  🛒 Seña → 💳 Confirmás → 🚚 Se coordina la entrega → Cancelás al recibir
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* NUEVA SECCIÓN: Envío físico — Edición Impresa */}
+          <div className="p-7 sm:p-9 rounded-2xl bg-[#E8DCC4] border border-[#1E3A5F]/20 text-left space-y-6">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="space-y-2.5 max-w-2xl">
+                <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1E3A5F]">
+                  <Truck className="w-4 h-4 text-[#1E3A5F]" />
+                  <span>Envío físico — Edición Impresa</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold font-heading text-[#1E3A5F]">
+                  📦 Edición Impresa (Envío a domicilio)
+                </h3>
+                <p className="text-sm sm:text-base text-[#2C2C2C] font-sans leading-relaxed">
+                  El manual impreso se entrega en tu domicilio. Consulta disponibilidad y costo de envío por WhatsApp al <strong className="text-[#1E3A5F] tabular-nums">+595 993 535291</strong>.
+                </p>
+              </div>
+
+              <a
+                href={WHATSAPP_IMPRESA_CONSULTA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-sm bg-[#1E3A5F] text-[#F5F0E6] hover:bg-[#162d4a] transition-colors text-center"
+              >
+                <span aria-hidden="true">🚚</span>
+                <span>Consultar envío por WhatsApp</span>
+              </a>
+            </div>
+          </div>
+
+          {/* 3 Pricing Cards Grid — Edición Física Impresa (Preservadas) */}
+          <div className="space-y-4">
+            <div className="text-center space-y-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#1E3A5F] block">
+                Ejemplares Físicos Anillados
+              </span>
+              <h3 className="text-2xl font-bold font-heading text-[#1E3A5F]">
+                Opciones de Edición Impresa
+              </h3>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch pt-2 text-left">
             {/* CARD 1: Tomo I */}
             <div className="p-7 sm:p-8 rounded-2xl bg-white border border-[#1E3A5F]/15 flex flex-col justify-between hover:border-[#1E3A5F] transition-colors">
               <div className="space-y-4">
@@ -920,13 +759,14 @@ export default function ManualLandingPage() {
                 <CheckCircle2 className="w-5 h-5 text-[#4A7C59] shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-[#1E3A5F] block">Entregas y Envíos:</span>
-                  <p className="text-[#2C2C2C] mt-0.5">Delivery rápido en Asunción y Gran Asunción (incluido en el Combo Completo) y encomienda a todo el interior del país.</p>
+                  <p className="text-[#2C2C2C] mt-0.5">Envío inmediato al correo para ediciones digitales; delivery rápido en Asunción y Gran Asunción (incluido en el Combo Completo impreso) y encomienda a todo el interior del país.</p>
                 </div>
               </div>
             </div>
             <p className="text-xs text-[#2C2C2C]/80 font-sans border-t border-[#1E3A5F]/10 pt-3">
               ¿Tenés dudas antes de pedir? Escribinos directamente al WhatsApp <strong className="text-[#1E3A5F] tabular-nums">+595 993 535291</strong> para asistencia personalizada.
             </p>
+          </div>
           </div>
         </div>
       </section>
@@ -1077,7 +917,7 @@ export default function ManualLandingPage() {
             {/* Modal Footer */}
             <div className="px-5 py-3 border-t border-[#1E3A5F]/15 bg-[#F5F0E6] flex flex-col sm:flex-row items-center justify-between gap-3">
               <span className="text-xs text-[#2C2C2C] font-sans">
-                Extracto oficial del Manual de Contabilidad DNIT 2026 (Material Impreso)
+                Extracto oficial del Manual de Contabilidad DNIT 2026 (Edición Digital e Impresa)
               </span>
               <div className="flex items-center gap-2 w-full sm:w-auto">
                 <button
