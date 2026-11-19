@@ -87,20 +87,6 @@ export default function Layout() {
               </a>
             </nav>
 
-            {/* Zone 3: Primary CTA "Comprar manual" (Azul noche #1E3A5F, texto crema #F5F0E6, radio completo) */}
-            <div className="hidden sm:flex items-center shrink-0">
-              <Link
-                to="/manual#opciones-compra"
-                onClick={() => {
-                  if (location.pathname === '/manual') {
-                    scrollToSection('opciones-compra');
-                  }
-                }}
-                className="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm font-semibold bg-[#1E3A5F] text-[#F5F0E6] hover:bg-[#162d4a] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-              >
-                Comprar manual
-              </Link>
-            </div>
 
             {/* Mobile Menu Button */}
             <button
@@ -214,13 +200,6 @@ export default function Layout() {
                 className="text-[#1E3A5F] hover:underline underline-offset-4 transition-colors py-1 cursor-pointer"
               >
                 El autor
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToSection('opciones-compra')}
-                className="font-semibold text-[#F5F0E6] bg-[#1E3A5F] px-4 py-1 rounded-full hover:bg-[#162d4a] transition-colors cursor-pointer"
-              >
-                Opciones de compra
               </button>
             </div>
           </div>
