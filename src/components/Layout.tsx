@@ -9,7 +9,6 @@ import {
   Check,
   Instagram
 } from 'lucide-react';
-import logoImgLocal from '../assets/images/logo_real_estudio_caceres.png';
 
 const WHATSAPP_NUMBER = '595993535291';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola Estudio Cáceres, quisiera hacer una consulta tributaria.')}`;
@@ -41,7 +40,7 @@ export default function Layout() {
               onClick={() => setMobileMenuOpen(false)}
             >
               <img
-                src={logoImgLocal}
+                src="/assets/aistudio/logo_EC_new_29191ddd.jpeg"
                 alt="Logo Estudio Cáceres"
                 className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-[#1E3A5F]/20 shrink-0"
               />
@@ -221,7 +220,7 @@ export default function Layout() {
             <div className="md:col-span-5 space-y-4 text-left">
               <div className="flex items-center gap-3">
                 <img
-                  src={logoImgLocal}
+                  src="/assets/aistudio/logo_EC_new_29191ddd.jpeg"
                   alt="Logo Estudio Cáceres"
                   className="w-11 h-11 rounded-full object-cover border border-[#E8DCC4]/50 shrink-0"
                 />
