@@ -127,7 +127,7 @@ export default function ManualLandingPage() {
       >
         <div className="max-w-[1280px] mx-auto flex items-center justify-center gap-2 sm:gap-3 text-center">
           <div className="text-xs sm:text-[13px] font-bold leading-tight text-[#F5F0E6] flex flex-wrap items-center justify-center gap-2 sm:gap-3 tabular-nums">
-            <span>🛡️ Evitá inconsistencias y hacé que todo te cuadre: Manual + Ejercitario con 30% OFF</span>
+            <span>⚡ Acceso inmediato: Tomo I + II + 1 mes de soporte por WhatsApp</span>
             <a
               href={WHATSAPP_BANNER_OFERTA_URL}
               target="_blank"
