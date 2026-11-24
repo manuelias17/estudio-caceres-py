@@ -8,7 +8,6 @@ import {
   Truck
 } from 'lucide-react';
 
-import fotoPerfilAutor from '../assets/images/foto_perfil_elias_caceres.jpg';
 import previewTomo1Indice from '../assets/images/preview_tomo1_indice.svg';
 import previewTomo2Ejercitario from '../assets/images/preview_tomo2_ejercitario.svg';
 import previewTomo2Matriz from '../assets/images/preview_tomo2_matriz.svg';
@@ -833,9 +832,9 @@ export default function ManualLandingPage() {
             <div className="lg:col-span-5 flex flex-col items-center text-center">
               <div className="relative w-[220px] h-[220px] rounded-full border-2 border-[#1E3A5F] overflow-hidden bg-white flex items-center justify-center">
                 <img
-                  src={fotoPerfilAutor}
+                  src="/assets/aistudio/WhatsApp_Image_2026-11-24_at_09.10.38_a4a9eef2.jpeg"
                   alt="Elías Cáceres - Técnico Contable, Especialista en Auditoría Externa Impositiva y Fundador de Estudio Cáceres"
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-center"
                   loading="lazy"
                   decoding="async"
                   width={220}
