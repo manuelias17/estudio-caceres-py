@@ -47,7 +47,7 @@ const WHATSAPP_COMBO_DIGITAL_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${enco
 )}`;
 
 const WHATSAPP_BANNER_OFERTA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  '¡Hola Estudio Cáceres! 👋 Quiero aprovechar la oferta del Combo Completo (Tomo I + Tomo II + Ejercitario) por Gs. 109.000. ¿Me envían los datos para la transferencia / alias QR?'
+  '¡Hola Estudio Cáceres! Quiero aprovechar la oferta del Combo Completo (Tomo I + Tomo II + Soporte) por Gs. 109.000. ¿Me envían los datos para la transferencia / alias QR?'
 )}`;
 
 const WHATSAPP_IMPRESA_CONSULTA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
